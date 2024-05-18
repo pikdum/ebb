@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import sites from "./sites.json";
 
 import type { Post } from "./interface";
@@ -30,8 +30,6 @@ const LoadingIndicator = ({ ...args }) => {
 };
 
 export const App = () => {
-	const headerRef = useRef(null);
-	const topRef = useRef(null);
 	const [posts, setPosts] = useState<Post[]>([]);
 	const [page, setPage] = useState(0);
 	const [tempQuery, setTempQuery] = useState("");
@@ -90,12 +88,10 @@ export const App = () => {
 
 	const handleIncrementPage = () => {
 		setPage((page) => page + 1);
-		topRef.current.scrollIntoView();
 	};
 
 	const handleDecrementPage = () => {
 		setPage((page) => page - 1);
-		topRef.current.scrollIntoView();
 	};
 
 	const handleSelectPost = (post_id: string) => {
@@ -115,10 +111,7 @@ export const App = () => {
 
 	const Header = () => {
 		return (
-			<header
-				ref={headerRef}
-				className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10"
-			>
+			<header className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10">
 				<form
 					onSubmit={handleSubmit}
 					className="flex items-center gap-2 w-full flex-col md:flex-row"
@@ -211,7 +204,7 @@ export const App = () => {
 	};
 
 	return (
-		<div ref={topRef} className="select-none">
+		<div className="select-none">
 			{Header()}
 
 			{loading && (
