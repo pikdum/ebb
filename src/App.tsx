@@ -13,20 +13,20 @@ const booruSearch = async (
 
 export const App = () => {
 	const headerRef = useRef(null);
+	const topRef = useRef(null);
 	const [posts, setPosts] = useState<Post[]>([]);
 	const [page, setPage] = useState(0);
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
 
 	const fetchPosts = async () => {
-		console.info({ query, page });
 		const tags = query?.split(" ") ?? [];
 		const results = await booruSearch("safebooru", tags, {
 			page: page,
 			limit: 10,
 		});
 		if (results) {
-			setPosts(results as any);
+			setPosts(results);
 		}
 	};
 
@@ -36,10 +36,16 @@ export const App = () => {
 		}
 	}, [page, query]);
 
+	useEffect(() => {
+		if (posts.length > 0) {
+			topRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	});
+
 	console.info(JSON.stringify(posts));
 
 	return (
-		<div>
+		<div ref={topRef}>
 			<header
 				ref={headerRef}
 				className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10"
@@ -91,7 +97,7 @@ export const App = () => {
 				</form>
 			</header>
 
-			<main className="grid grid-cols-2 gap-2">
+			<main ref={topRef} className="grid grid-cols-2 gap-2">
 				{posts.map((post) => (
 					<img
 						key={post.id}
