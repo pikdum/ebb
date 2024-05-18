@@ -1,4 +1,6 @@
 import classNames from "classnames";
+// biome-ignore lint/style/useImportType:
+import React from "react";
 import { useEffect, useState } from "react";
 import sites from "./sites.json";
 
@@ -38,7 +40,6 @@ export const App = () => {
 	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>();
-
 	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
 
 	const fetchPosts = async ({ attempts = 0, maxAttempts = 3 } = {}) => {
