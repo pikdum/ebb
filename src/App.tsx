@@ -17,11 +17,11 @@ export const App = () => {
 	const headerRef = useRef(null);
 	const topRef = useRef(null);
 	const [posts, setPosts] = useState<Post[]>([]);
-	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [page, setPage] = useState(0);
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
 	const [showSubmitAnimation, setShowSubmitAnimation] = useState(false);
+	const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
 
 	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
 
@@ -35,6 +35,7 @@ export const App = () => {
 		});
 		if (results) {
 			setPosts(results);
+			setSelectedPosts([]);
 		}
 	};
 
@@ -50,18 +51,11 @@ export const App = () => {
 		if (posts.length > 0) {
 			topRef.current.scrollIntoView({ behavior: "smooth" });
 		}
-	});
+	}, [posts]);
 
 	useEffect(() => {
 		setPage(0);
 	}, [currentSite]);
-
-	useEffect(() => {
-		if (selectedPost) {
-			const post = document.getElementById(selectedPost);
-			post?.scrollIntoView({ behavior: "smooth" });
-		}
-	}, [selectedPost]);
 
 	return (
 		<div ref={topRef} className="select-none">
@@ -141,11 +135,13 @@ export const App = () => {
 						key={post.id}
 						className={classNames("cursor-pointer", {
 							"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
-								post.id === selectedPost,
-							"object-cover w-full aspect-square": post.id !== selectedPost,
+								selectedPosts.includes(post.id),
+							"object-cover w-full aspect-square": !selectedPosts.includes(
+								post.id,
+							),
 						})}
 						src={
-							post.id === selectedPost
+							selectedPosts.includes(post.id)
 								? post.fileUrl
 								: post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl
 						}
@@ -153,8 +149,17 @@ export const App = () => {
 						alt={`${post.id}`}
 						title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 						onClick={() => {
-							setSelectedPost((prev) =>
-								prev === post.id ? undefined : post.id,
+							if (!selectedPosts.includes(post.id)) {
+								setTimeout(() => {
+									document
+										.getElementById(post.id)
+										?.scrollIntoView({ behavior: "smooth", block: "center" });
+								}, 0);
+							}
+							setSelectedPosts((prev) =>
+								prev.includes(post.id)
+									? prev.filter((id) => id !== post.id)
+									: [...prev, post.id],
 							);
 						}}
 					/>
