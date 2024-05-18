@@ -92,7 +92,7 @@ export const App = () => {
 							{Object.keys(sites).map((key) => {
 								return (
 									<option key={key} value={key}>
-										{key}
+										{`${key}${sites[key].nsfw ? " (NSFW)" : ""}`}
 									</option>
 								);
 							})}
