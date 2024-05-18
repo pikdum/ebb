@@ -22,5 +22,8 @@
 				"useHookAtTopLevel": "error"
 			}
 		}
+	},
+	"files": {
+		"ignore": ["package-lock.json"]
 	}
 }
