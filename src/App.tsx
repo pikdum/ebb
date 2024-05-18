@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import sites from "./sites.json";
 
 import type { Post } from "./interface";
 
@@ -21,9 +22,11 @@ export const App = () => {
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
 
+	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
+
 	const fetchPosts = async () => {
 		const tags = query?.split(" ") ?? [];
-		const results = await booruSearch("safebooru", tags, {
+		const results = await booruSearch(currentSite, tags, {
 			page: page,
 			limit: 25,
 		});
@@ -36,13 +39,19 @@ export const App = () => {
 		if (query !== undefined) {
 			fetchPosts();
 		}
-	}, [page, query]);
+	}, [page, query, currentSite]);
+
+	console.info(posts);
 
 	useEffect(() => {
 		if (posts.length > 0) {
 			topRef.current.scrollIntoView({ behavior: "smooth" });
 		}
 	});
+
+	useEffect(() => {
+		setPage(0);
+	}, [currentSite]);
 
 	useEffect(() => {
 		if (selectedPost) {
@@ -72,6 +81,19 @@ export const App = () => {
 							type="search"
 							onChange={(e) => setTempQuery(e.currentTarget.value)}
 						/>
+						<select
+							className="border border-gray-300 rounded p-2 focus:border-blue-500 focus:outline-none"
+							value={currentSite}
+							onChange={(e) => setCurrentSite(e.target.value)}
+						>
+							{Object.keys(sites).map((key) => {
+								return (
+									<option key={key} value={key}>
+										{key}
+									</option>
+								);
+							})}
+						</select>
 						<button
 							type="submit"
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -114,10 +136,14 @@ export const App = () => {
 								post.id === selectedPost,
 							"object-cover w-full aspect-square": post.id !== selectedPost,
 						})}
-						src={post.fileUrl}
+						src={
+							post.id === selectedPost
+								? post.fileUrl
+								: post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl
+						}
 						loading="lazy"
 						alt={`${post.id}`}
-						title={post.tags.join(" ")}
+						title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 						onClick={() => {
 							setSelectedPost((prev) =>
 								prev === post.id ? undefined : post.id,

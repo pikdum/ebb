@@ -9,6 +9,8 @@ export interface IElectronAPI {
 export interface Post {
 	_data: any; // The raw data from the booru, using `any` since its structure isn't specified
 	fileUrl: string; // The direct link to the image, ready to post
+	sampleUrl?: string;
+	previewUrl?: string;
 	id: string; // The image ID, as a string
 	tags: string[]; // The tags, split into an array
 	score: number; // The score as a number
