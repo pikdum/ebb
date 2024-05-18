@@ -203,6 +203,15 @@ export const App = () => {
 							alt={`${post.id}`}
 							title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 							onClick={() => handleSelectPost(post.id)}
+							onLoad={() => {
+								// handle when expand changes src
+								if (selectedPosts.includes(post.id)) {
+									document.getElementById(post.id)?.scrollIntoView({
+										behavior: "smooth",
+										block: "center",
+									});
+								}
+							}}
 						/>
 					))}
 				</main>
