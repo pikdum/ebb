@@ -1,7 +1,7 @@
 {
 	"name": "ebb",
 	"productName": "ebb",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "electron booru browser",
 	"main": ".vite/build/main.js",
 	"scripts": {
@@ -10,7 +10,8 @@
 		"make": "electron-forge make",
 		"publish": "electron-forge publish",
 		"lint": "biome lint .",
-		"check": "biome check ."
+		"check": "biome check .",
+		"build": "rm -rf dist/ out/ && npm run package -- -p linux,win32 && electron-builder -wl"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.7.3",
@@ -28,6 +29,7 @@
 		"@vitejs/plugin-react": "^4.2.1",
 		"autoprefixer": "^10.4.19",
 		"electron": "30.0.6",
+		"electron-builder": "^24.13.3",
 		"lefthook": "^1.6.12",
 		"postcss": "^8.4.38",
 		"tailwindcss": "^3.4.3",
