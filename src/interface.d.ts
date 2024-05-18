@@ -18,6 +18,7 @@ export interface Post {
 	rating: "s" | "q" | "e"; // Rating of the image, assuming 's', 'q', 'e' for safe, questionable, explicit
 	createdAt: Date; // The Date this image was created at
 	postView: string; // A URL to the post
+	width?: number;
 }
 
 declare global {

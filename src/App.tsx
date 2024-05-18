@@ -177,7 +177,7 @@ export const App = () => {
 	};
 
 	const PostPreview = ({ post }: { post: Post }) => {
-		const previewUrl = post.previewUrl ?? post.sampleUrl ?? post.fileUrl;
+		const previewUrl = post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl;
 		return (
 			<div className="w-full aspect-square bg-gray-100">
 				<img
@@ -194,19 +194,23 @@ export const App = () => {
 
 	const PostPicture = ({ post }: { post: Post }) => {
 		return (
-			<img
-				id={post.id}
-				className="col-span-2 md:col-span-3 lg:col-span-4"
-				src={post.fileUrl}
-				alt={`${post.id}`}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-				onClick={() => handleSelectPost(post.id)}
-				onLoad={() => {
-					if (selectedPost === post.id) {
-						scrollToId(post.id);
-					}
-				}}
-			/>
+			<div className="col-span-2 md:col-span-3 lg:col-span-4">
+				<div className="bg-gray-100 inline-block">
+					<img
+						id={post.id}
+						className="col-span-2 md:col-span-3 lg:col-span-4 max-w-full max-h-screen"
+						src={post.fileUrl}
+						alt={`${post.id}`}
+						title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+						onClick={() => handleSelectPost(post.id)}
+						onLoad={() => {
+							if (selectedPost === post.id) {
+								scrollToId(post.id);
+							}
+						}}
+					/>
+				</div>
+			</div>
 		);
 	};
 
