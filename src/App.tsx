@@ -23,7 +23,7 @@ export const App = () => {
 		const tags = query?.split(" ") ?? [];
 		const results = await booruSearch("safebooru", tags, {
 			page: page,
-			limit: 10,
+			limit: 25,
 		});
 		if (results) {
 			setPosts(results);
@@ -41,8 +41,6 @@ export const App = () => {
 			topRef.current.scrollIntoView({ behavior: "smooth" });
 		}
 	});
-
-	console.info(JSON.stringify(posts));
 
 	return (
 		<div ref={topRef}>
@@ -97,7 +95,7 @@ export const App = () => {
 				</form>
 			</header>
 
-			<main ref={topRef} className="grid grid-cols-2 gap-2">
+			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 				{posts.map((post) => (
 					<img
 						key={post.id}
