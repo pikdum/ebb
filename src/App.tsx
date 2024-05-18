@@ -178,28 +178,28 @@ export const App = () => {
 
 	const Post = ({ post }: { post: Post }) => {
 		return (
-			<img
-				id={post.id}
+			<picture
 				className={classNames("cursor-pointer", {
 					"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
 						selectedPosts.includes(post.id),
-					"object-cover w-full aspect-square": !selectedPosts.includes(post.id),
 				})}
-				src={
-					selectedPosts.includes(post.id)
-						? post.fileUrl
-						: post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl
-				}
-				loading="lazy"
-				alt={`${post.id}`}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-				onClick={() => handleSelectPost(post.id)}
-				onLoad={() => {
-					if (selectedPost === post.id) {
-						scrollToId(post.id);
-					}
-				}}
-			/>
+			>
+				{selectedPosts.includes(post.id) && <source srcSet={post.fileUrl} />}
+				<img
+					id={post.id}
+					className="object-cover w-full aspect-square"
+					src={post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl}
+					loading="lazy"
+					alt={`${post.id}`}
+					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+					onClick={() => handleSelectPost(post.id)}
+					onLoad={() => {
+						if (selectedPost === post.id) {
+							scrollToId(post.id);
+						}
+					}}
+				/>
+			</picture>
 		);
 	};
 
