@@ -35,6 +35,7 @@ export const App = () => {
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
 	const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
+	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>();
 
@@ -94,14 +95,16 @@ export const App = () => {
 		setPage((page) => page - 1);
 	};
 
+	const scrollToId = (id: string) => {
+		setTimeout(() => {
+			document
+				.getElementById(id)
+				?.scrollIntoView({ behavior: "smooth", block: "center" });
+		}, 0);
+	};
+
 	const handleSelectPost = (post_id: string) => {
-		if (!selectedPosts.includes(post_id)) {
-			setTimeout(() => {
-				document
-					.getElementById(post_id)
-					?.scrollIntoView({ behavior: "smooth", block: "center" });
-			}, 0);
-		}
+		setSelectedPost((prev) => (prev === post_id ? undefined : post_id));
 		setSelectedPosts((prev) =>
 			prev.includes(post_id)
 				? prev.filter((id) => id !== post_id)
@@ -191,26 +194,50 @@ export const App = () => {
 				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 				onClick={() => handleSelectPost(post.id)}
 				onLoad={() => {
-					// handle when expand changes src
-					if (selectedPosts.includes(post.id)) {
-						document.getElementById(post.id)?.scrollIntoView({
-							behavior: "smooth",
-							block: "center",
-						});
+					if (selectedPost === post.id) {
+						scrollToId(post.id);
 					}
 				}}
 			/>
 		);
 	};
 
+	const EmptyState = () => {
+		return (
+			<div className="flex items-center justify-center m-6">
+				<div className="text-left">
+					<h1 className="text-4xl font-semibold mb-2">Quick Start</h1>
+					<ul className="list-disc">
+						<li>
+							Type a tag into the search bar at the top, such as{" "}
+							<button
+								type="button"
+								className="text-blue-500"
+								onClick={() => setTempQuery("landscape")}
+							>
+								landscape
+							</button>
+							.
+						</li>
+						<li>Press the blue search button.</li>
+						<li>Click on an image to make it full-sized.</li>
+						<li>Click on it again to make it small.</li>
+						<li>
+							The booru can be changed by selecting a different one. It will be
+							automatically switched.
+						</li>
+					</ul>
+				</div>
+			</div>
+		);
+	};
+
 	return (
 		<div className="select-none">
 			{Header()}
-
 			{loading && (
 				<LoadingIndicator className="text-center m-6 text-blue-500" />
 			)}
-
 			{!loading && (
 				<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 					{posts.map((post) => (
@@ -218,36 +245,8 @@ export const App = () => {
 					))}
 				</main>
 			)}
-
 			{error && <div className="text-center m-6">{error}</div>}
-
-			{query === undefined && (
-				<div className="flex items-center justify-center m-6">
-					<div className="text-left">
-						<h1 className="text-4xl font-semibold mb-2">Quick Start</h1>
-						<ul className="list-disc">
-							<li>
-								Type a tag into the search bar at the top, such as{" "}
-								<button
-									type="button"
-									className="text-blue-500"
-									onClick={() => setTempQuery("landscape")}
-								>
-									landscape
-								</button>
-								.
-							</li>
-							<li>Press the blue search button.</li>
-							<li>Click on an image to make it full-sized.</li>
-							<li>Click on it again to make it small.</li>
-							<li>
-								The booru can be changed by selecting a different one. It will
-								be automatically switched.
-							</li>
-						</ul>
-					</div>
-				</div>
-			)}
+			{query === undefined && <EmptyState />}
 		</div>
 	);
 };
