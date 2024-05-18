@@ -176,31 +176,85 @@ export const App = () => {
 		);
 	};
 
-	const Post = ({ post }: { post: Post }) => {
+	const PostPreview = ({ post }: { post: Post }) => {
+		const previewUrl = post.previewUrl ?? post.sampleUrl ?? post.fileUrl;
 		return (
-			<picture
-				className={classNames("cursor-pointer", {
-					"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
-						selectedPosts.includes(post.id),
-				})}
-			>
-				{selectedPosts.includes(post.id) && <source srcSet={post.fileUrl} />}
-				<img
-					id={post.id}
-					className="object-cover w-full aspect-square"
-					src={post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl}
-					loading="lazy"
-					alt={`${post.id}`}
-					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-					onClick={() => handleSelectPost(post.id)}
-					onLoad={() => {
-						if (selectedPost === post.id) {
-							scrollToId(post.id);
-						}
-					}}
-				/>
-			</picture>
+			<img
+				className="object-cover w-full aspect-square"
+				src={previewUrl}
+				loading="lazy"
+				alt={`${post.id}`}
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={() => handleSelectPost(post.id)}
+			/>
 		);
+	};
+
+	const PostPicture = ({ post }: { post: Post }) => {
+		return (
+			<img
+				id={post.id}
+				className="col-span-2 md:col-span-3 lg:col-span-4"
+				src={post.fileUrl}
+				alt={`${post.id}`}
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={() => handleSelectPost(post.id)}
+				onLoad={() => {
+					if (selectedPost === post.id) {
+						scrollToId(post.id);
+					}
+				}}
+			/>
+		);
+	};
+
+	const PostVideo = ({ post }: { post: Post }) => {
+		return (
+			<video
+				id={post.id}
+				className="col-span-2 md:col-span-3 lg:col-span-4"
+				src={post.fileUrl}
+				controls
+				loop
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={(e) => {
+					e.preventDefault();
+					handleSelectPost(post.id);
+				}}
+				onCanPlay={() => {
+					if (selectedPost === post.id) {
+						scrollToId(post.id);
+					}
+				}}
+			/>
+		);
+	};
+
+	const PostUnknown = ({ post }: { post: Post }) => {
+		return (
+			<div className="bg-gray-500 aspect-square p-2 break-all text-white">
+				<p className="font-semibold">Unknown File Type</p>
+				<p>{post.id}</p>
+				<p>{post.fileUrl}</p>
+			</div>
+		);
+	};
+
+	const Post = ({ post }: { post: Post }) => {
+		const isSelected = selectedPosts.includes(post.id);
+		if (!isSelected) {
+			return <PostPreview post={post} />;
+		}
+		const ext = post.fileUrl.split(".").pop();
+		const isImage = ["jpg", "jpeg", "png", "gif"].includes(ext);
+		const isVideo = ["webm", "mp4"].includes(ext);
+		if (isImage) {
+			return <PostPicture post={post} />;
+		}
+		if (isVideo) {
+			return <PostVideo post={post} />;
+		}
+		return <PostUnknown post={post} />;
 	};
 
 	const EmptyState = () => {

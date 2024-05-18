@@ -14,7 +14,8 @@
 		"rules": {
 			"recommended": true,
 			"a11y": {
-				"useKeyWithClickEvents": "off"
+				"useKeyWithClickEvents": "off",
+				"useMediaCaption": "off"
 			},
 			"performance": {
 				"noAccumulatingSpread": "off"
