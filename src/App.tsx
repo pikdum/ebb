@@ -113,8 +113,8 @@ export const App = () => {
 		);
 	};
 
-	return (
-		<div ref={topRef} className="select-none">
+	const Header = () => {
+		return (
 			<header
 				ref={headerRef}
 				className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10"
@@ -176,6 +176,43 @@ export const App = () => {
 					</div>
 				</form>
 			</header>
+		);
+	};
+
+	const Post = ({ post }: { post: Post }) => {
+		return (
+			<img
+				id={post.id}
+				className={classNames("cursor-pointer", {
+					"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
+						selectedPosts.includes(post.id),
+					"object-cover w-full aspect-square": !selectedPosts.includes(post.id),
+				})}
+				src={
+					selectedPosts.includes(post.id)
+						? post.fileUrl
+						: post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl
+				}
+				loading="lazy"
+				alt={`${post.id}`}
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={() => handleSelectPost(post.id)}
+				onLoad={() => {
+					// handle when expand changes src
+					if (selectedPosts.includes(post.id)) {
+						document.getElementById(post.id)?.scrollIntoView({
+							behavior: "smooth",
+							block: "center",
+						});
+					}
+				}}
+			/>
+		);
+	};
+
+	return (
+		<div ref={topRef} className="select-none">
+			{Header()}
 
 			{loading && (
 				<LoadingIndicator className="text-center m-6 text-blue-500" />
@@ -184,35 +221,7 @@ export const App = () => {
 			{!loading && (
 				<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 					{posts.map((post) => (
-						<img
-							id={post.id}
-							key={post.id}
-							className={classNames("cursor-pointer", {
-								"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
-									selectedPosts.includes(post.id),
-								"object-cover w-full aspect-square": !selectedPosts.includes(
-									post.id,
-								),
-							})}
-							src={
-								selectedPosts.includes(post.id)
-									? post.fileUrl
-									: post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl
-							}
-							loading="lazy"
-							alt={`${post.id}`}
-							title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-							onClick={() => handleSelectPost(post.id)}
-							onLoad={() => {
-								// handle when expand changes src
-								if (selectedPosts.includes(post.id)) {
-									document.getElementById(post.id)?.scrollIntoView({
-										behavior: "smooth",
-										block: "center",
-									});
-								}
-							}}
-						/>
+						<Post post={post} key={post.id} />
 					))}
 				</main>
 			)}
