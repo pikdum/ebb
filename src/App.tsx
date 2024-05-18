@@ -179,14 +179,16 @@ export const App = () => {
 	const PostPreview = ({ post }: { post: Post }) => {
 		const previewUrl = post.previewUrl ?? post.sampleUrl ?? post.fileUrl;
 		return (
-			<img
-				className="object-cover w-full aspect-square"
-				src={previewUrl}
-				loading="lazy"
-				alt={`${post.id}`}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-				onClick={() => handleSelectPost(post.id)}
-			/>
+			<div className="w-full aspect-square bg-gray-100">
+				<img
+					className="object-cover w-full aspect-square"
+					src={previewUrl}
+					loading="lazy"
+					alt={`${post.id}`}
+					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+					onClick={() => handleSelectPost(post.id)}
+				/>
+			</div>
 		);
 	};
 
