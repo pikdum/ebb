@@ -4,7 +4,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
-	testFunction: () => ipcRenderer.invoke("testFunction"),
-	echoFunction: (message: string) =>
-		ipcRenderer.invoke("echoFunction", message),
+	booruSearch: async (...args: any[]) =>
+		await ipcRenderer.invoke("booru:search", ...args),
 });

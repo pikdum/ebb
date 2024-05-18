@@ -1,4 +1,5 @@
 import path from "node:path";
+import Booru from "booru";
 import { BrowserWindow, app, ipcMain } from "electron";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -29,20 +30,14 @@ const createWindow = () => {
 	mainWindow.webContents.openDevTools();
 };
 
-const testFunction = () => {
-	return "foobar";
-};
-
-const echoFunction = (message: string) => {
-	return message;
-};
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-	ipcMain.handle("testFunction", testFunction);
-	ipcMain.handle("echoFunction", (_event, ...args) => echoFunction(...args));
+	ipcMain.handle(
+		"booru:search",
+		async (_event, ...args) => await Booru.search(...args),
+	);
 	createWindow();
 });
 
