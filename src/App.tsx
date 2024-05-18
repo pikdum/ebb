@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 
 import type { Post } from "./interface";
@@ -15,6 +16,7 @@ export const App = () => {
 	const headerRef = useRef(null);
 	const topRef = useRef(null);
 	const [posts, setPosts] = useState<Post[]>([]);
+	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [page, setPage] = useState(0);
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
@@ -41,6 +43,13 @@ export const App = () => {
 			topRef.current.scrollIntoView({ behavior: "smooth" });
 		}
 	});
+
+	useEffect(() => {
+		if (selectedPost) {
+			const post = document.getElementById(selectedPost);
+			post?.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [selectedPost]);
 
 	return (
 		<div ref={topRef}>
@@ -98,12 +107,22 @@ export const App = () => {
 			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 				{posts.map((post) => (
 					<img
+						id={post.id}
 						key={post.id}
-						className="object-cover w-full aspect-square"
+						className={classNames("cursor-pointer", {
+							"max-w-full max-h-screen col-span-2 md:col-span-3 lg:col-span-4":
+								post.id === selectedPost,
+							"object-cover w-full aspect-square": post.id !== selectedPost,
+						})}
 						src={post.fileUrl}
 						loading="lazy"
 						alt={`${post.id}`}
 						title={post.tags.join(" ")}
+						onClick={() => {
+							setSelectedPost((prev) =>
+								prev === post.id ? undefined : post.id,
+							);
+						}}
 					/>
 				))}
 			</main>
