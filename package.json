@@ -2,7 +2,7 @@
 	"name": "ebb",
 	"productName": "ebb",
 	"version": "1.0.0",
-	"description": "My Electron application description",
+	"description": "electron booru browser",
 	"main": ".vite/build/main.js",
 	"scripts": {
 		"start": "electron-forge start",
