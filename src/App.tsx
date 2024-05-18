@@ -21,10 +21,13 @@ export const App = () => {
 	const [page, setPage] = useState(0);
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
+	const [showSubmitAnimation, setShowSubmitAnimation] = useState(false);
 
 	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
 
 	const fetchPosts = async () => {
+		setShowSubmitAnimation(true);
+		setTimeout(() => setShowSubmitAnimation(false), 1500);
 		const tags = query?.split(" ") ?? [];
 		const results = await booruSearch(currentSite, tags, {
 			page: page,
@@ -61,7 +64,7 @@ export const App = () => {
 	}, [selectedPost]);
 
 	return (
-		<div ref={topRef}>
+		<div ref={topRef} className="select-none">
 			<header
 				ref={headerRef}
 				className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10"
@@ -96,31 +99,36 @@ export const App = () => {
 						</select>
 						<button
 							type="submit"
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							className={classNames(
+								"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+								{
+									"animate-pulse": showSubmitAnimation,
+								},
+							)}
 						>
-							Query
+							Search
 						</button>
 					</div>
 					<div className="flex gap-2 items-center">
 						<button
 							type="button"
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+							className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
 							onClick={() => {
 								setPage(page - 1);
 							}}
 							disabled={page === 0}
 						>
-							Previous
+							⮜
 						</button>
 						<span className="text-lg font-bold">{page + 1}</span>
 						<button
 							type="button"
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
 							onClick={() => {
 								setPage(page + 1);
 							}}
 						>
-							Next
+							⮞
 						</button>
 					</div>
 				</form>
