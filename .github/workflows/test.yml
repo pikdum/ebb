@@ -14,10 +14,17 @@ jobs:
       - run: npm run package -- -p linux
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - uses: biomejs/setup-biome@v2
-      - run: biome ci .
+      - run: biome check . --apply
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: biome check . --apply"
   tsc:
     runs-on: ubuntu-latest
     steps:
