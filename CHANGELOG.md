@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.5](https://github.com/pikdum/ebb/compare/v1.3.4...v1.3.5) (2024-05-19)
+
+
+### Bug Fixes
+
+* add github-cli to build image ([20dc601](https://github.com/pikdum/ebb/commit/20dc601b32c9a47d011d6211832f756d60a07b8d))
+
 ## [1.3.4](https://github.com/pikdum/ebb/compare/v1.3.3...v1.3.4) (2024-05-19)
 
 
