@@ -87,9 +87,9 @@ const PostSkeleton = ({
 };
 
 const PostPicture = ({ post }: { post: PostType }) => {
+	const [loading, setLoading] = useState(true);
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
-	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		if (selectedPost === post.id) {
@@ -115,6 +115,7 @@ const PostPicture = ({ post }: { post: PostType }) => {
 };
 
 const PostVideo = ({ post }: { post: PostType }) => {
+	const [loading, setLoading] = useState(true);
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
 
@@ -125,20 +126,24 @@ const PostVideo = ({ post }: { post: PostType }) => {
 	}, []);
 
 	return (
-		<video
-			id={post.id}
-			style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
-			className="col-span-full cursor-zoom-out"
-			src={post.fileUrl}
-			autoPlay
-			controls
-			loop
-			title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-			onClick={(e) => {
-				e.preventDefault();
-				handleSelectPost(post.id);
-			}}
-		/>
+		<PostSkeleton post={post} loading={loading}>
+			<video
+				className="max-w-full cursor-zoom-out"
+				style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
+				src={post.fileUrl}
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={(e) => {
+					e.preventDefault();
+					handleSelectPost(post.id);
+				}}
+				onCanPlay={() => {
+					setLoading(false);
+				}}
+				autoPlay
+				controls
+				loop
+			/>
+		</PostSkeleton>
 	);
 };
 
