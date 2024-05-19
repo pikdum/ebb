@@ -6,7 +6,7 @@ export interface IElectronAPI {
 	) => Promise<Post[]>;
 }
 
-export interface Post {
+export interface PostType {
 	_data: any; // The raw data from the booru, using `any` since its structure isn't specified
 	fileUrl: string; // The direct link to the image, ready to post
 	sampleUrl?: string;
