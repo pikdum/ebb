@@ -4,18 +4,39 @@ import type { PostType } from "../interface";
 
 import { useMainContext } from "../MainApp";
 
+const isImage = (fileUrl: string) => {
+	const ext = fileUrl.split(".").pop();
+	return ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
+};
+
+const isVideo = (fileUrl: string) => {
+	const ext = fileUrl.split(".").pop();
+	return ["webm", "mp4"].includes(ext);
+};
+
+const isSWF = (fileUrl: string) => {
+	const ext = fileUrl.split(".").pop();
+	return ["swf"].includes(ext);
+};
+
 const PostPreview = ({ post }: { post: PostType }) => {
 	const { handleSelectPost } = useMainContext();
-	const previewUrl = post?.sampleUrl ?? post?.previewUrl ?? post.fileUrl;
-	const ext = previewUrl.split(".").pop();
-	const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
-	const blacklist = ["https://cdn.donmai.us/images/flash-preview.png"];
-	if (!isImage || blacklist.includes(previewUrl)) {
+	const blacklist = [
+		"https://cdn.donmai.us/images/flash-preview.png",
+		"https://static1.e621.net/images/download-preview.png",
+	];
+	const previewUrl = [post?.sampleUrl, post?.previewUrl, post.fileUrl]
+		.filter(Boolean)
+		.filter((url) => !blacklist.includes(url))
+		.find(isImage);
+	if (!previewUrl) {
+		const ext = post.fileUrl.split(".").pop();
 		return (
 			<div
 				className="bg-gray-500 aspect-square p-2 break-words text-white cursor-zoom-in overflow-y-scroll"
 				onClick={() => handleSelectPost(post.id)}
 			>
+				<p className="font-semibold">{ext}</p>
 				<code>{post.tags.join(" ")}</code>
 			</div>
 		);
@@ -200,17 +221,13 @@ export const Post = ({ post }: { post: PostType }) => {
 	if (!isSelected) {
 		return <PostPreview post={post} />;
 	}
-	const ext = post.fileUrl.split(".").pop();
-	const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
-	const isVideo = ["webm", "mp4"].includes(ext);
-	const isSWF = ["swf"].includes(ext);
-	if (isImage) {
+	if (isImage(post.fileUrl)) {
 		return <PostPicture post={post} />;
 	}
-	if (isVideo) {
+	if (isVideo(post.fileUrl)) {
 		return <PostVideo post={post} />;
 	}
-	if (isSWF) {
+	if (isSWF(post.fileUrl)) {
 		return <PostSWF post={post} />;
 	}
 	return <PostUnknown post={post} />;
