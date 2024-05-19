@@ -73,7 +73,7 @@ const PostPicture = ({ post }: { post: PostType }) => {
 	const { width, height } = calculateRenderSize(post.width, post.height);
 
 	return (
-		<div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4">
+		<div className="col-span-full">
 			<div
 				id={post.id}
 				className="bg-gray-100 inline-block"
@@ -83,7 +83,7 @@ const PostPicture = ({ post }: { post: PostType }) => {
 				}}
 			>
 				<img
-					className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 max-w-full cursor-zoom-out"
+					className="max-w-full cursor-zoom-out"
 					style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
 					src={post.fileUrl}
 					alt={`${post.id}`}
@@ -103,7 +103,7 @@ const PostVideo = ({ post }: { post: PostType }) => {
 	return (
 		<video
 			id={post.id}
-			className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 cursor-zoom-out"
+			className="col-span-full cursor-zoom-out"
 			src={post.fileUrl}
 			controls
 			loop
@@ -132,7 +132,7 @@ const PostSWF = ({ post }: { post: PostType }) => {
 	}, []);
 
 	return (
-		<div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 text-center">
+		<div className="col-span-full text-center">
 			<div id={post.id} style={{ height: `calc(100vh - ${headerHeight}px)` }}>
 				<object
 					className="w-full"
