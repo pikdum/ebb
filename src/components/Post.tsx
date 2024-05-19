@@ -118,6 +118,12 @@ const PostVideo = ({ post }: { post: PostType }) => {
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
 
+	useEffect(() => {
+		if (selectedPost === post.id) {
+			scrollToId(post.id);
+		}
+	}, []);
+
 	return (
 		<video
 			id={post.id}
@@ -131,11 +137,6 @@ const PostVideo = ({ post }: { post: PostType }) => {
 			onClick={(e) => {
 				e.preventDefault();
 				handleSelectPost(post.id);
-			}}
-			onCanPlay={() => {
-				if (selectedPost === post.id) {
-					scrollToId(post.id);
-				}
 			}}
 		/>
 	);
