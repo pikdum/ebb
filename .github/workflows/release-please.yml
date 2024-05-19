@@ -21,3 +21,5 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
       - run: ./publish.sh
         if: ${{ steps.release.outputs.release_created }}
+        env:
+          GH_TOKEN: ${{ github.token }}
