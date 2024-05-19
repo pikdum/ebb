@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 set -eux
 
-git pull
 npm install
 npm run build
 rm -rf dist/win-unpacked
