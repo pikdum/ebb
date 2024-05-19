@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.8](https://github.com/pikdum/ebb/compare/v1.3.7...v1.3.8) (2024-05-19)
+
+
+### Bug Fixes
+
+* aaaaaaaaaaaaaaaaa ([f792658](https://github.com/pikdum/ebb/commit/f79265858f8da532abde4c5372dd6484aac2c1b5))
+
 ## [1.3.7](https://github.com/pikdum/ebb/compare/v1.3.6...v1.3.7) (2024-05-19)
 
 
