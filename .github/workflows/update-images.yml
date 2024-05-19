@@ -1,0 +1,31 @@
+name: update-images
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  packages: write
+
+concurrency: update-images
+
+jobs:
+  builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - uses: docker/build-push-action@v5
+        with:
+          file: Dockerfile.builder
+          push: true
+          tags: ghcr.io/pikdum/ebb/builder:latest
+      - uses: snok/container-retention-policy@v2
+        with:
+          image-names: ebb/builder
+          cut-off: 1 day ago utc
+          keep-at-least: 1
+          account-type: personal
+          token: ${{ secrets.GITHUB_TOKEN }}
+          token-type: github-token
