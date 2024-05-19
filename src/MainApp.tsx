@@ -8,6 +8,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { ChevronRight } from "react-feather";
 
 import { EmptyState } from "./components/EmptyState";
 import { Header } from "./components/Header";
@@ -39,6 +40,8 @@ const MainContext = createContext(
 			attempts?: number;
 			maxAttempts?: number;
 		}) => Promise<void>;
+		incrementPage: () => void;
+		decrementPage: () => void;
 	},
 );
 export const useMainContext = () => useContext(MainContext);
@@ -136,6 +139,14 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
+	const incrementPage = () => {
+		setPage((page) => page + 1);
+	};
+
+	const decrementPage = () => {
+		setPage((page) => page - 1);
+	};
+
 	return (
 		<MainContext.Provider
 			value={{
@@ -157,6 +168,8 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				handleSelectPost,
 				scrollToId,
 				fetchPosts,
+				incrementPage,
+				decrementPage,
 			}}
 		>
 			{children}
@@ -165,8 +178,16 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const Main = () => {
-	const { fetchPosts, posts, page, query, loading, error, currentSite } =
-		useMainContext();
+	const {
+		fetchPosts,
+		posts,
+		page,
+		query,
+		loading,
+		error,
+		currentSite,
+		incrementPage,
+	} = useMainContext();
 
 	useEffect(() => {
 		if (query !== undefined) {
@@ -185,6 +206,15 @@ export const Main = () => {
 					{posts.map((post) => (
 						<Post post={post} key={post.id} />
 					))}
+					{posts.length > 0 && (
+						<button
+							type="button"
+							className="text-3xl bg-gray-200 hover:bg-blue-200 w-full aspect-square grid place-items-center"
+							onClick={incrementPage}
+						>
+							<ChevronRight size={128} />
+						</button>
+					)}
 				</main>
 			)}
 			{error && <div className="text-center m-6">{error}</div>}

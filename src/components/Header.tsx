@@ -16,6 +16,8 @@ export const Header = () => {
 		currentSite,
 		setCurrentSite,
 		headerRef,
+		incrementPage,
+		decrementPage,
 	} = useMainContext();
 
 	const handleChangeSite = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -27,14 +29,6 @@ export const Header = () => {
 		e.preventDefault();
 		setQuery(tempQuery);
 		setPage(0);
-	};
-
-	const handleIncrementPage = () => {
-		setPage((page) => page + 1);
-	};
-
-	const handleDecrementPage = () => {
-		setPage((page) => page - 1);
 	};
 
 	return (
@@ -71,7 +65,7 @@ export const Header = () => {
 						<button
 							type="button"
 							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
-							onClick={handleDecrementPage}
+							onClick={decrementPage}
 							disabled={page === 0}
 						>
 							<ChevronLeft />
@@ -80,7 +74,7 @@ export const Header = () => {
 						<button
 							type="button"
 							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
-							onClick={handleIncrementPage}
+							onClick={incrementPage}
 							disabled={query === undefined}
 						>
 							<ChevronRight />
