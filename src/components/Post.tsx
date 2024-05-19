@@ -122,8 +122,15 @@ const PostVideo = ({ post }: { post: PostType }) => {
 };
 
 const PostSWF = ({ post }: { post: PostType }) => {
-	const { handleSelectPost, headerHeight } = useMainContext();
-	// TODO: scroll to this on load (onLoad doesn't work)
+	const { handleSelectPost, headerHeight, selectedPost, scrollToId } =
+		useMainContext();
+
+	useEffect(() => {
+		if (selectedPost === post.id) {
+			scrollToId(post.id);
+		}
+	}, []);
+
 	return (
 		<div className="col-span-2 md:col-span-3 lg:col-span-4 text-center">
 			<div id={post.id} style={{ height: `calc(100vh - ${headerHeight}px)` }}>
