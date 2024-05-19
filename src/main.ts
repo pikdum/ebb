@@ -3,11 +3,6 @@ import Booru from "booru";
 import { BrowserWindow, app, ipcMain, session } from "electron";
 import { autoUpdater } from "electron-updater";
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-	app.quit();
-}
-
 const createWindow = () => {
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
