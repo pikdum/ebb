@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.7](https://github.com/pikdum/ebb/compare/v1.3.6...v1.3.7) (2024-05-19)
+
+
+### Bug Fixes
+
+* install gh in image globally ([46d623c](https://github.com/pikdum/ebb/commit/46d623cf968332bcf0e7483a62eebc3933034971))
+
 ## [1.3.6](https://github.com/pikdum/ebb/compare/v1.3.5...v1.3.6) (2024-05-19)
 
 
