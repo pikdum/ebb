@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.6](https://github.com/pikdum/ebb/compare/v1.3.5...v1.3.6) (2024-05-19)
+
+
+### Bug Fixes
+
+* run build as root ([147415a](https://github.com/pikdum/ebb/commit/147415a517f3f1a9fcc0db8f1ec05f73995ccc54))
+
 ## [1.3.5](https://github.com/pikdum/ebb/compare/v1.3.4...v1.3.5) (2024-05-19)
 
 
