@@ -97,12 +97,15 @@ const PostPicture = ({ post }: { post: PostType }) => {
 };
 
 const PostVideo = ({ post }: { post: PostType }) => {
-	const { handleSelectPost, selectedPost, scrollToId } = useMainContext();
+	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
+		useMainContext();
 	return (
 		<video
 			id={post.id}
+			style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
 			className="col-span-full cursor-zoom-out"
 			src={post.fileUrl}
+			autoPlay
 			controls
 			loop
 			title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
