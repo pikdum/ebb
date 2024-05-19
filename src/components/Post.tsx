@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 import type { PostType } from "../interface";
 
@@ -34,17 +34,17 @@ const PostPreview = ({ post }: { post: PostType }) => {
 	);
 };
 
-const PostPicture = ({ post }: { post: PostType }) => {
-	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
-		useMainContext();
-	const [loaded, setLoaded] = useState(false);
-
-	useEffect(() => {
-		if (selectedPost === post.id) {
-			scrollToId(post.id);
-		}
-	}, []);
-
+const PostSkeleton = ({
+	post,
+	loading,
+	children,
+}: {
+	post: PostType;
+	loading: boolean;
+	children: ReactNode;
+}) => {
+	const { headerHeight } = useMainContext();
+	// TODO: move this into context
 	const calculateRenderSize = (imageWidth: number, imageHeight: number) => {
 		const windowWidth = document.documentElement.clientWidth;
 		const windowHeight = window.innerHeight - headerHeight;
@@ -76,29 +76,48 @@ const PostPicture = ({ post }: { post: PostType }) => {
 				id={post.id}
 				className="bg-gray-100 inline-block"
 				style={{
-					width: loaded ? "auto" : width,
-					height: loaded ? "auto" : height,
+					width: loading ? width : "auto",
+					height: loading ? height : "auto",
 				}}
 			>
-				<img
-					className="max-w-full cursor-zoom-out"
-					style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
-					src={post.fileUrl}
-					alt={`${post.id}`}
-					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-					onClick={() => handleSelectPost(post.id)}
-					onLoad={() => {
-						setLoaded(true);
-					}}
-				/>
+				{children}
 			</div>
 		</div>
+	);
+};
+
+const PostPicture = ({ post }: { post: PostType }) => {
+	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
+		useMainContext();
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (selectedPost === post.id) {
+			scrollToId(post.id);
+		}
+	}, []);
+
+	return (
+		<PostSkeleton post={post} loading={loading}>
+			<img
+				className="max-w-full cursor-zoom-out"
+				style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
+				src={post.fileUrl}
+				alt={`${post.id}`}
+				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+				onClick={() => handleSelectPost(post.id)}
+				onLoad={() => {
+					setLoading(false);
+				}}
+			/>
+		</PostSkeleton>
 	);
 };
 
 const PostVideo = ({ post }: { post: PostType }) => {
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
+
 	return (
 		<video
 			id={post.id}
