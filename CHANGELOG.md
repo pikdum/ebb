@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/pikdum/ebb/compare/v1.0.1...v1.1.0) (2024-05-19)
+
+
+### Features
+
+* add next page button ([e589175](https://github.com/pikdum/ebb/commit/e5891759b7a4d79673d1da5f2954e9a835e6dc88))
+* header button styling ([e2b7404](https://github.com/pikdum/ebb/commit/e2b7404798f16ed0307825ef6e852980df9ce803))
+* responsiveness improvements ([e9a936b](https://github.com/pikdum/ebb/commit/e9a936ba8b17d4ebc464c78811c55ce3732e1e4a))
+* show tags if no thumbnail ([b623a84](https://github.com/pikdum/ebb/commit/b623a84d978a7bb823e2fc9164735b21e0dd55f6))
+* show tags on unknown type ([11d1eb7](https://github.com/pikdum/ebb/commit/11d1eb7e5c0c1727913b41d490bbd681c6f09135))
+* video autoplay + max height ([ad15f46](https://github.com/pikdum/ebb/commit/ad15f46b42f8e96150e60dc3fa78e71329615006))
+
 ## [1.0.1](https://github.com/pikdum/ebb/compare/v1.0.0...v1.0.1) (2024-05-19)
 
 
