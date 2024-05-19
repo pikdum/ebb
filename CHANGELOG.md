@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/pikdum/ebb/compare/v1.2.0...v1.3.0) (2024-05-19)
+
+
+### Features
+
+* prefer sample image over preview ([061031d](https://github.com/pikdum/ebb/commit/061031d609cd1caf62aefd64711768efbbf8fc68))
+
 ## [1.2.0](https://github.com/pikdum/ebb/compare/v1.1.0...v1.2.0) (2024-05-19)
 
 
