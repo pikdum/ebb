@@ -19,6 +19,8 @@ jobs:
           release-type: node
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
+      - run: git config --global safe.directory '*'
+        if: ${{ steps.release.outputs.release_created }}
       - run: ./publish.sh
         if: ${{ steps.release.outputs.release_created }}
         env:
