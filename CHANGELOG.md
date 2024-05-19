@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/pikdum/ebb/compare/v1.3.0...v1.3.1) (2024-05-19)
+
+
+### Bug Fixes
+
+* prefer image for preview ([0be918e](https://github.com/pikdum/ebb/commit/0be918e0e7a7c87f64e4be2403d03fef8e9b790b))
+
 ## [1.3.0](https://github.com/pikdum/ebb/compare/v1.2.0...v1.3.0) (2024-05-19)
 
 
