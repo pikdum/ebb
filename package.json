@@ -8,14 +8,11 @@
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
-			"publish": [
-				"github"
-			]
+			"publish": ["github"]
 		},
 		"linux": {
-			"publish": [
-				"github"
-			]
+			"target": "AppImage",
+			"publish": ["github"]
 		}
 	},
 	"scripts": {
