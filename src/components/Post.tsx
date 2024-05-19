@@ -13,12 +13,10 @@ const PostPreview = ({ post }: { post: PostType }) => {
 	if (!isImage || blacklist.includes(previewUrl)) {
 		return (
 			<div
-				className="bg-gray-500 aspect-square p-2 break-all text-white cursor-zoom-in"
+				className="bg-gray-500 aspect-square p-2 break-words text-white cursor-zoom-in overflow-y-scroll"
 				onClick={() => handleSelectPost(post.id)}
 			>
-				<p className="font-semibold">No Thumbnail</p>
-				<p>{post.id}</p>
-				<p>{post.fileUrl}</p>
+				<code>{post.tags.join(" ")}</code>
 			</div>
 		);
 	}
