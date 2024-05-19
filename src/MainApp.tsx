@@ -181,7 +181,7 @@ export const Main = () => {
 				<LoadingIndicator className="text-center m-6 text-blue-500" />
 			)}
 			{!loading && (
-				<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+				<main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 					{posts.map((post) => (
 						<Post post={post} key={post.id} />
 					))}

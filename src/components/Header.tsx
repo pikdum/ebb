@@ -54,6 +54,38 @@ export const Header = () => {
 						onChange={(e) => setTempQuery(e.currentTarget.value)}
 						value={tempQuery}
 					/>
+					<button
+						type="submit"
+						className={classNames(
+							"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded",
+							{
+								"animate-pulse": loading,
+							},
+						)}
+					>
+						<Search />
+					</button>
+				</div>
+				<div className="flex gap-2 items-center justify-between w-full md:w-auto">
+					<div className="flex gap-2 items-center">
+						<button
+							type="button"
+							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
+							onClick={handleDecrementPage}
+							disabled={page === 0}
+						>
+							<ChevronLeft />
+						</button>
+						<span className="text-lg font-bold">Page&nbsp;{page + 1}</span>
+						<button
+							type="button"
+							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
+							onClick={handleIncrementPage}
+							disabled={query === undefined}
+						>
+							<ChevronRight />
+						</button>
+					</div>
 					<select
 						className="border border-gray-300 rounded p-2 focus:border-blue-500 focus:outline-none"
 						value={currentSite}
@@ -71,36 +103,6 @@ export const Header = () => {
 								);
 							})}
 					</select>
-					<button
-						type="submit"
-						className={classNames(
-							"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded",
-							{
-								"animate-pulse": loading,
-							},
-						)}
-					>
-						<Search />
-					</button>
-				</div>
-				<div className="flex gap-2 items-center">
-					<button
-						type="button"
-						className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
-						onClick={handleDecrementPage}
-						disabled={page === 0}
-					>
-						<ChevronLeft />
-					</button>
-					<span className="text-lg font-bold">{page + 1}</span>
-					<button
-						type="button"
-						className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
-						onClick={handleIncrementPage}
-						disabled={query === undefined}
-					>
-						<ChevronRight />
-					</button>
 				</div>
 			</form>
 		</header>
