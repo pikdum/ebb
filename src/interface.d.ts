@@ -19,6 +19,7 @@ export interface Post {
 	createdAt: Date; // The Date this image was created at
 	postView: string; // A URL to the post
 	width?: number;
+	height?: number;
 }
 
 declare global {
