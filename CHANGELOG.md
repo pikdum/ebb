@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/pikdum/ebb/compare/v1.3.1...v1.3.2) (2024-05-19)
+
+
+### Bug Fixes
+
+* publish script ([5a47581](https://github.com/pikdum/ebb/commit/5a47581af969b5b7fa8df0b2d70523dddfcb1e08))
+
 ## [1.3.1](https://github.com/pikdum/ebb/compare/v1.3.0...v1.3.1) (2024-05-19)
 
 
