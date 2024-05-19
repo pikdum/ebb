@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/pikdum/ebb/compare/v1.0.0...v1.0.1) (2024-05-19)
+
+
+### Bug Fixes
+
+* remove squirrel package ([c958e94](https://github.com/pikdum/ebb/commit/c958e94ab7916c3521486b160ad0a6dab1027716))
+
 ## 1.0.0 (2024-05-19)
 
 
