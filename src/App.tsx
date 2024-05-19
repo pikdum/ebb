@@ -208,8 +208,9 @@ export const App = () => {
 	const PostPreview = ({ post }: { post: Post }) => {
 		const previewUrl = post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl;
 		const ext = previewUrl.split(".").pop();
-		const isImage = ["jpg", "jpeg", "png", "gif"].includes(ext);
-		if (!isImage) {
+		const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
+		const blacklist = ["https://cdn.donmai.us/images/flash-preview.png"];
+		if (!isImage || blacklist.includes(previewUrl)) {
 			return (
 				<div
 					className="bg-gray-500 aspect-square p-2 break-all text-white cursor-zoom-in"
@@ -318,26 +319,21 @@ export const App = () => {
 	};
 
 	const PostSWF = ({ post }: { post: Post }) => {
+		// TODO: scroll to this on load (onLoad doesn't work)
 		return (
-			<div
-				id={post.id}
-				className="col-span-2 md:col-span-3 lg:col-span-4 text-center"
-			>
-				<object
-					className="w-full"
-					data={post.fileUrl}
-					type="application/x-shockwave-flash"
-					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
-					onLoad={() => {
-						if (selectedPost === post.id) {
-							scrollToId(post.id);
-						}
-					}}
-					style={{ height: `calc(100vh - ${headerHeight}px)` }}
-				/>
+			<div className="col-span-2 md:col-span-3 lg:col-span-4 text-center">
+				<div id={post.id} style={{ height: `calc(100vh - ${headerHeight}px)` }}>
+					<object
+						className="w-full"
+						data={post.fileUrl}
+						type="application/x-shockwave-flash"
+						title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
+						style={{ height: `calc(100vh - ${headerHeight}px)` }}
+					/>
+				</div>
 				<button
 					type="button"
-					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded"
 					onClick={() => handleSelectPost(post.id)}
 				>
 					Close {post.id}
@@ -365,7 +361,7 @@ export const App = () => {
 			return PostPreview({ post });
 		}
 		const ext = post.fileUrl.split(".").pop();
-		const isImage = ["jpg", "jpeg", "png", "gif"].includes(ext);
+		const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
 		const isVideo = ["webm", "mp4"].includes(ext);
 		const isSWF = ["swf"].includes(ext);
 		if (isImage) {
