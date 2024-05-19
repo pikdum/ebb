@@ -207,6 +207,20 @@ export const App = () => {
 
 	const PostPreview = ({ post }: { post: Post }) => {
 		const previewUrl = post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl;
+		const ext = previewUrl.split(".").pop();
+		const isImage = ["jpg", "jpeg", "png", "gif"].includes(ext);
+		if (!isImage) {
+			return (
+				<div
+					className="bg-gray-500 aspect-square p-2 break-all text-white cursor-zoom-in"
+					onClick={() => handleSelectPost(post.id)}
+				>
+					<p className="font-semibold">No Thumbnail</p>
+					<p>{post.id}</p>
+					<p>{post.fileUrl}</p>
+				</div>
+			);
+		}
 		return (
 			<div className="w-full aspect-square bg-gray-100">
 				<img
