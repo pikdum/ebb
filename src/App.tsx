@@ -100,34 +100,36 @@ export const App = () => {
 
 	// scrolls id to center, accounting for sticky header
 	const scrollToId = (id: string) => {
-		const element = document.getElementById(id);
-		if (element) {
-			const viewportHeight = window.innerHeight;
-			const elementHeight = element.offsetHeight;
+		setTimeout(() => {
+			const element = document.getElementById(id);
+			if (element) {
+				const viewportHeight = window.innerHeight;
+				const elementHeight = element.offsetHeight;
 
-			// retry if elementHeight is 0
-			if (elementHeight === 0) {
-				setTimeout(() => {
-					scrollToId(id);
-				}, 100);
-				return;
+				// retry if elementHeight is 0
+				if (elementHeight === 0) {
+					setTimeout(() => {
+						scrollToId(id);
+					}, 100);
+					return;
+				}
+
+				const offsetTop = element.getBoundingClientRect().top;
+				const scrollPosition =
+					window.pageYOffset || document.documentElement.scrollTop;
+
+				const scrollTo =
+					offsetTop +
+					scrollPosition -
+					(viewportHeight - elementHeight) / 2 -
+					headerHeight / 2;
+
+				window.scrollTo({
+					top: scrollTo,
+					behavior: "smooth",
+				});
 			}
-
-			const offsetTop = element.getBoundingClientRect().top;
-			const scrollPosition =
-				window.pageYOffset || document.documentElement.scrollTop;
-
-			const scrollTo =
-				offsetTop +
-				scrollPosition -
-				(viewportHeight - elementHeight) / 2 -
-				headerHeight / 2;
-
-			window.scrollTo({
-				top: scrollTo,
-				behavior: "smooth",
-			});
-		}
+		}, 100);
 	};
 
 	const handleSelectPost = (post_id: string) => {
@@ -288,9 +290,6 @@ export const App = () => {
 						onClick={() => handleSelectPost(post.id)}
 						onLoad={() => {
 							setLoaded(true);
-							if (selectedPost === post.id) {
-								scrollToId(post.id);
-							}
 						}}
 					/>
 				</div>
