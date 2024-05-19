@@ -6,7 +6,7 @@ import { useMainContext } from "../MainApp";
 
 const PostPreview = ({ post }: { post: PostType }) => {
 	const { handleSelectPost } = useMainContext();
-	const previewUrl = post?.previewUrl ?? post?.sampleUrl ?? post.fileUrl;
+	const previewUrl = post?.sampleUrl ?? post?.previewUrl ?? post.fileUrl;
 	const ext = previewUrl.split(".").pop();
 	const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
 	const blacklist = ["https://cdn.donmai.us/images/flash-preview.png"];
