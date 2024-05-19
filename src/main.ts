@@ -1,6 +1,7 @@
 import path from "node:path";
 import Booru from "booru";
 import { BrowserWindow, app, ipcMain, session } from "electron";
+import { autoUpdater } from "electron-updater";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -52,6 +53,7 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
+	autoUpdater.checkForUpdatesAndNotify();
 	ipcMain.handle(
 		"booru:search",
 		// @ts-ignore

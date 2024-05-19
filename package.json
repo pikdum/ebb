@@ -3,7 +3,17 @@
 	"productName": "ebb",
 	"version": "0.0.3",
 	"description": "electron booru browser",
+	"homepage": "https://github.com/pikdum/ebb",
 	"main": ".vite/build/main.js",
+	"build": {
+		"appId": "dev.pikdum.ebb",
+		"win": {
+			"publish": ["github"]
+		},
+		"linux": {
+			"publish": ["github"]
+		}
+	},
 	"scripts": {
 		"start": "electron-forge start",
 		"package": "electron-forge package",
@@ -50,6 +60,7 @@
 		"booru": "2.6.5",
 		"classnames": "2.5.1",
 		"electron-squirrel-startup": "1.0.1",
+		"electron-updater": "6.1.8",
 		"react": "18.3.1",
 		"react-dom": "18.3.1"
 	}
