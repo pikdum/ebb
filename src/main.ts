@@ -1,6 +1,6 @@
 import path from "node:path";
 import Booru from "booru";
-import { BrowserWindow, app, ipcMain } from "electron";
+import { BrowserWindow, app, ipcMain, session } from "electron";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -15,6 +15,21 @@ const createWindow = () => {
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
+	});
+
+	const urls = [
+		"https://yande.re",
+		"https://assets.yande.re",
+		"https://files.yande.re",
+	];
+
+	session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+		if (urls.some((url) => details.url.startsWith(url))) {
+			details.requestHeaders.Referer = null;
+		} else {
+			details.requestHeaders.Referer = details.url;
+		}
+		callback({ cancel: false, requestHeaders: details.requestHeaders });
 	});
 
 	// and load the index.html of the app.
