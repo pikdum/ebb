@@ -13,7 +13,8 @@
 		"check": "biome check .",
 		"build": "rm -rf dist/ out/ && npm run package -- -p linux,win32 && electron-builder -wl -p never",
 		"build:linux": "rm -rf dist/ out/ && npm run package -- -p linux && electron-builder -l -p never",
-		"build:windows": "rm -rf dist/ out/ && npm run package -- -p win32 && electron-builder -w -p never"
+		"build:windows": "rm -rf dist/ out/ && npm run package -- -p win32 && electron-builder -w -p never",
+		"check-types": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.7.3",

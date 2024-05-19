@@ -59,9 +59,11 @@ export const Header = () => {
 						{Object.keys(sites)
 							.sort()
 							.map((key) => {
+								// @ts-ignore
+								const isNSFW = sites?.[key].nsfw;
 								return (
 									<option key={key} value={key}>
-										{`${key}${sites[key].nsfw ? " (NSFW)" : ""}`}
+										{`${key}${isNSFW ? " (NSFW)" : ""}`}
 									</option>
 								);
 							})}

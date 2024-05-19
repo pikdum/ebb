@@ -1,5 +1,7 @@
 import {
+	type Dispatch,
 	type ReactNode,
+	type SetStateAction,
 	createContext,
 	useContext,
 	useEffect,
@@ -18,28 +20,25 @@ const MainContext = createContext(
 	{} as {
 		posts: PostType[];
 		page: number;
-		setPage: (page: number) => void;
+		setPage: Dispatch<SetStateAction<number>>;
 		tempQuery: string;
-		setTempQuery: (tempQuery: string) => void;
+		setTempQuery: Dispatch<SetStateAction<string>>;
 		query: string | undefined;
-		setQuery: (query: string | undefined) => void;
+		setQuery: Dispatch<SetStateAction<string | undefined>>;
 		selectedPosts: string[];
 		selectedPost: string | undefined;
 		loading: boolean;
 		error: string | undefined;
 		currentSite: string;
-		setCurrentSite: (currentSite: string) => void;
+		setCurrentSite: Dispatch<SetStateAction<string>>;
 		headerRef: React.RefObject<HTMLDivElement>;
 		headerHeight: number;
 		handleSelectPost: (post_id: string) => void;
 		scrollToId: (id: string) => void;
-		fetchPosts: ({
-			attempts,
-			maxAttempts,
-		}: {
+		fetchPosts: (options?: {
 			attempts?: number;
 			maxAttempts?: number;
-		}) => void;
+		}) => Promise<void>;
 	},
 );
 export const useMainContext = () => useContext(MainContext);

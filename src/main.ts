@@ -33,10 +33,13 @@ const createWindow = () => {
 	});
 
 	// and load the index.html of the app.
+	// @ts-ignore
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+		// @ts-ignore
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
 		mainWindow.loadFile(
+			// @ts-ignore
 			path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
 		);
 	}
@@ -51,6 +54,7 @@ const createWindow = () => {
 app.on("ready", () => {
 	ipcMain.handle(
 		"booru:search",
+		// @ts-ignore
 		async (_event, ...args) => await Booru.search(...args),
 	);
 	createWindow();
