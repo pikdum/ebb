@@ -162,13 +162,15 @@ export const App = () => {
 							value={currentSite}
 							onChange={handleChangeSite}
 						>
-							{Object.keys(sites).map((key) => {
-								return (
-									<option key={key} value={key}>
-										{`${key}${sites[key].nsfw ? " (NSFW)" : ""}`}
-									</option>
-								);
-							})}
+							{Object.keys(sites)
+								.sort()
+								.map((key) => {
+									return (
+										<option key={key} value={key}>
+											{`${key}${sites[key].nsfw ? " (NSFW)" : ""}`}
+										</option>
+									);
+								})}
 						</select>
 						<button
 							type="submit"
