@@ -158,12 +158,13 @@ const PostUnknown = ({ post }: { post: PostType }) => {
 	const { handleSelectPost } = useMainContext();
 	return (
 		<div
-			className="bg-gray-500 aspect-square p-2 break-all text-white"
+			className="bg-gray-500 aspect-square p-2 break-word text-white cursor-zoom-out overflow-y-scroll"
 			onClick={() => handleSelectPost(post.id)}
 		>
 			<p className="font-semibold">Unknown File Type</p>
 			<p>{post.id}</p>
 			<p>{post.fileUrl}</p>
+			<p>{post.tags.join(" ")}</p>
 		</div>
 	);
 };
