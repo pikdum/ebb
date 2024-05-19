@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { PostType } from "../interface";
 
-import { useMainContext } from "../Main";
+import { useMainContext } from "../MainApp";
 
 const PostPreview = ({ post }: { post: PostType }) => {
 	const { handleSelectPost } = useMainContext();

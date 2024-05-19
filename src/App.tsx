@@ -1,4 +1,4 @@
-import { Main, MainContextProvider } from "./Main";
+import { Main, MainContextProvider } from "./MainApp";
 
 export const App = () => {
 	return (

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useMainContext } from "../Main";
+import { useMainContext } from "../MainApp";
 import sites from "../sites.json";
 
 export const Header = () => {

@@ -1,4 +1,4 @@
-import { useMainContext } from "../Main";
+import { useMainContext } from "../MainApp";
 
 export const EmptyState = () => {
 	const { setTempQuery } = useMainContext();
