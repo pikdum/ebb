@@ -1,9 +1,12 @@
 import classNames from "classnames";
+import { ChevronLeft, ChevronRight, Search } from "react-feather";
+
 import { useMainContext } from "../MainApp";
 import sites from "../sites.json";
 
 export const Header = () => {
 	const {
+		query,
 		tempQuery,
 		setTempQuery,
 		setQuery,
@@ -71,31 +74,32 @@ export const Header = () => {
 					<button
 						type="submit"
 						className={classNames(
-							"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+							"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded",
 							{
 								"animate-pulse": loading,
 							},
 						)}
 					>
-						Search
+						<Search />
 					</button>
 				</div>
 				<div className="flex gap-2 items-center">
 					<button
 						type="button"
-						className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+						className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
 						onClick={handleDecrementPage}
 						disabled={page === 0}
 					>
-						⮜
+						<ChevronLeft />
 					</button>
 					<span className="text-lg font-bold">{page + 1}</span>
 					<button
 						type="button"
-						className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+						className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
 						onClick={handleIncrementPage}
+						disabled={query === undefined}
 					>
-						⮞
+						<ChevronRight />
 					</button>
 				</div>
 			</form>
