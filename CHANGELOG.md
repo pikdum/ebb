@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.4](https://github.com/pikdum/ebb/compare/v1.3.3...v1.3.4) (2024-05-19)
+
+
+### Bug Fixes
+
+* windows build ([d075741](https://github.com/pikdum/ebb/commit/d0757410617704dffff4874852c03a7ede57bf0f))
+
 ## [1.3.3](https://github.com/pikdum/ebb/compare/v1.3.2...v1.3.3) (2024-05-19)
 
 
