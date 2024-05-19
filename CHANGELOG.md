@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/pikdum/ebb/compare/v1.1.0...v1.2.0) (2024-05-19)
+
+
+### Features
+
+* video loading background ([ddc5021](https://github.com/pikdum/ebb/commit/ddc5021efab6f771e17fcf86421e8bd20cb066d5))
+
+
+### Bug Fixes
+
+* video loop causing scrolling ([d7c5363](https://github.com/pikdum/ebb/commit/d7c53637029322f58b5135b6087c5ed3c13705c3))
+
 ## [1.1.0](https://github.com/pikdum/ebb/compare/v1.0.1...v1.1.0) (2024-05-19)
 
 
