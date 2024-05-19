@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/pikdum/ebb/compare/v1.3.2...v1.3.3) (2024-05-19)
+
+
+### Bug Fixes
+
+* try running publish as root ([ea5f25c](https://github.com/pikdum/ebb/commit/ea5f25cb6beeeffe72d4e73f5cac82249a8fecae))
+
 ## [1.3.2](https://github.com/pikdum/ebb/compare/v1.3.1...v1.3.2) (2024-05-19)
 
 
