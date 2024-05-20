@@ -3,7 +3,7 @@ import { useMainContext } from "../MainApp";
 export const EmptyState = () => {
 	const { setTempQuery } = useMainContext();
 	return (
-		<div className="flex items-center justify-center m-6">
+		<div className="flex items-center justify-center m-6 select-text">
 			<div className="text-left">
 				<h1 className="text-4xl font-semibold mb-2">Quick Start</h1>
 				<ul className="list-disc">
