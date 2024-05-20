@@ -196,7 +196,7 @@ export const Main = () => {
 	}, [page, query, currentSite]);
 
 	return (
-		<div className="select-none">
+		<div className="select-text">
 			{Header()}
 			{loading && (
 				<LoadingIndicator className="text-center m-6 text-blue-500" />

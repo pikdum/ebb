@@ -1,7 +1,24 @@
 import path from "node:path";
 import Booru from "booru";
 import { BrowserWindow, app, ipcMain, session } from "electron";
+import contextMenu from "electron-context-menu";
 import { autoUpdater } from "electron-updater";
+
+contextMenu({
+	showSelectAll: false,
+	showCopyLink: false,
+	showLearnSpelling: false,
+	showLookUpSelection: false,
+	showSearchWithGoogle: false,
+	showSaveImage: true,
+	showSaveVideo: true,
+	shouldShowMenu: (_event, params) => {
+		if (params?.altText?.endsWith("(Preview)")) {
+			return false;
+		}
+		return true;
+	},
+});
 
 const createWindow = () => {
 	// Create the browser window.

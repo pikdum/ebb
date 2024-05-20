@@ -47,7 +47,7 @@ const PostPreview = ({ post }: { post: PostType }) => {
 				className="object-cover w-full aspect-square cursor-zoom-in"
 				src={previewUrl}
 				loading="lazy"
-				alt={`${post.id}`}
+				alt={`${post.id} (Preview)`}
 				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 				onClick={() => handleSelectPost(post.id)}
 			/>
