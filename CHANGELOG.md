@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/pikdum/ebb/compare/v1.4.0...v1.4.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* be more strict with what can be selected ([2ed72a0](https://github.com/pikdum/ebb/commit/2ed72a047e718f5d39db109a525a279c31c42838))
+
 ## [1.4.0](https://github.com/pikdum/ebb/compare/v1.3.9...v1.4.0) (2024-05-20)
 
 
