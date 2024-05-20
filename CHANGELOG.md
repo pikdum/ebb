@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/pikdum/ebb/compare/v1.3.9...v1.4.0) (2024-05-20)
+
+
+### Features
+
+* add right click menu ([506a99c](https://github.com/pikdum/ebb/commit/506a99c2171f9069ed663ed0b14430a2356b0b01))
+
 ## [1.3.9](https://github.com/pikdum/ebb/compare/v1.3.8...v1.3.9) (2024-05-19)
 
 
