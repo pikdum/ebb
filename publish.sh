@@ -7,6 +7,7 @@ export WINEPREFIX="$(mktemp -d)"
 trap 'rm -rf "$WINEPREFIX"' EXIT
 
 npm install
+export NODE_ENV=production
 npm run build
 rm -rf dist/win-unpacked
 rm -rf dist/linux-unpacked
