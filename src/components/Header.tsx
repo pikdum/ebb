@@ -1,7 +1,10 @@
 import classNames from "classnames";
+import Downshift from "downshift";
+import { useDeferredValue, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 
 import { useMainContext } from "../MainApp";
+import { autocomplete } from "../lib/autocomplete";
 import sites from "../sites.json";
 
 export const Header = () => {
@@ -18,7 +21,15 @@ export const Header = () => {
 		headerRef,
 		incrementPage,
 		decrementPage,
+		headerHeight,
 	} = useMainContext();
+
+	const [_autocompleteResults, setAutocompleteResults] = useState([]);
+	const autocompleteResults = useDeferredValue(_autocompleteResults);
+	const searchRef = useRef<HTMLInputElement>(null);
+	const isCaretInLastWord =
+		searchRef.current?.selectionStart >=
+		tempQuery.length - tempQuery.split(" ").pop().length;
 
 	const handleChangeSite = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setCurrentSite(e.target.value);
@@ -29,6 +40,26 @@ export const Header = () => {
 		e.preventDefault();
 		setQuery(tempQuery);
 		setPage(0);
+		setAutocompleteResults([]);
+	};
+
+	const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.currentTarget.value;
+		setTempQuery(value);
+		const results = await autocomplete(currentSite, value.split(" ").pop());
+		setAutocompleteResults(results);
+	};
+
+	const handleDownshiftChange = (selection: {
+		value: string;
+		name: string;
+	}) => {
+		const currentWord = tempQuery.split(" ").pop();
+		const combined = tempQuery.slice(0, -currentWord.length) + selection.value;
+		setTempQuery(combined);
+		setQuery(combined);
+		setPage(0);
+		setAutocompleteResults([]);
 	};
 
 	return (
@@ -41,13 +72,53 @@ export const Header = () => {
 				className="flex items-center gap-2 w-full flex-col md:flex-row"
 			>
 				<div className="flex gap-2 items-center w-full">
-					<input
-						className="border border-gray-300 rounded p-2 w-full focus:border-blue-500 focus:outline-none"
-						placeholder="Search..."
-						type="search"
-						onChange={(e) => setTempQuery(e.currentTarget.value)}
-						value={tempQuery}
-					/>
+					<Downshift
+						onChange={handleDownshiftChange}
+						itemToString={(item) => item.value}
+					>
+						{({
+							getInputProps,
+							getItemProps,
+							getMenuProps,
+							highlightedIndex,
+						}) => (
+							<div className="w-full relative">
+								<input
+									{...getInputProps()}
+									onChange={handleSearchChange}
+									value={tempQuery}
+									className="border border-gray-300 rounded p-2 w-full focus:border-blue-500 focus:outline-none"
+									ref={searchRef}
+								/>
+								<ul
+									{...getMenuProps()}
+									className={classNames(
+										"absolute mt-4 p-1 rounded bg-white shadow overflow-y-auto z-20",
+										{
+											hidden:
+												autocompleteResults.length === 0 || !isCaretInLastWord,
+										},
+									)}
+									style={{ maxHeight: `calc(100vh - ${headerHeight}px - 1em)` }}
+								>
+									{autocompleteResults.map((item, index) => (
+										<li
+											key={item.value}
+											{...getItemProps({
+												index,
+												item,
+												className: classNames("p-1 rounded", {
+													"bg-blue-200": highlightedIndex === index,
+												}),
+											})}
+										>
+											{item.label}
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</Downshift>
 					<button
 						type="submit"
 						className={classNames(
@@ -70,7 +141,9 @@ export const Header = () => {
 						>
 							<ChevronLeft />
 						</button>
-						<span className="text-lg font-bold">Page&nbsp;{page + 1}</span>
+						<span className="text-lg font-bold whitespace-nowrap">
+							Page {page + 1}
+						</span>
 						<button
 							type="button"
 							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
