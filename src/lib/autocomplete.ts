@@ -8,6 +8,7 @@ type Site =
 	| "e621.net"
 	| "e926.net"
 	| "gelbooru.com"
+	| "rule34.xxx"
 	| "safebooru.org";
 
 type SiteConfig = {
@@ -117,6 +118,25 @@ const sites: Record<Site, SiteConfig> = {
 					label: `${item.label} (${item.post_count})`,
 					value: item.value,
 				}));
+			}
+			return [];
+		},
+	},
+	"rule34.xxx": {
+		autocomplete: async (query: string): Promise<AutocompleteItem[]> => {
+			type Item = {
+				label: string;
+				value: string;
+			};
+			if (!query) {
+				return [];
+			}
+			const url = new URL("https://rule34.xxx/autocomplete.php");
+			url.searchParams.append("q", query);
+			const response = await fetch(url);
+			if (response.ok) {
+				const data = (await response.json()) as Item[];
+				return data;
 			}
 			return [];
 		},
