@@ -36,6 +36,7 @@ const createWindow = () => {
 		"https://files.yande.re",
 	];
 
+	// bypass referer checks
 	session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
 		if (urls.some((url) => details.url.startsWith(url))) {
 			details.requestHeaders.Referer = null;
@@ -43,6 +44,17 @@ const createWindow = () => {
 			details.requestHeaders.Referer = details.url;
 		}
 		callback({ cancel: false, requestHeaders: details.requestHeaders });
+	});
+
+	// bypass CORS
+	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+		console.log(details.responseHeaders);
+		callback({
+			responseHeaders: {
+				...details.responseHeaders,
+				"access-control-allow-origin": ["*"],
+			},
+		});
 	});
 
 	// and load the index.html of the app.
