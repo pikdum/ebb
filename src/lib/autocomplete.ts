@@ -3,7 +3,7 @@ type AutocompleteItem = {
 	value: string;
 };
 
-type Site = "danbooru.donmai.us" | "gelbooru.com";
+type Site = "danbooru.donmai.us" | "gelbooru.com" | "safebooru.org";
 
 type SiteConfig = {
 	autocomplete: (query: string) => Promise<AutocompleteItem[]>;
@@ -62,6 +62,25 @@ const sites: Record<Site, SiteConfig> = {
 					label: `${item.label} (${item.post_count})`,
 					value: item.value,
 				}));
+			}
+			return [];
+		},
+	},
+	"safebooru.org": {
+		autocomplete: async (query: string): Promise<AutocompleteItem[]> => {
+			type Item = {
+				label: string;
+				value: string;
+			};
+			if (!query) {
+				return [];
+			}
+			const url = new URL("https://safebooru.org/autocomplete.php");
+			url.searchParams.append("q", query);
+			const response = await fetch(url);
+			if (response.ok) {
+				const data = (await response.json()) as Item[];
+				return data;
 			}
 			return [];
 		},
