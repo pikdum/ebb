@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/pikdum/ebb/compare/v1.5.0...v1.5.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* mashing esc causing error ([3763f85](https://github.com/pikdum/ebb/commit/3763f85dbe95afcfbc0cda2252cb1bd488e91566))
+
 ## [1.5.0](https://github.com/pikdum/ebb/compare/v1.4.1...v1.5.0) (2024-05-22)
 
 
