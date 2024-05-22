@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/pikdum/ebb/compare/v1.6.0...v1.6.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* update npm in builder image ([22bdd5e](https://github.com/pikdum/ebb/commit/22bdd5e2d0933b71d2666076b650c1809d5c7619))
+
 ## [1.6.0](https://github.com/pikdum/ebb/compare/v1.5.3...v1.6.0) (2024-05-22)
 
 
