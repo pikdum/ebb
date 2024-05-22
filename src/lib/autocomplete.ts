@@ -9,7 +9,8 @@ type Site =
 	| "e926.net"
 	| "gelbooru.com"
 	| "rule34.xxx"
-	| "safebooru.org";
+	| "safebooru.org"
+	| "tbib.org";
 
 type SiteConfig = {
 	autocomplete: (query: string) => Promise<AutocompleteItem[]>;
@@ -151,6 +152,25 @@ const sites: Record<Site, SiteConfig> = {
 				return [];
 			}
 			const url = new URL("https://safebooru.org/autocomplete.php");
+			url.searchParams.append("q", query);
+			const response = await fetch(url);
+			if (response.ok) {
+				const data = (await response.json()) as Item[];
+				return data;
+			}
+			return [];
+		},
+	},
+	"tbib.org": {
+		autocomplete: async (query: string): Promise<AutocompleteItem[]> => {
+			type Item = {
+				label: string;
+				value: string;
+			};
+			if (!query) {
+				return [];
+			}
+			const url = new URL("https://tbib.org/autocomplete.php");
 			url.searchParams.append("q", query);
 			const response = await fetch(url);
 			if (response.ok) {
