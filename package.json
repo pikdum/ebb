@@ -40,7 +40,7 @@
 		"@electron/fuses": "1.8.0",
 		"@types/react": "npm:types-react@alpha",
 		"@types/react-dom": "npm:types-react-dom@alpha",
-		"@vitejs/plugin-react": "4.2.1",
+		"@vitejs/plugin-react": "4.3.0",
 		"autoprefixer": "10.4.19",
 		"babel-plugin-react-compiler": "0.0.0-experimental-592953e-20240517",
 		"electron": "30.0.6",
