@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import Booru from "booru";
 import { BrowserWindow, app, ipcMain, session } from "electron";
@@ -55,6 +57,22 @@ const createWindow = () => {
 			},
 		});
 	});
+
+	const reactDevTools = path.join(
+		os.homedir(),
+		".config",
+		"chromium",
+		"Default",
+		"Extensions",
+		"fmkadmapgofadopljbjfkapdkoienihi",
+		"5.2.0_0",
+	);
+
+	if (existsSync(reactDevTools)) {
+		session.defaultSession.loadExtension(reactDevTools, {
+			allowFileAccess: true,
+		});
+	}
 
 	// and load the index.html of the app.
 	// @ts-ignore
