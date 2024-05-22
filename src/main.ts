@@ -48,7 +48,6 @@ const createWindow = () => {
 
 	// bypass CORS
 	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-		console.log(details.responseHeaders);
 		callback({
 			responseHeaders: {
 				...details.responseHeaders,

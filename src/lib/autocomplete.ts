@@ -114,7 +114,6 @@ const sites: Record<Site, SiteConfig> = {
 			const response = await fetch(url);
 			if (response.ok) {
 				const data = await response.json();
-				console.log(data);
 				return data.map((item: Item) => ({
 					label: `${item.label} (${item.post_count})`,
 					value: item.value,
