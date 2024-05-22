@@ -50,10 +50,13 @@ export const Header = () => {
 		setAutocompleteResults(results);
 	};
 
-	const handleDownshiftChange = (selection: {
-		value: string;
-		name: string;
-	}) => {
+	const handleDownshiftChange = (
+		selection: {
+			value: string;
+			name: string;
+		} | null,
+	) => {
+		if (!selection) return;
 		const currentWord = tempQuery.split(" ").pop();
 		const combined = tempQuery.slice(0, -currentWord.length) + selection.value;
 		setTempQuery(combined);
