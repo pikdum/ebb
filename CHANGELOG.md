@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/pikdum/ebb/compare/v1.5.3...v1.6.0) (2024-05-22)
+
+
+### Features
+
+* use react compiler ([#29](https://github.com/pikdum/ebb/issues/29)) ([7e8b460](https://github.com/pikdum/ebb/commit/7e8b460c22419f6b609daffe231c3560b5125e44))
+
 ## [1.5.3](https://github.com/pikdum/ebb/compare/v1.5.2...v1.5.3) (2024-05-22)
 
 
