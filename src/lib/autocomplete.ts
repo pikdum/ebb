@@ -16,6 +16,9 @@ type SiteConfig = {
 	autocomplete: (query: string) => Promise<AutocompleteItem[]>;
 };
 
+let controller = new AbortController();
+let signal = controller.signal;
+
 const sites: Record<Site, SiteConfig> = {
 	"danbooru.donmai.us": {
 		autocomplete: async (query: string): Promise<AutocompleteItem[]> => {
@@ -33,7 +36,7 @@ const sites: Record<Site, SiteConfig> = {
 			url.searchParams.append("search[query]", query);
 			url.searchParams.append("search[type]", "tag_query");
 			url.searchParams.append("limit", "10");
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = await response.json();
 				return data.map((item: Item) => ({
@@ -58,7 +61,7 @@ const sites: Record<Site, SiteConfig> = {
 			const url = new URL("https://e621.net/tags/autocomplete.json");
 			url.searchParams.append("search[name_matches]", query);
 			url.searchParams.append("expiry", "7");
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = await response.json();
 				return data.map((item: Item) => ({
@@ -83,7 +86,7 @@ const sites: Record<Site, SiteConfig> = {
 			const url = new URL("https://e926.net/tags/autocomplete.json");
 			url.searchParams.append("search[name_matches]", query);
 			url.searchParams.append("expiry", "7");
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = await response.json();
 				return data.map((item: Item) => ({
@@ -111,7 +114,7 @@ const sites: Record<Site, SiteConfig> = {
 			url.searchParams.append("term", query);
 			url.searchParams.append("type", "tag_query");
 			url.searchParams.append("limit", "10");
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = await response.json();
 				return data.map((item: Item) => ({
@@ -133,7 +136,7 @@ const sites: Record<Site, SiteConfig> = {
 			}
 			const url = new URL("https://rule34.xxx/autocomplete.php");
 			url.searchParams.append("q", query);
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = (await response.json()) as Item[];
 				return data;
@@ -152,7 +155,7 @@ const sites: Record<Site, SiteConfig> = {
 			}
 			const url = new URL("https://safebooru.org/autocomplete.php");
 			url.searchParams.append("q", query);
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = (await response.json()) as Item[];
 				return data;
@@ -171,7 +174,7 @@ const sites: Record<Site, SiteConfig> = {
 			}
 			const url = new URL("https://tbib.org/autocomplete.php");
 			url.searchParams.append("q", query);
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (response.ok) {
 				const data = (await response.json()) as Item[];
 				return data;
@@ -187,7 +190,14 @@ export const autocomplete = async (
 ): Promise<AutocompleteItem[]> => {
 	const handler = sites?.[site as Site]?.autocomplete;
 	if (handler) {
-		return await handler(query);
+		controller.abort();
+		controller = new AbortController();
+		signal = controller.signal;
+		try {
+			return await handler(query);
+		} catch (_e) {
+			return [];
+		}
 	}
 	return [];
 };
