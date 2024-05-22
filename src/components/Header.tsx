@@ -89,6 +89,8 @@ export const Header = () => {
 									value={tempQuery}
 									className="border border-gray-300 rounded p-2 w-full focus:border-blue-500 focus:outline-none"
 									ref={searchRef}
+									spellCheck="false"
+									autoComplete="off"
 								/>
 								<ul
 									{...getMenuProps()}
