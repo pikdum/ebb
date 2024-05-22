@@ -6,6 +6,7 @@ type AutocompleteItem = {
 type Site =
 	| "danbooru.donmai.us"
 	| "e621.net"
+	| "e926.net"
 	| "gelbooru.com"
 	| "safebooru.org";
 
@@ -53,6 +54,31 @@ const sites: Record<Site, SiteConfig> = {
 				return [];
 			}
 			const url = new URL("https://e621.net/tags/autocomplete.json");
+			url.searchParams.append("search[name_matches]", query);
+			url.searchParams.append("expiry", "7");
+			const response = await fetch(url);
+			if (response.ok) {
+				const data = await response.json();
+				return data.map((item: Item) => ({
+					label: `${item.name} (${item.post_count})`,
+					value: item.name,
+				}));
+			}
+			return [];
+		},
+	},
+	"e926.net": {
+		autocomplete: async (query: string): Promise<AutocompleteItem[]> => {
+			type Item = {
+				id: number;
+				name: string;
+				post_count: number;
+				category: number;
+			};
+			if (!query || query.length < 3) {
+				return [];
+			}
+			const url = new URL("https://e926.net/tags/autocomplete.json");
 			url.searchParams.append("search[name_matches]", query);
 			url.searchParams.append("expiry", "7");
 			const response = await fetch(url);
