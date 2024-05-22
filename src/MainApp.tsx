@@ -197,7 +197,7 @@ export const Main = () => {
 
 	return (
 		<div className="select-none">
-			{Header()}
+			<Header />
 			{loading && (
 				<LoadingIndicator className="text-center m-6 text-blue-500" />
 			)}
