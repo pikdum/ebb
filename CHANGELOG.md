@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.5.0](https://github.com/pikdum/ebb/compare/v1.4.1...v1.5.0) (2024-05-22)
+
+
+### Features
+
+* add autocomplete to danbooru ([89d051d](https://github.com/pikdum/ebb/commit/89d051d51e697a3e82a0bc36e0143ebbb439b810))
+* add autocomplete to e621 ([3ac83bf](https://github.com/pikdum/ebb/commit/3ac83bf4e5cb4f94c1f09f576dd9e4ed3341591b))
+* add autocomplete to e926 ([243295b](https://github.com/pikdum/ebb/commit/243295bac92c3e5ae2ab3c4a4d31a7a4cdec1f3b))
+* add autocomplete to gelbooru ([3700b1b](https://github.com/pikdum/ebb/commit/3700b1b917e3858ad21e9f99b8c4f11cd9c72e8c))
+* add autocomplete to rule34.xxx ([19c50ee](https://github.com/pikdum/ebb/commit/19c50ee10634a6a0187cff72b4228243c64326fb))
+* add autocomplete to safebooru ([a6930eb](https://github.com/pikdum/ebb/commit/a6930eb3e97d087b54b768077d1c9507ea70f2f9))
+* add autocomplete to tbib ([3dd9972](https://github.com/pikdum/ebb/commit/3dd9972be71b27442983cf0949138ca8116a9f08))
+
+
+### Bug Fixes
+
+* itemToString error ([38a9045](https://github.com/pikdum/ebb/commit/38a90450e90507f15ed75b833f8ca5d9a240e99f))
+* turn off spell check ([b3334ef](https://github.com/pikdum/ebb/commit/b3334ef1deb5b1389565d3c352554370a5b1583d))
+
 ## [1.4.1](https://github.com/pikdum/ebb/compare/v1.4.0...v1.4.1) (2024-05-20)
 
 
