@@ -98,7 +98,7 @@ export const Header = () => {
 								<ul
 									{...getMenuProps()}
 									className={classNames(
-										"absolute mt-4 p-1 rounded bg-white shadow overflow-y-auto z-20",
+										"absolute mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
 										{
 											hidden:
 												autocompleteResults.length === 0 || !isCaretInLastWord,
