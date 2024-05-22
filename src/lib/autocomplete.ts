@@ -193,11 +193,7 @@ export const autocomplete = async (
 		controller.abort();
 		controller = new AbortController();
 		signal = controller.signal;
-		try {
-			return await handler(query);
-		} catch (_e) {
-			return [];
-		}
+		return await handler(query);
 	}
 	return [];
 };

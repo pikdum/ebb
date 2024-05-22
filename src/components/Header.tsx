@@ -46,8 +46,12 @@ export const Header = () => {
 	const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.currentTarget.value;
 		setTempQuery(value);
-		const results = await autocomplete(currentSite, value.split(" ").pop());
-		setAutocompleteResults(results);
+		try {
+			const results = await autocomplete(currentSite, value.split(" ").pop());
+			setAutocompleteResults(results);
+		} catch (_e) {
+			// ignore errors, probably aborted fetch
+		}
 	};
 
 	const handleDownshiftChange = (
