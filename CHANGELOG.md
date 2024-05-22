@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.3](https://github.com/pikdum/ebb/compare/v1.5.2...v1.5.3) (2024-05-22)
+
+
+### Bug Fixes
+
+* cancel stale autocomplete requests ([497dc22](https://github.com/pikdum/ebb/commit/497dc22892d8bbb0146b71c3aad96dc12d1de607))
+* don't reset results on abort ([117be56](https://github.com/pikdum/ebb/commit/117be5665eb72f1ed384c1fa54662a73db49ad19))
+
 ## [1.5.2](https://github.com/pikdum/ebb/compare/v1.5.1...v1.5.2) (2024-05-22)
 
 
