@@ -74,7 +74,7 @@ export const Header = () => {
 				<div className="flex gap-2 items-center w-full">
 					<Downshift
 						onChange={handleDownshiftChange}
-						itemToString={(item) => item.value}
+						itemToString={(item) => item?.value ?? ""}
 					>
 						{({
 							getInputProps,
