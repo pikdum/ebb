@@ -216,7 +216,7 @@ const PostDetails = ({ post }: { post: PostType }) => {
 	const { query, tempQuery, setTempQuery } = useMainContext();
 
 	const handleTagClick = (tag: string) => {
-		if (!tempQuery.includes(tag)) {
+		if (!tempQuery.split(" ").includes(tag)) {
 			setTempQuery((tempQuery) =>
 				[...tempQuery.split(" "), tag].filter((e) => e).join(" "),
 			);
