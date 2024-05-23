@@ -111,26 +111,27 @@ export const Header = () => {
 										"absolute mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
 										{
 											hidden:
-												autocompleteResults.length === 0 || !isCaretInLastWord,
+												autocompleteResults.length === 0 ||
+												!isCaretInLastWord ||
+												tempQuery === query,
 										},
 									)}
 									style={{ maxHeight: `calc(100vh - ${headerHeight}px - 1em)` }}
 								>
-									{query !== tempQuery &&
-										autocompleteResults.map((item, index) => (
-											<li
-												key={item.value}
-												{...getItemProps({
-													index,
-													item,
-													className: classNames("p-1 rounded", {
-														"bg-blue-200": highlightedIndex === index,
-													}),
-												})}
-											>
-												{item.label}
-											</li>
-										))}
+									{autocompleteResults.map((item, index) => (
+										<li
+											key={item.value}
+											{...getItemProps({
+												index,
+												item,
+												className: classNames("p-1 rounded", {
+													"bg-blue-200": highlightedIndex === index,
+												}),
+											})}
+										>
+											{item.label}
+										</li>
+									))}
 								</ul>
 							</div>
 						)}
