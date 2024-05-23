@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.7.0](https://github.com/pikdum/ebb/compare/v1.6.1...v1.7.0) (2024-05-23)
+
+
+### Features
+
+* add tags ([0481e1f](https://github.com/pikdum/ebb/commit/0481e1fae11646ee350a78f197cd3b15d19e8552))
+* autofocus search input ([27d4399](https://github.com/pikdum/ebb/commit/27d4399fe1f8297b4114e02f45d196eb2c4fdb99))
+* handle + display query errors ([3ab88d5](https://github.com/pikdum/ebb/commit/3ab88d529ad98cd19769e321dd34b9720a5be814))
+* more round tag pills ([4685b36](https://github.com/pikdum/ebb/commit/4685b3602ce09e0aadc7c98dfbb985d2c877192f))
+* purple search border if pending ([a36f249](https://github.com/pikdum/ebb/commit/a36f249ed2185151fabccfdadcb1f9587b27580b))
+
+
+### Bug Fixes
+
+* adding tag if substring ([46a5586](https://github.com/pikdum/ebb/commit/46a55860e140631e35dfbcb82b7b4c18750719bb))
+* better autocomplete hide ([2ecda17](https://github.com/pikdum/ebb/commit/2ecda1767377971b6bc2de2234b7e2280630e0d3))
+* don't show autocomplete after search ([798e961](https://github.com/pikdum/ebb/commit/798e9618bad5fae873829b74b109caf7e4181a6f))
+* hide menu bar ([f783542](https://github.com/pikdum/ebb/commit/f783542c290aba814017bf0a2a6fadff6606b209))
+
 ## [1.6.1](https://github.com/pikdum/ebb/compare/v1.6.0...v1.6.1) (2024-05-22)
 
 
