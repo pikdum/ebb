@@ -94,7 +94,12 @@ export const Header = () => {
 									{...getInputProps()}
 									onChange={handleSearchChange}
 									value={tempQuery}
-									className="border border-gray-300 rounded p-2 w-full focus:border-blue-500 focus:outline-none"
+									className={classNames(
+										"border border-gray-300 rounded p-2 w-full focus:border-blue-500 focus:outline-none",
+										{
+											"border-purple-500": query && query !== tempQuery,
+										},
+									)}
 									ref={searchRef}
 									spellCheck="false"
 									autoComplete="off"
