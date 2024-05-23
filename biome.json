@@ -15,7 +15,8 @@
 			"recommended": true,
 			"a11y": {
 				"useKeyWithClickEvents": "off",
-				"useMediaCaption": "off"
+				"useMediaCaption": "off",
+				"noAutofocus": "off"
 			},
 			"performance": {
 				"noAccumulatingSpread": "off"

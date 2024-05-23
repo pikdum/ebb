@@ -103,6 +103,7 @@ export const Header = () => {
 									ref={searchRef}
 									spellCheck="false"
 									autoComplete="off"
+									autoFocus
 								/>
 								<ul
 									{...getMenuProps()}
