@@ -32,6 +32,8 @@ const createWindow = () => {
 		},
 	});
 
+	mainWindow.setMenuBarVisibility(false);
+
 	const urls = [
 		"https://yande.re",
 		"https://assets.yande.re",
