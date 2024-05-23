@@ -42,6 +42,10 @@ const MainContext = createContext(
 		}) => Promise<void>;
 		incrementPage: () => void;
 		decrementPage: () => void;
+		autocompleteResults: { label: string; value: string }[];
+		setAutocompleteResults: Dispatch<
+			SetStateAction<{ label: string; value: string }[]>
+		>;
 	},
 );
 export const useMainContext = () => useContext(MainContext);
@@ -56,6 +60,7 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>();
 	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
+	const [autocompleteResults, setAutocompleteResults] = useState([]);
 	const headerRef = useRef<HTMLDivElement>(null);
 	const headerHeight = headerRef.current?.offsetHeight ?? 0;
 
@@ -177,6 +182,8 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				fetchPosts,
 				incrementPage,
 				decrementPage,
+				autocompleteResults,
+				setAutocompleteResults,
 			}}
 		>
 			{children}

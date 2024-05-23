@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Downshift from "downshift";
-import { useDeferredValue, useRef, useState } from "react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 
 import { useMainContext } from "../MainApp";
@@ -22,10 +22,10 @@ export const Header = () => {
 		incrementPage,
 		decrementPage,
 		headerHeight,
+		autocompleteResults,
+		setAutocompleteResults,
 	} = useMainContext();
 
-	const [_autocompleteResults, setAutocompleteResults] = useState([]);
-	const autocompleteResults = useDeferredValue(_autocompleteResults);
 	const searchRef = useRef<HTMLInputElement>(null);
 	const isCaretInLastWord =
 		searchRef.current?.selectionStart >=
@@ -56,8 +56,8 @@ export const Header = () => {
 
 	const handleDownshiftChange = (
 		selection: {
+			label: string;
 			value: string;
-			name: string;
 		} | null,
 	) => {
 		if (!selection) return;
