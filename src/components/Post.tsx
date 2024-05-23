@@ -238,7 +238,7 @@ const PostDetails = ({ post }: { post: PostType }) => {
 					key={tag}
 					onClick={() => handleTagClick(tag)}
 					className={classNames(
-						"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-2 m-1 rounded",
+						"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 m-1 rounded-full",
 						{
 							"bg-blue-700": query.split(" ").includes(tag),
 							"bg-purple-500":
