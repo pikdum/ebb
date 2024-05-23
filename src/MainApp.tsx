@@ -105,7 +105,9 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 		booru: string,
 		tags: string[],
 		options: { [key: string]: string | number },
-	): Promise<PostType[]> => {
+	): Promise<
+		{ status: "ok"; data: PostType[] } | { status: "error"; error: Error }
+	> => {
 		const data = await window.electronAPI.booruSearch(booru, tags, options);
 		return data;
 	};
@@ -117,16 +119,21 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 			page: page,
 			limit: 25,
 		});
-		if (results.length > 0) {
-			setPosts(results);
-			setSelectedPosts([]);
-			setLoading(false);
-			setError(undefined);
+		if (results.status === "ok") {
+			if (results.data.length > 0) {
+				setPosts(results.data);
+				setSelectedPosts([]);
+				setLoading(false);
+				setError(undefined);
+			} else {
+				setPosts([]);
+				setSelectedPosts([]);
+				setLoading(false);
+				setError("No results found.");
+			}
 		} else {
 			if (attempts < maxAttempts) {
-				setError(
-					`Attempt ${attempts + 1} of ${maxAttempts} failed. Retrying...`,
-				);
+				setError(`${results.error}\nRetrying...`);
 				setTimeout(() => {
 					fetchPosts({ attempts: attempts + 1 });
 				}, 1000);
@@ -134,7 +141,7 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				setPosts([]);
 				setSelectedPosts([]);
 				setLoading(false);
-				setError("No results found.");
+				setError(results.error.message);
 			}
 		}
 	};
@@ -217,7 +224,7 @@ export const Main = () => {
 					)}
 				</main>
 			)}
-			{error && <div className="text-center m-6">{error}</div>}
+			{error && <div className="text-center m-6 whitespace-pre">{error}</div>}
 			{query === undefined && <EmptyState />}
 		</div>
 	);

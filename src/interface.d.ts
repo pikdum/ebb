@@ -3,7 +3,9 @@ export interface IElectronAPI {
 		booru: string,
 		tags: string[],
 		options: { [key: string]: string | number },
-	) => Promise<Post[]>;
+	) => Promise<
+		{ status: "ok"; data: PostType[] } | { status: "error"; error: Error }
+	>;
 }
 
 export interface PostType {

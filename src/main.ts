@@ -97,11 +97,14 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
 	autoUpdater.checkForUpdatesAndNotify();
-	ipcMain.handle(
-		"booru:search",
-		// @ts-ignore
-		async (_event, ...args) => await Booru.search(...args),
-	);
+	ipcMain.handle("booru:search", async (_event, ...args) => {
+		try {
+			// @ts-ignore
+			return { status: "ok", data: await Booru.search(...args) };
+		} catch (error) {
+			return { status: "error", error: error };
+		}
+	});
 	createWindow();
 });
 
