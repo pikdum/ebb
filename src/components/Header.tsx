@@ -115,20 +115,21 @@ export const Header = () => {
 									)}
 									style={{ maxHeight: `calc(100vh - ${headerHeight}px - 1em)` }}
 								>
-									{autocompleteResults.map((item, index) => (
-										<li
-											key={item.value}
-											{...getItemProps({
-												index,
-												item,
-												className: classNames("p-1 rounded", {
-													"bg-blue-200": highlightedIndex === index,
-												}),
-											})}
-										>
-											{item.label}
-										</li>
-									))}
+									{query !== tempQuery &&
+										autocompleteResults.map((item, index) => (
+											<li
+												key={item.value}
+												{...getItemProps({
+													index,
+													item,
+													className: classNames("p-1 rounded", {
+														"bg-blue-200": highlightedIndex === index,
+													}),
+												})}
+											>
+												{item.label}
+											</li>
+										))}
 								</ul>
 							</div>
 						)}
