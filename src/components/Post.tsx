@@ -1,8 +1,8 @@
+import classNames from "classnames";
 import { type ReactNode, useEffect, useState } from "react";
 
-import type { PostType } from "../interface";
-
 import { useMainContext } from "../MainApp";
+import type { PostType } from "../interface";
 
 const isImage = (fileUrl: string) => {
 	const ext = fileUrl.split(".").pop();
@@ -48,7 +48,6 @@ const PostPreview = ({ post }: { post: PostType }) => {
 				src={previewUrl}
 				loading="lazy"
 				alt={`${post.id} (Preview)`}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 				onClick={() => handleSelectPost(post.id)}
 			/>
 		</div>
@@ -125,7 +124,6 @@ const PostPicture = ({ post }: { post: PostType }) => {
 				style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
 				src={post.fileUrl}
 				alt={`${post.id}`}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 				onClick={() => handleSelectPost(post.id)}
 				onLoad={() => {
 					setLoading(false);
@@ -152,7 +150,6 @@ const PostVideo = ({ post }: { post: PostType }) => {
 				className="max-w-full cursor-zoom-out"
 				style={{ maxHeight: `calc(100vh - ${headerHeight}px)` }}
 				src={post.fileUrl}
-				title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 				onClick={(e) => {
 					e.preventDefault();
 					handleSelectPost(post.id);
@@ -182,10 +179,10 @@ const PostSWF = ({ post }: { post: PostType }) => {
 		<div className="col-span-full text-center">
 			<div id={post.id} style={{ height: `calc(100vh - ${headerHeight}px)` }}>
 				<object
+					title={post.id}
 					className="w-full"
 					data={post.fileUrl}
 					type="application/x-shockwave-flash"
-					title={`url: ${post.fileUrl}\n\ntags: ${post.tags.join(" ")}`}
 					style={{ height: `calc(100vh - ${headerHeight}px)` }}
 				/>
 			</div>
@@ -215,6 +212,51 @@ const PostUnknown = ({ post }: { post: PostType }) => {
 	);
 };
 
+const PostDetails = ({ post }: { post: PostType }) => {
+	const { query, tempQuery, setTempQuery } = useMainContext();
+
+	const handleTagClick = (tag: string) => {
+		if (!tempQuery.includes(tag)) {
+			setTempQuery((tempQuery) =>
+				[...tempQuery.split(" "), tag].filter((e) => e).join(" "),
+			);
+			return;
+		}
+		setTempQuery((tempQuery) =>
+			tempQuery
+				.split(" ")
+				.filter((e) => e && e !== tag)
+				.join(" "),
+		);
+	};
+
+	return (
+		<div className="px-2 break-words text-white col-span-full text-center">
+			{post.tags?.map((tag) => (
+				<button
+					type="button"
+					key={tag}
+					onClick={() => handleTagClick(tag)}
+					className={classNames(
+						"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-2 m-1 rounded",
+						{
+							"bg-blue-700": query.split(" ").includes(tag),
+							"bg-purple-500":
+								tempQuery.split(" ").includes(tag) &&
+								!query.split(" ").includes(tag),
+							"bg-red-500":
+								!tempQuery.split(" ").includes(tag) &&
+								query.split(" ").includes(tag),
+						},
+					)}
+				>
+					{tag}
+				</button>
+			))}
+		</div>
+	);
+};
+
 export const Post = ({ post }: { post: PostType }) => {
 	const { selectedPosts } = useMainContext();
 	const isSelected = selectedPosts.includes(post.id);
@@ -222,13 +264,28 @@ export const Post = ({ post }: { post: PostType }) => {
 		return <PostPreview post={post} />;
 	}
 	if (isImage(post.fileUrl)) {
-		return <PostPicture post={post} />;
+		return (
+			<>
+				<PostPicture post={post} />
+				<PostDetails post={post} />
+			</>
+		);
 	}
 	if (isVideo(post.fileUrl)) {
-		return <PostVideo post={post} />;
+		return (
+			<>
+				<PostVideo post={post} />
+				<PostDetails post={post} />
+			</>
+		);
 	}
 	if (isSWF(post.fileUrl)) {
-		return <PostSWF post={post} />;
+		return (
+			<>
+				<PostSWF post={post} />
+				<PostDetails post={post} />
+			</>
+		);
 	}
 	return <PostUnknown post={post} />;
 };
