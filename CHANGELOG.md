@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/pikdum/ebb/compare/v1.7.0...v1.8.0) (2024-05-24)
+
+
+### Features
+
+* add icon + category ([61596d8](https://github.com/pikdum/ebb/commit/61596d89635f83602042ca5a0bd9ec52837c2df9))
+
 ## [1.7.0](https://github.com/pikdum/ebb/compare/v1.6.1...v1.7.0) (2024-05-23)
 
 
