@@ -11,6 +11,7 @@
 			"publish": ["github"]
 		},
 		"linux": {
+			"category": "Graphics",
 			"target": "AppImage",
 			"publish": ["github"]
 		}
