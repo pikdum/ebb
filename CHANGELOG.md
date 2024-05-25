@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.2](https://github.com/pikdum/ebb/compare/v1.8.1...v1.8.2) (2024-05-25)
+
+
+### Bug Fixes
+
+* add offset for some sites ([5a586fc](https://github.com/pikdum/ebb/commit/5a586fc3260b789bb59ad0fe40085ae4bb8e82d9))
+
 ## [1.8.1](https://github.com/pikdum/ebb/compare/v1.8.0...v1.8.1) (2024-05-25)
 
 
