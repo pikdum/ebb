@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/pikdum/ebb/compare/v1.8.0...v1.8.1) (2024-05-25)
+
+
+### Bug Fixes
+
+* decode html entities in tags ([feba822](https://github.com/pikdum/ebb/commit/feba82288288e854be140b98ddb58673607489cc))
+
 ## [1.8.0](https://github.com/pikdum/ebb/compare/v1.7.0...v1.8.0) (2024-05-24)
 
 
