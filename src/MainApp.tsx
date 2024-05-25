@@ -118,10 +118,18 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	const fetchPosts = async ({ attempts = 0, maxAttempts = 3 } = {}) => {
+		const pageOffset = [
+			"danbooru.donmai.us",
+			"e621.net",
+			"e926.net",
+			"yande.re",
+		].includes(currentSite)
+			? 1
+			: 0;
 		setLoading(true);
 		const tags = query?.split(" ") ?? [];
 		const results = await booruSearch(currentSite, tags, {
-			page: page,
+			page: page + pageOffset,
 			limit: 25,
 		});
 		if (results.status === "ok") {
