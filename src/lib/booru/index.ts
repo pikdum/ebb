@@ -12,6 +12,13 @@ export type BooruPost = {
 	width: number;
 };
 
+export type BooruTag = {
+	label: string;
+	value: string;
+	color: string;
+	postCount?: number;
+};
+
 const getBooruProvider = (site: BooruSite) => {
 	switch (site) {
 		case "gelbooru":
@@ -31,7 +38,7 @@ export const getPosts = async ({
 	limit: number;
 	page: number;
 	rating?: any;
-}) => {
+}): Promise<{ posts: BooruPost[]; hasNextPage: boolean }> => {
 	const provider = getBooruProvider(site);
 	const request = provider.buildPostRequest({
 		tags,
@@ -53,14 +60,15 @@ export const getTags = async ({
 }: {
 	site: BooruSite;
 	query: string;
-}) => {
+}): Promise<BooruTag[]> => {
 	const provider = getBooruProvider(site);
 	const request = provider.buildTagRequest({
 		query,
 	});
 	const response = await request;
 	if (response.ok) {
-		return response.json();
+		const data = await response.json();
+		return provider.transformTagData(data);
 	}
 	throw new Error(`${response.status} ${response.statusText}`);
 };

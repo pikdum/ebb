@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Downshift from "downshift";
+import numbro from "numbro";
 import { useRef } from "react";
 
 import { useMainContext } from "../MainApp";
@@ -29,15 +30,12 @@ export const SearchInput = ({ ...rest }) => {
 	const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.currentTarget.value;
 		setTempQuery(value);
-		try {
-			const results = await getTags({
-				site: currentSite,
-				query: value.split(" ").pop(),
-			});
-			setAutocompleteResults(results);
-		} catch (_e) {
-			// ignore errors, probably aborted fetch
-		}
+		const results = await getTags({
+			site: currentSite,
+			query: value.split(" ").pop(),
+		});
+		console.log(results);
+		setAutocompleteResults(results);
 	};
 
 	const handleDownshiftChange = (selection: Selection) => {
@@ -91,12 +89,32 @@ export const SearchInput = ({ ...rest }) => {
 								{...getItemProps({
 									index,
 									item,
-									className: classNames("p-1 rounded", {
-										"bg-blue-200": highlightedIndex === index,
-									}),
+									className: classNames(
+										"p-1 rounded flex justify-between gap-8",
+										{
+											"bg-gray-100": highlightedIndex === index,
+										},
+									),
 								})}
 							>
-								{item.label}
+								<div
+									className={classNames({
+										"text-blue-600": item.color === "blue",
+										"text-purple-600": item.color === "purple",
+										"text-green-600": item.color === "green",
+										"text-orange-600": item.color === "orange",
+										"text-gray-600": item.color === "gray",
+									})}
+								>
+									{item.label}
+								</div>
+								<div className="text-gray-500">
+									{numbro(item.postCount).format({
+										average: true,
+										thousandSeparated: true,
+										mantissa: 1,
+									})}
+								</div>
 							</li>
 						))}
 					</ul>

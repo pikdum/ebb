@@ -1,4 +1,4 @@
-import type { BooruPost } from "./index";
+import type { BooruPost, BooruTag } from "./index";
 
 type GelbooruPost = {
 	id: number;
@@ -8,6 +8,14 @@ type GelbooruPost = {
 	file_url: string;
 	preview_url: string;
 	sample_url: string;
+};
+
+type GelbooruTag = {
+	label: string;
+	value: string;
+	type: string;
+	category: string;
+	post_count: string;
 };
 
 type GelbooruRating = "General" | "Sensitive" | "Questionable" | "Explicit";
@@ -73,5 +81,29 @@ export class Gelbooru {
 				})) || [],
 			hasNextPage: a.count > a.limit + a.offset,
 		};
+	};
+
+	static transformTagData = (data: GelbooruTag[]): BooruTag[] => {
+		const getCategoryColor = (category: string): string => {
+			switch (category) {
+				case "tag":
+					return "blue";
+				case "character":
+					return "green";
+				case "artist":
+					return "orange";
+				case "copyright":
+					return "purple";
+				default:
+					return "gray";
+			}
+		};
+
+		return data.map((t) => ({
+			label: t.label,
+			value: t.value,
+			postCount: Number.parseInt(t.post_count),
+			color: getCategoryColor(t.category),
+		}));
 	};
 }

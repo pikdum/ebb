@@ -45,7 +45,7 @@ export const RatingSelect = () => {
 						{...getInputProps()}
 						{...getToggleButtonProps()}
 						className={classNames(
-							"border border-gray-300 text-white text-xl font-semibold rounded h-10 w-10 py-1 px-3 focus:outline-none whitespace-nowrap",
+							"border border-gray-300 text-white text-2xl font-semibold rounded h-10 w-10 focus:outline-none whitespace-nowrap",
 							ratingClassMap,
 						)}
 					>

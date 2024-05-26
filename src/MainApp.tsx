@@ -17,6 +17,7 @@ import { Post } from "./components/Post";
 import {
 	type BooruPost,
 	type BooruSite,
+	type BooruTag,
 	getPosts,
 	getRatings,
 } from "./lib/booru";
@@ -46,10 +47,8 @@ const MainContext = createContext(
 		}) => Promise<void>;
 		incrementPage: () => void;
 		decrementPage: () => void;
-		autocompleteResults: { label: string; value: string }[];
-		setAutocompleteResults: Dispatch<
-			SetStateAction<{ label: string; value: string }[]>
-		>;
+		autocompleteResults: BooruTag[];
+		setAutocompleteResults: Dispatch<SetStateAction<BooruTag[]>>;
 		hasNextPage: boolean;
 		setHasNextPage: Dispatch<SetStateAction<boolean>>;
 		ratings: string[];
@@ -75,7 +74,9 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 	const [currentSite, setCurrentSite] = useState<BooruSite>(defaultSite);
 	const [ratings, setRatings] = useState(defaultRatings);
 	const [currentRating, setCurrentRating] = useState(defaultRatings[0]);
-	const [autocompleteResults, setAutocompleteResults] = useState([]);
+	const [autocompleteResults, setAutocompleteResults] = useState<BooruTag[]>(
+		[],
+	);
 	const headerRef = useRef<HTMLDivElement>(null);
 	const headerHeight = headerRef.current?.offsetHeight ?? 0;
 
