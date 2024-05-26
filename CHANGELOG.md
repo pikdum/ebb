@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/pikdum/ebb/compare/v2.1.0...v2.1.1) (2024-05-26)
+
+
+### Bug Fixes
+
+* cursor-pointer for dropdown items ([266b7ec](https://github.com/pikdum/ebb/commit/266b7ecc57d22b38baea1dd098a4d4c6c5569aed))
+
 ## [2.1.0](https://github.com/pikdum/ebb/compare/v2.0.0...v2.1.0) (2024-05-26)
 
 
