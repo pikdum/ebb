@@ -4,7 +4,76 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 
 import { useMainContext } from "../MainApp";
-import { type BooruSite, getTags } from "../lib/booru";
+import { type BooruSite, getRatings, getTags } from "../lib/booru";
+
+const RatingSelect = () => {
+	const { ratings, currentRating, setCurrentRating } = useMainContext();
+
+	const ratingsDropdown = [
+		...ratings.map((e) => ({ label: e, value: e })),
+		{ label: "All Content", value: undefined },
+	];
+
+	const currentRatingDisplay = ratingsDropdown.find(
+		(e) => e.value === currentRating,
+	)?.label;
+
+	return (
+		<Downshift
+			onChange={(selection) => {
+				if (!selection) return;
+				setCurrentRating(selection.value);
+			}}
+			itemToString={(item) => item?.value ?? ""}
+		>
+			{({
+				getInputProps,
+				getItemProps,
+				getMenuProps,
+				highlightedIndex,
+				getToggleButtonProps,
+				isOpen,
+			}) => (
+				<div className="relative">
+					<button
+						type="button"
+						{...getInputProps()}
+						{...getToggleButtonProps()}
+						className="border border-gray-300 rounded p-2 focus:border-blue-500 focus:outline-none whitespace-nowrap"
+					>
+						{currentRatingDisplay}
+					</button>
+					<ul
+						{...getMenuProps()}
+						className={classNames(
+							"absolute mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
+							{
+								hidden: !isOpen,
+							},
+						)}
+					>
+						{isOpen &&
+							ratingsDropdown.map((item, index) => (
+								<li
+									key={item.value}
+									{...getItemProps({
+										index,
+										item,
+										className: classNames("p-1 rounded", {
+											"bg-blue-200": highlightedIndex === index,
+											"font-semibold": item.value === currentRating,
+										}),
+									})}
+								>
+									{item.label}
+								</li>
+							))}
+					</ul>
+				</div>
+			)}
+		</Downshift>
+	);
+};
 
 export const Header = () => {
 	const {
@@ -17,6 +86,7 @@ export const Header = () => {
 		loading,
 		currentSite,
 		setCurrentSite,
+		setRatings,
 		headerRef,
 		incrementPage,
 		decrementPage,
@@ -32,7 +102,9 @@ export const Header = () => {
 		tempQuery.length - tempQuery.split(" ").pop().length;
 
 	const handleChangeSite = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setCurrentSite(e.target.value as BooruSite);
+		const site = e.target.value as BooruSite;
+		setCurrentSite(site);
+		setRatings(getRatings(site));
 		setPage(0);
 	};
 
@@ -139,6 +211,7 @@ export const Header = () => {
 							</div>
 						)}
 					</Downshift>
+					<RatingSelect />
 					<button
 						type="submit"
 						className={classNames(

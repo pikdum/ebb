@@ -10,9 +10,15 @@ type GelbooruPost = {
 	sample_url: string;
 };
 
-// TODO: look at @attributes, to figure out pagination
+type GelbooruRating = "general" | "sensitive" | "questionable" | "explicit";
 
 export class Gelbooru {
+	static ratings: GelbooruRating[] = [
+		"General",
+		"Sensitive",
+		"Questionable",
+		"Explicit",
+	];
 	static buildTagRequest = ({
 		query,
 	}: {
@@ -30,14 +36,19 @@ export class Gelbooru {
 		tags,
 		limit,
 		page,
+		rating,
 	}: {
 		tags: string;
 		limit: number;
 		page: number;
+		rating?: GelbooruRating;
 	}): Promise<Response> => {
 		const url = new URL(
 			"https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1",
 		);
+		if (rating) {
+			tags += ` rating:${rating}`;
+		}
 		url.searchParams.append("tags", tags);
 		url.searchParams.append("pid", page.toString());
 		url.searchParams.append("limit", limit.toString());

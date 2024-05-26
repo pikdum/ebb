@@ -12,25 +12,32 @@ export type BooruPost = {
 	width: number;
 };
 
+const getBooruProvider = (site: BooruSite) => {
+	switch (site) {
+		case "gelbooru":
+			return Gelbooru;
+	}
+};
+
 export const getPosts = async ({
 	site,
 	tags,
 	limit,
 	page,
+	rating,
 }: {
 	site: BooruSite;
 	tags: string;
 	limit: number;
 	page: number;
+	rating?: any;
 }) => {
-	let provider: any;
-	if (site === "gelbooru") {
-		provider = Gelbooru;
-	}
+	const provider = getBooruProvider(site);
 	const request = provider.buildPostRequest({
 		tags,
 		limit,
 		page,
+		rating,
 	});
 	const response = await request;
 	if (response.ok) {
@@ -47,10 +54,7 @@ export const getTags = async ({
 	site: BooruSite;
 	query: string;
 }) => {
-	let provider: any;
-	if (site === "gelbooru") {
-		provider = Gelbooru;
-	}
+	const provider = getBooruProvider(site);
 	const request = provider.buildTagRequest({
 		query,
 	});
@@ -59,4 +63,22 @@ export const getTags = async ({
 		return response.json();
 	}
 	throw new Error(`${response.status} ${response.statusText}`);
+};
+
+export const getRatings = (site: BooruSite): string[] => {
+	return getBooruProvider(site).ratings;
+};
+
+export const getSites = (): {
+	name: string;
+	value: BooruSite;
+	icon: string;
+}[] => {
+	return [
+		{
+			name: "Gelbooru",
+			value: "gelbooru",
+			icon: "https://gelbooru.com/favicon.png",
+		},
+	];
 };

@@ -14,7 +14,12 @@ import { EmptyState } from "./components/EmptyState";
 import { Header } from "./components/Header";
 import { LoadingIndicator } from "./components/LoadingIndicator";
 import { Post } from "./components/Post";
-import { type BooruPost, type BooruSite, getPosts } from "./lib/booru";
+import {
+	type BooruPost,
+	type BooruSite,
+	getPosts,
+	getRatings,
+} from "./lib/booru";
 
 const MainContext = createContext(
 	{} as {
@@ -47,11 +52,17 @@ const MainContext = createContext(
 		>;
 		hasNextPage: boolean;
 		setHasNextPage: Dispatch<SetStateAction<boolean>>;
+		ratings: string[];
+		setRatings: Dispatch<SetStateAction<string[]>>;
+		currentRating: string;
+		setCurrentRating: Dispatch<SetStateAction<string>>;
 	},
 );
 export const useMainContext = () => useContext(MainContext);
 
 export const MainContextProvider = ({ children }: { children: ReactNode }) => {
+	const defaultSite: BooruSite = "gelbooru";
+	const defaultRatings = getRatings(defaultSite);
 	const [posts, setPosts] = useState<BooruPost[]>([]);
 	const [page, setPage] = useState(0);
 	const [hasNextPage, setHasNextPage] = useState(false);
@@ -61,7 +72,9 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>();
-	const [currentSite, setCurrentSite] = useState<BooruSite>("gelbooru");
+	const [currentSite, setCurrentSite] = useState<BooruSite>(defaultSite);
+	const [ratings, setRatings] = useState(defaultRatings);
+	const [currentRating, setCurrentRating] = useState(defaultRatings[0]);
 	const [autocompleteResults, setAutocompleteResults] = useState([]);
 	const headerRef = useRef<HTMLDivElement>(null);
 	const headerHeight = headerRef.current?.offsetHeight ?? 0;
@@ -116,13 +129,18 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				tags: query,
 				limit: 25,
 				page: page,
+				rating: currentRating,
 			});
 			console.info(results);
 			setPosts(results.posts);
 			setHasNextPage(results.hasNextPage);
 			setSelectedPosts([]);
 			setLoading(false);
-			setError(undefined);
+			if (results.posts.length === 0) {
+				setError("No results found.");
+			} else {
+				setError(undefined);
+			}
 		} catch (e) {
 			if (attempts < maxAttempts) {
 				setError(`${e.message}\nRetrying...`);
@@ -173,6 +191,10 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				setAutocompleteResults,
 				hasNextPage,
 				setHasNextPage,
+				ratings,
+				setRatings,
+				currentRating,
+				setCurrentRating,
 			}}
 		>
 			{children}
@@ -191,13 +213,14 @@ export const Main = () => {
 		currentSite,
 		incrementPage,
 		hasNextPage,
+		currentRating,
 	} = useMainContext();
 
 	useEffect(() => {
 		if (query !== undefined) {
 			fetchPosts();
 		}
-	}, [page, query, currentSite]);
+	}, [page, query, currentSite, currentRating]);
 
 	return (
 		<div className="select-none">
