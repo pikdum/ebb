@@ -128,7 +128,7 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 			const results = await getPosts({
 				site: "gelbooru",
 				tags: query,
-				limit: 25,
+				limit: 100,
 				page: page,
 				rating: currentRating,
 			});
