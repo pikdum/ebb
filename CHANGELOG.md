@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/pikdum/ebb/compare/v2.1.1...v2.1.2) (2024-05-26)
+
+
+### Bug Fixes
+
+* windows auto-updating ([7db4e2b](https://github.com/pikdum/ebb/commit/7db4e2bc71a68517d906ba60858aa33827983fa3))
+
 ## [2.1.1](https://github.com/pikdum/ebb/compare/v2.1.0...v2.1.1) (2024-05-26)
 
 
