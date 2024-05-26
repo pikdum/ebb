@@ -113,6 +113,7 @@ export const SearchInput = ({ ...rest }) => {
 										average: true,
 										thousandSeparated: true,
 										mantissa: 1,
+										trimMantissa: true,
 									})}
 								</div>
 							</li>
