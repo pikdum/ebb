@@ -90,7 +90,7 @@ export const SearchInput = ({ ...rest }) => {
 									index,
 									item,
 									className: classNames(
-										"p-1 rounded flex justify-between gap-8",
+										"p-1 rounded flex justify-between gap-8 cursor-pointer",
 										{
 											"bg-gray-100": highlightedIndex === index,
 										},

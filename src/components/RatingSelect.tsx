@@ -67,7 +67,7 @@ export const RatingSelect = () => {
 									{...getItemProps({
 										index,
 										item,
-										className: classNames("p-1 rounded", {
+										className: classNames("p-1 rounded cursor-pointer", {
 											"bg-blue-200": highlightedIndex === index,
 											"font-semibold": item.value === currentRating,
 										}),
