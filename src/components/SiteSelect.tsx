@@ -37,7 +37,7 @@ export const SiteSelect = () => {
 						type="button"
 						{...getInputProps()}
 						{...getToggleButtonProps()}
-						className="border border-gray-300 p-1.5 rounded h-10 w-10 focus:border-blue-500 focus:outline-none bg-blue-500 grid place-items-center"
+						className="border border-gray-300 p-1.5 rounded h-10 w-10 focus:outline-none bg-blue-500 hover:bg-blue-600 grid place-items-center"
 					>
 						<img
 							src={currentSiteData?.icon}

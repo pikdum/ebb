@@ -16,11 +16,11 @@ export const RatingSelect = () => {
 	)?.label[0];
 
 	const ratingClassMap = {
-		"bg-green-500": currentRating === "General",
-		"bg-yellow-500": currentRating === "Sensitive",
-		"bg-orange-500": currentRating === "Questionable",
-		"bg-red-500": currentRating === "Explicit",
-		"bg-gray-500": currentRating === undefined,
+		"bg-green-500 hover:bg-green-600": currentRating === "General",
+		"bg-yellow-500 hover:bg-yellow-600": currentRating === "Sensitive",
+		"bg-orange-500 hover:bg-orange-600": currentRating === "Questionable",
+		"bg-red-500 hover:bg-red-600": currentRating === "Explicit",
+		"bg-purple-500 hover:bg-purple-600": currentRating === undefined,
 	};
 
 	return (
