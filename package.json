@@ -60,12 +60,12 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"booru": "2.6.5",
 		"classnames": "2.5.1",
 		"downshift": "9.0.6",
 		"electron-context-menu": "3.6.1",
 		"electron-updater": "6.1.8",
 		"html-entities": "2.5.2",
+		"numbro": "2.5.0",
 		"react": "^19.0.0-beta-26f2496093-20240514",
 		"react-dom": "^19.0.0-beta-26f2496093-20240514",
 		"react-feather": "2.0.10"
