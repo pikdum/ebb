@@ -94,6 +94,8 @@ export class Gelbooru {
 					return "orange";
 				case "copyright":
 					return "purple";
+				case "metadata":
+					return "yellow";
 				default:
 					return "gray";
 			}

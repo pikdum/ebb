@@ -103,6 +103,7 @@ export const SearchInput = ({ ...rest }) => {
 										"text-purple-600": item.color === "purple",
 										"text-green-600": item.color === "green",
 										"text-orange-600": item.color === "orange",
+										"text-yellow-600": item.color === "yellow",
 										"text-gray-600": item.color === "gray",
 									})}
 								>
