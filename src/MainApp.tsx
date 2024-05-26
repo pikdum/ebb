@@ -14,12 +14,11 @@ import { EmptyState } from "./components/EmptyState";
 import { Header } from "./components/Header";
 import { LoadingIndicator } from "./components/LoadingIndicator";
 import { Post } from "./components/Post";
-
-import type { PostType } from "./interface";
+import { type BooruPost, type BooruSite, getPosts } from "./lib/booru";
 
 const MainContext = createContext(
 	{} as {
-		posts: PostType[];
+		posts: BooruPost[];
 		page: number;
 		setPage: Dispatch<SetStateAction<number>>;
 		tempQuery: string;
@@ -30,8 +29,8 @@ const MainContext = createContext(
 		selectedPost: string | undefined;
 		loading: boolean;
 		error: string | undefined;
-		currentSite: string;
-		setCurrentSite: Dispatch<SetStateAction<string>>;
+		currentSite: BooruSite;
+		setCurrentSite: Dispatch<SetStateAction<BooruSite>>;
 		headerRef: React.RefObject<HTMLDivElement>;
 		headerHeight: number;
 		handleSelectPost: (post_id: string) => void;
@@ -46,20 +45,23 @@ const MainContext = createContext(
 		setAutocompleteResults: Dispatch<
 			SetStateAction<{ label: string; value: string }[]>
 		>;
+		hasNextPage: boolean;
+		setHasNextPage: Dispatch<SetStateAction<boolean>>;
 	},
 );
 export const useMainContext = () => useContext(MainContext);
 
 export const MainContextProvider = ({ children }: { children: ReactNode }) => {
-	const [posts, setPosts] = useState<PostType[]>([]);
+	const [posts, setPosts] = useState<BooruPost[]>([]);
 	const [page, setPage] = useState(0);
+	const [hasNextPage, setHasNextPage] = useState(false);
 	const [tempQuery, setTempQuery] = useState("");
 	const [query, setQuery] = useState<string | undefined>();
 	const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
 	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>();
-	const [currentSite, setCurrentSite] = useState<string>("safebooru.org");
+	const [currentSite, setCurrentSite] = useState<BooruSite>("gelbooru");
 	const [autocompleteResults, setAutocompleteResults] = useState([]);
 	const headerRef = useRef<HTMLDivElement>(null);
 	const headerHeight = headerRef.current?.offsetHeight ?? 0;
@@ -106,47 +108,24 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 		}, 100);
 	};
 
-	const booruSearch = async (
-		booru: string,
-		tags: string[],
-		options: { [key: string]: string | number },
-	): Promise<
-		{ status: "ok"; data: PostType[] } | { status: "error"; error: Error }
-	> => {
-		const data = await window.electronAPI.booruSearch(booru, tags, options);
-		return data;
-	};
-
 	const fetchPosts = async ({ attempts = 0, maxAttempts = 3 } = {}) => {
-		const pageOffset = [
-			"danbooru.donmai.us",
-			"e621.net",
-			"e926.net",
-			"yande.re",
-		].includes(currentSite)
-			? 1
-			: 0;
 		setLoading(true);
-		const tags = query?.split(" ") ?? [];
-		const results = await booruSearch(currentSite, tags, {
-			page: page + pageOffset,
-			limit: 25,
-		});
-		if (results.status === "ok") {
-			if (results.data.length > 0) {
-				setPosts(results.data);
-				setSelectedPosts([]);
-				setLoading(false);
-				setError(undefined);
-			} else {
-				setPosts([]);
-				setSelectedPosts([]);
-				setLoading(false);
-				setError("No results found.");
-			}
-		} else {
+		try {
+			const results = await getPosts({
+				site: "gelbooru",
+				tags: query,
+				limit: 25,
+				page: page,
+			});
+			console.info(results);
+			setPosts(results.posts);
+			setHasNextPage(results.hasNextPage);
+			setSelectedPosts([]);
+			setLoading(false);
+			setError(undefined);
+		} catch (e) {
 			if (attempts < maxAttempts) {
-				setError(`${results.error}\nRetrying...`);
+				setError(`${e.message}\nRetrying...`);
 				setTimeout(() => {
 					fetchPosts({ attempts: attempts + 1 });
 				}, 1000);
@@ -154,7 +133,7 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				setPosts([]);
 				setSelectedPosts([]);
 				setLoading(false);
-				setError(results.error.message);
+				setError(e.message);
 			}
 		}
 	};
@@ -192,6 +171,8 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 				decrementPage,
 				autocompleteResults,
 				setAutocompleteResults,
+				hasNextPage,
+				setHasNextPage,
 			}}
 		>
 			{children}
@@ -209,6 +190,7 @@ export const Main = () => {
 		error,
 		currentSite,
 		incrementPage,
+		hasNextPage,
 	} = useMainContext();
 
 	useEffect(() => {
@@ -228,7 +210,7 @@ export const Main = () => {
 					{posts.map((post) => (
 						<Post post={post} key={post.id} />
 					))}
-					{posts.length > 0 && (
+					{hasNextPage && (
 						<button
 							type="button"
 							className="text-3xl bg-gray-200 hover:bg-blue-200 w-full aspect-square grid place-items-center"

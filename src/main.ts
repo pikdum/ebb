@@ -1,8 +1,7 @@
 import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import Booru from "booru";
-import { BrowserWindow, app, ipcMain, session } from "electron";
+import { BrowserWindow, app, session } from "electron";
 import contextMenu from "electron-context-menu";
 import { autoUpdater } from "electron-updater";
 
@@ -97,14 +96,6 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
 	autoUpdater.checkForUpdatesAndNotify();
-	ipcMain.handle("booru:search", async (_event, ...args) => {
-		try {
-			// @ts-ignore
-			return { status: "ok", data: await Booru.search(...args) };
-		} catch (error) {
-			return { status: "error", error: error };
-		}
-	});
 	createWindow();
 });
 

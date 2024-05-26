@@ -4,8 +4,7 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 
 import { useMainContext } from "../MainApp";
-import { autocomplete } from "../lib/autocomplete";
-import sites from "../sites.json";
+import { type BooruSite, getTags } from "../lib/booru";
 
 export const Header = () => {
 	const {
@@ -24,6 +23,7 @@ export const Header = () => {
 		headerHeight,
 		autocompleteResults,
 		setAutocompleteResults,
+		hasNextPage,
 	} = useMainContext();
 
 	const searchRef = useRef<HTMLInputElement>(null);
@@ -32,7 +32,7 @@ export const Header = () => {
 		tempQuery.length - tempQuery.split(" ").pop().length;
 
 	const handleChangeSite = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setCurrentSite(e.target.value);
+		setCurrentSite(e.target.value as BooruSite);
 		setPage(0);
 	};
 
@@ -47,7 +47,10 @@ export const Header = () => {
 		const value = e.currentTarget.value;
 		setTempQuery(value);
 		try {
-			const results = await autocomplete(currentSite, value.split(" ").pop());
+			const results = await getTags({
+				site: currentSite,
+				query: value.split(" ").pop(),
+			});
 			setAutocompleteResults(results);
 		} catch (_e) {
 			// ignore errors, probably aborted fetch
@@ -165,7 +168,7 @@ export const Header = () => {
 							type="button"
 							className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
 							onClick={incrementPage}
-							disabled={query === undefined}
+							disabled={!hasNextPage}
 						>
 							<ChevronRight />
 						</button>
@@ -175,17 +178,9 @@ export const Header = () => {
 						value={currentSite}
 						onChange={handleChangeSite}
 					>
-						{Object.keys(sites)
-							.sort()
-							.map((key) => {
-								// @ts-ignore
-								const isNSFW = sites?.[key].nsfw;
-								return (
-									<option key={key} value={key}>
-										{`${key}${isNSFW ? " (NSFW)" : ""}`}
-									</option>
-								);
-							})}
+						<option key="gelbooru" value="gelbooru">
+							Gelbooru
+						</option>
 					</select>
 				</div>
 			</form>

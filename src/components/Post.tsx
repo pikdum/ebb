@@ -3,7 +3,7 @@ import { decode } from "html-entities";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { useMainContext } from "../MainApp";
-import type { PostType } from "../interface";
+import type { BooruPost } from "../lib/booru";
 
 const isImage = (fileUrl: string) => {
 	const ext = fileUrl.split(".").pop();
@@ -20,7 +20,7 @@ const isSWF = (fileUrl: string) => {
 	return ["swf"].includes(ext);
 };
 
-const PostPreview = ({ post }: { post: PostType }) => {
+const PostPreview = ({ post }: { post: BooruPost }) => {
 	const { handleSelectPost } = useMainContext();
 	const blacklist = [
 		"https://cdn.donmai.us/images/flash-preview.png",
@@ -60,7 +60,7 @@ const PostSkeleton = ({
 	loading,
 	children,
 }: {
-	post: PostType;
+	post: BooruPost;
 	loading: boolean;
 	children: ReactNode;
 }) => {
@@ -107,7 +107,7 @@ const PostSkeleton = ({
 	);
 };
 
-const PostPicture = ({ post }: { post: PostType }) => {
+const PostPicture = ({ post }: { post: BooruPost }) => {
 	const [loading, setLoading] = useState(true);
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
@@ -134,7 +134,7 @@ const PostPicture = ({ post }: { post: PostType }) => {
 	);
 };
 
-const PostVideo = ({ post }: { post: PostType }) => {
+const PostVideo = ({ post }: { post: BooruPost }) => {
 	const [loading, setLoading] = useState(true);
 	const { handleSelectPost, selectedPost, scrollToId, headerHeight } =
 		useMainContext();
@@ -166,7 +166,7 @@ const PostVideo = ({ post }: { post: PostType }) => {
 	);
 };
 
-const PostSWF = ({ post }: { post: PostType }) => {
+const PostSWF = ({ post }: { post: BooruPost }) => {
 	const { handleSelectPost, headerHeight, selectedPost, scrollToId } =
 		useMainContext();
 
@@ -198,7 +198,7 @@ const PostSWF = ({ post }: { post: PostType }) => {
 	);
 };
 
-const PostUnknown = ({ post }: { post: PostType }) => {
+const PostUnknown = ({ post }: { post: BooruPost }) => {
 	const { handleSelectPost } = useMainContext();
 	return (
 		<div
@@ -213,7 +213,7 @@ const PostUnknown = ({ post }: { post: PostType }) => {
 	);
 };
 
-const PostDetails = ({ post }: { post: PostType }) => {
+const PostDetails = ({ post }: { post: BooruPost }) => {
 	const { query, tempQuery, setTempQuery } = useMainContext();
 
 	const handleTagClick = (tag: string) => {
@@ -260,7 +260,7 @@ const PostDetails = ({ post }: { post: PostType }) => {
 	);
 };
 
-export const Post = ({ post }: { post: PostType }) => {
+export const Post = ({ post }: { post: BooruPost }) => {
 	const { selectedPosts } = useMainContext();
 	const isSelected = selectedPosts.includes(post.id);
 	if (!isSelected) {
