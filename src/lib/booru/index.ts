@@ -70,15 +70,15 @@ export const getRatings = (site: BooruSite): string[] => {
 };
 
 export const getSites = (): {
-	name: string;
+	label: string;
 	value: BooruSite;
 	icon: string;
 }[] => {
 	return [
 		{
-			name: "Gelbooru",
+			label: "Gelbooru",
 			value: "gelbooru",
-			icon: "https://gelbooru.com/favicon.png",
+			icon: "https://gelbooru.com/layout/gelbooru-logo.svg",
 		},
 	];
 };

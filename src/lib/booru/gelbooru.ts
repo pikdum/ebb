@@ -10,7 +10,7 @@ type GelbooruPost = {
 	sample_url: string;
 };
 
-type GelbooruRating = "general" | "sensitive" | "questionable" | "explicit";
+type GelbooruRating = "General" | "Sensitive" | "Questionable" | "Explicit";
 
 export class Gelbooru {
 	static ratings: GelbooruRating[] = [
