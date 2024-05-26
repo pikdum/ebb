@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/pikdum/ebb/compare/v2.0.0...v2.1.0) (2024-05-26)
+
+
+### Features
+
+* bump up pagination limit to 100 ([c727ea6](https://github.com/pikdum/ebb/commit/c727ea6d5bae0a78ebb7f1def43e99ef22f75391))
+
+
+### Bug Fixes
+
+* more consistent button styles ([79d782a](https://github.com/pikdum/ebb/commit/79d782a44ccab7a2014b37abd303c18da4f0a47d))
+
 ## [2.0.0](https://github.com/pikdum/ebb/compare/v1.8.2...v2.0.0) (2024-05-26)
 
 
