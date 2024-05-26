@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/pikdum/ebb/compare/v1.8.2...v2.0.0) (2024-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* switch to custom booru library ([#39](https://github.com/pikdum/ebb/issues/39))
+
+### Features
+
+* switch to custom booru library ([#39](https://github.com/pikdum/ebb/issues/39)) ([06cc0a0](https://github.com/pikdum/ebb/commit/06cc0a0fb3b928dc7fd9f24e83c4d0b9c67236b0))
+
 ## [1.8.2](https://github.com/pikdum/ebb/compare/v1.8.1...v1.8.2) (2024-05-25)
 
 
