@@ -10,6 +10,7 @@ export type BooruPost = {
 	sampleUrl: string | null;
 	height: number;
 	width: number;
+	rating: string;
 };
 
 export type BooruTag = {

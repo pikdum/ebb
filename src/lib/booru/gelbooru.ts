@@ -8,6 +8,7 @@ type GelbooruPost = {
 	file_url: string;
 	preview_url: string;
 	sample_url: string;
+	rating: string;
 };
 
 type GelbooruTag = {
@@ -78,6 +79,7 @@ export class Gelbooru {
 					sampleUrl: p.sample_url || null,
 					height: p.height,
 					width: p.width,
+					rating: p.rating,
 				})) || [],
 			hasNextPage: a.count > a.limit + a.offset,
 		};

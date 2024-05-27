@@ -23,7 +23,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 	};
 
 	return (
-		<div className="px-2 break-words text-white col-span-full text-center">
+		<div className="px-2 break-words col-span-full text-center">
 			{post.tags
 				?.map((e) => decode(e))
 				?.map((tag) => (
@@ -47,6 +47,20 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 						{tag}
 					</button>
 				))}
+			<button
+				type="button"
+				className={classNames(
+					"text-white text-xs font-semibold p-1 px-3 m-1 rounded-full cursor-default",
+					{
+						"bg-green-500": post.rating === "general",
+						"bg-yellow-500": post.rating === "sensitive",
+						"bg-orange-500": post.rating === "questionable",
+						"bg-red-500": post.rating === "explicit",
+					},
+				)}
+			>
+				{post.rating}
+			</button>
 		</div>
 	);
 };
