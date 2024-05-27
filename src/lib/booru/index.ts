@@ -1,6 +1,7 @@
+import { Danbooru } from "./danbooru";
 import { Gelbooru } from "./gelbooru";
 
-export type BooruSite = "gelbooru";
+export type BooruSite = "gelbooru" | "danbooru";
 
 export type BooruPost = {
 	id: string;
@@ -22,6 +23,8 @@ export type BooruTag = {
 
 const getBooruProvider = (site: BooruSite) => {
 	switch (site) {
+		case "danbooru":
+			return Danbooru;
 		case "gelbooru":
 			return Gelbooru;
 	}
@@ -48,11 +51,15 @@ export const getPosts = async ({
 		rating,
 	});
 	const response = await request;
+	const data = await response.json();
 	if (response.ok) {
-		const data = await response.json();
 		return provider.transformPostData(data);
 	}
-	throw new Error(`${response.status} ${response.statusText}`);
+	// for danbooru
+	if (data?.error && data?.message) {
+		throw new Error(`${data.error}\n${data.message}`);
+	}
+	throw new Error(`Error: ${response.status} ${response.statusText}`);
 };
 
 export const getTags = async ({
@@ -67,11 +74,11 @@ export const getTags = async ({
 		query,
 	});
 	const response = await request;
+	const data = await response.json();
 	if (response.ok) {
-		const data = await response.json();
 		return provider.transformTagData(data);
 	}
-	throw new Error(`${response.status} ${response.statusText}`);
+	throw new Error(`Error: ${response.status} ${response.statusText}`);
 };
 
 export const getRatings = (site: BooruSite): string[] => {
@@ -84,6 +91,11 @@ export const getSites = (): {
 	icon: string;
 }[] => {
 	return [
+		{
+			label: "Danbooru",
+			value: "danbooru",
+			icon: "https://danbooru.donmai.us/favicon.svg",
+		},
 		{
 			label: "Gelbooru",
 			value: "gelbooru",

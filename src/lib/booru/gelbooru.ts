@@ -90,12 +90,12 @@ export class Gelbooru {
 			switch (category) {
 				case "tag":
 					return "blue";
-				case "character":
-					return "green";
 				case "artist":
 					return "orange";
 				case "copyright":
 					return "purple";
+				case "character":
+					return "green";
 				case "metadata":
 					return "yellow";
 				default:

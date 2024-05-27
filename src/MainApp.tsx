@@ -126,13 +126,12 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 		setLoading(true);
 		try {
 			const results = await getPosts({
-				site: "gelbooru",
+				site: currentSite,
 				tags: query,
 				limit: 100,
 				page: page,
 				rating: currentRating,
 			});
-			console.info(results);
 			setPosts(results.posts);
 			setHasNextPage(results.hasNextPage);
 			setSelectedPosts([]);
@@ -151,6 +150,7 @@ export const MainContextProvider = ({ children }: { children: ReactNode }) => {
 			} else {
 				setPosts([]);
 				setSelectedPosts([]);
+				setHasNextPage(false);
 				setLoading(false);
 				setError(e.message);
 			}
