@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/pikdum/ebb/compare/v2.1.2...v2.2.0) (2024-05-27)
+
+
+### Features
+
+* show content rating after tags ([5d43e49](https://github.com/pikdum/ebb/commit/5d43e49cc42ac7c6823b4b7dfa5626658b9df92e))
+
 ## [2.1.2](https://github.com/pikdum/ebb/compare/v2.1.1...v2.1.2) (2024-05-26)
 
 
