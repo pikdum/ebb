@@ -34,7 +34,6 @@ export const SearchInput = ({ ...rest }) => {
 			site: currentSite,
 			query: value.split(" ").pop(),
 		});
-		console.log(results);
 		setAutocompleteResults(results);
 	};
 
