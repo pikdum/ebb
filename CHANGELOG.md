@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/pikdum/ebb/compare/v2.2.0...v2.3.0) (2024-05-27)
+
+
+### Features
+
+* add danbooru ([2a08e95](https://github.com/pikdum/ebb/commit/2a08e956d3747fd4b27b516fe40eeb08fef0a68e))
+
 ## [2.2.0](https://github.com/pikdum/ebb/compare/v2.1.2...v2.2.0) (2024-05-27)
 
 
