@@ -1,19 +1,23 @@
 {
 	"name": "ebb",
 	"productName": "ebb",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
 	"main": ".vite/build/main.js",
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		},
 		"linux": {
 			"category": "Graphics",
 			"target": "AppImage",
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		}
 	},
 	"scripts": {
@@ -29,7 +33,7 @@
 		"check-types": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.0",
+		"@biomejs/biome": "1.7.3",
 		"@electron-forge/cli": "7.4.0",
 		"@electron-forge/maker-deb": "7.4.0",
 		"@electron-forge/maker-rpm": "7.4.0",
