@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/pikdum/ebb/compare/v2.3.0...v2.3.1) (2024-06-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-updater to v6.2.1 ([#52](https://github.com/pikdum/ebb/issues/52)) ([e324ce6](https://github.com/pikdum/ebb/commit/e324ce686a3fba8ab27cdfe60b9e2261a41a66a4))
+
 ## [2.3.0](https://github.com/pikdum/ebb/compare/v2.2.0...v2.3.0) (2024-05-27)
 
 
