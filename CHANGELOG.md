@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/pikdum/ebb/compare/v2.3.1...v2.3.2) (2024-07-09)
+
+
+### Bug Fixes
+
+* update dependencies ([9a941ac](https://github.com/pikdum/ebb/commit/9a941ac61870af7aee520bf098a9767a97529971))
+
 ## [2.3.1](https://github.com/pikdum/ebb/compare/v2.3.0...v2.3.1) (2024-06-06)
 
 
