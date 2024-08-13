@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.6](https://github.com/pikdum/ebb/compare/v2.3.5...v2.3.6) (2024-08-13)
+
+
+### Bug Fixes
+
+* **deps:** dependency updates ([0b3314e](https://github.com/pikdum/ebb/commit/0b3314e3ea4c5ed873e4c69bfa400ab431eb0599))
+* use latest tag for react compiler ([37d81d4](https://github.com/pikdum/ebb/commit/37d81d49bce30dd8392af1a0765f08f87921e49e))
+
 ## [2.3.5](https://github.com/pikdum/ebb/compare/v2.3.4...v2.3.5) (2024-08-12)
 
 
