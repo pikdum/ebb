@@ -1,19 +1,23 @@
 {
 	"name": "ebb",
 	"productName": "ebb",
-	"version": "2.3.5",
+	"version": "2.3.6",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
 	"main": ".vite/build/main.js",
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		},
 		"linux": {
 			"category": "Graphics",
 			"target": "AppImage",
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		}
 	},
 	"scripts": {
