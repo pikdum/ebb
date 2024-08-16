@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.7](https://github.com/pikdum/ebb/compare/v2.3.6...v2.3.7) (2024-08-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron to v31.4.0 ([#93](https://github.com/pikdum/ebb/issues/93)) ([52c4c9d](https://github.com/pikdum/ebb/commit/52c4c9d0b838f3a13addc030d604bba6dc7e0135))
+
 ## [2.3.6](https://github.com/pikdum/ebb/compare/v2.3.5...v2.3.6) (2024-08-13)
 
 
