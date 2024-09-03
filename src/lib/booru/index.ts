@@ -1,8 +1,9 @@
 import { Danbooru } from "./danbooru";
+import { e621 } from "./e621";
 import { Gelbooru } from "./gelbooru";
 import { Rule34 } from "./rule34";
 
-export type BooruSite = "gelbooru" | "danbooru" | "rule34";
+export type BooruSite = "gelbooru" | "danbooru" | "rule34" | "e621";
 
 export type BooruPost = {
 	id: string;
@@ -30,6 +31,8 @@ const getBooruProvider = (site: BooruSite) => {
 			return Gelbooru;
 		case "rule34":
 			return Rule34;
+		case "e621":
+			return e621;
 	}
 };
 
@@ -110,9 +113,14 @@ export const getSites = (): {
 			icon: "https://gelbooru.com/layout/gelbooru-logo.svg",
 		},
 		{
-			label: "Rule34",
+			label: "Rule 34",
 			value: "rule34",
 			icon: "https://rule34.xxx/apple-touch-icon-precomposed.png",
+		},
+		{
+			label: "e621",
+			value: "e621",
+			icon: "https://e621.net/packs/static/main-logo-109ca95d0f436bd372a1.png",
 		},
 	];
 };
