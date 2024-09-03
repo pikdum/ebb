@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.4.0](https://github.com/pikdum/ebb/compare/v2.3.7...v2.4.0) (2024-09-03)
+
+
+### Features
+
+* e621 ([6a486fe](https://github.com/pikdum/ebb/commit/6a486fee1475a65a012e15bd19d954e6b6549ed5))
+* rule34.xxx ([475155e](https://github.com/pikdum/ebb/commit/475155e77ff606bad4204237ff9bc6cb6568f6cd))
+
 ## [2.3.7](https://github.com/pikdum/ebb/compare/v2.3.6...v2.3.7) (2024-08-16)
 
 
