@@ -1,7 +1,8 @@
 import { Danbooru } from "./danbooru";
 import { Gelbooru } from "./gelbooru";
+import { Rule34 } from "./rule34";
 
-export type BooruSite = "gelbooru" | "danbooru";
+export type BooruSite = "gelbooru" | "danbooru" | "rule34";
 
 export type BooruPost = {
 	id: string;
@@ -27,6 +28,8 @@ const getBooruProvider = (site: BooruSite) => {
 			return Danbooru;
 		case "gelbooru":
 			return Gelbooru;
+		case "rule34":
+			return Rule34;
 	}
 };
 
@@ -51,7 +54,12 @@ export const getPosts = async ({
 		rating,
 	});
 	const response = await request;
-	const data = await response.json();
+	let data = [];
+	try {
+		data = await response.json();
+	} catch (e) {
+		console.error(e);
+	}
 	if (response.ok) {
 		return provider.transformPostData(data);
 	}
@@ -100,6 +108,11 @@ export const getSites = (): {
 			label: "Gelbooru",
 			value: "gelbooru",
 			icon: "https://gelbooru.com/layout/gelbooru-logo.svg",
+		},
+		{
+			label: "Rule34",
+			value: "rule34",
+			icon: "https://rule34.xxx/apple-touch-icon-precomposed.png",
 		},
 	];
 };

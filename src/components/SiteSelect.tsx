@@ -7,15 +7,26 @@ import { type BooruSite, getRatings, getSites } from "../lib/booru";
 type Selection = { label: string; value: string } | null;
 
 export const SiteSelect = () => {
-	const { currentSite, setCurrentSite, setPage, setRatings } = useMainContext();
+	const {
+		currentSite,
+		setCurrentSite,
+		setPage,
+		setRatings,
+		currentRating,
+		setCurrentRating,
+	} = useMainContext();
 	const sites = getSites();
 	const currentSiteData = sites.find((e) => e.value === currentSite);
 
 	const handleChangeSite = (selection: Selection) => {
 		if (!selection) return;
 		const site = selection.value as BooruSite;
+		const ratings = getRatings(site);
 		setCurrentSite(site);
-		setRatings(getRatings(site));
+		setRatings(ratings);
+		if (currentRating && !ratings.includes(currentRating)) {
+			setCurrentRating(ratings[0]);
+		}
 		setPage(0);
 	};
 

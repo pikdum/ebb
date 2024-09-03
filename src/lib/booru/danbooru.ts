@@ -73,21 +73,20 @@ export class Danbooru {
 			q: "Questionable",
 			e: "Explicit",
 		};
+		const posts = data?.filter((post) => post.file_url) ?? [];
 		return {
-			posts: data
-				.filter((post) => post.file_url)
-				.map((post) => ({
-					id: post.id.toString(),
-					tags: post.tag_string.split(" ") ?? [],
-					fileUrl: post.file_url,
-					previewUrl: post.preview_file_url,
-					sampleUrl: post.large_file_url || null,
-					height: post.image_height,
-					width: post.image_width,
-					rating:
-						danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
-				})),
-			hasNextPage: data.length > 0,
+			posts: posts.map((post) => ({
+				id: post.id.toString(),
+				tags: post.tag_string.split(" ") ?? [],
+				fileUrl: post.file_url,
+				previewUrl: post.preview_file_url,
+				sampleUrl: post.large_file_url || null,
+				height: post.image_height,
+				width: post.image_width,
+				rating:
+					danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
+			})),
+			hasNextPage: posts.length > 0,
 		};
 	};
 
