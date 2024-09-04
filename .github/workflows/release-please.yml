@@ -17,6 +17,7 @@ jobs:
         id: release
         with:
           release-type: node
+          token: ${{ secrets.PAT }}
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
       - run: git config --global safe.directory '*'
