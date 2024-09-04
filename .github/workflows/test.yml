@@ -21,10 +21,10 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - uses: biomejs/setup-biome@v2
-      - run: biome check . --apply
+      - run: biome check . --write
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: biome check . --apply"
+          commit_message: "chore: biome check . --write"
   tsc:
     runs-on: ubuntu-latest
     steps:
