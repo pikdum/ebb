@@ -41,11 +41,16 @@ type e621Tag = {
 	category: number;
 };
 
-type e621Rating = "Sensitive" | "Questionable" | "Explicit";
-type e621RatingAlias = "s" | "q" | "e";
+type e621Rating = "General" | "Sensitive" | "Questionable" | "Explicit";
+type e621RatingAlias = "g" | "s" | "q" | "e";
 
 export class e621 {
-	static ratings: e621Rating[] = ["Sensitive", "Questionable", "Explicit"];
+	static ratings: e621Rating[] = [
+		"General",
+		"Sensitive",
+		"Questionable",
+		"Explicit",
+	];
 	static buildTagRequest = ({
 		query,
 	}: {
@@ -84,7 +89,8 @@ export class e621 {
 		posts: BooruPost[];
 		hasNextPage: boolean;
 	} => {
-		const danbooruRatingMap: Record<e621RatingAlias, e621Rating> = {
+		const e621RatingMap: Record<e621RatingAlias, e621Rating> = {
+			g: "General",
 			s: "Sensitive",
 			q: "Questionable",
 			e: "Explicit",
@@ -100,7 +106,7 @@ export class e621 {
 				sampleUrl: post.sample.has ? post.sample.url : null,
 				height: post.file.height,
 				width: post.file.width,
-				rating: danbooruRatingMap[post.rating as e621RatingAlias].toLowerCase(),
+				rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
 			})),
 			hasNextPage: posts.length > 0,
 		};

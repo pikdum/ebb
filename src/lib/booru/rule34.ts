@@ -19,10 +19,15 @@ type Rule34Tag = {
 	type: string;
 };
 
-type Rule34Rating = "Questionable" | "Explicit";
+type Rule34Rating = "General" | "Sensitive" | "Questionable" | "Explicit";
 
 export class Rule34 {
-	static ratings: Rule34Rating[] = ["Questionable", "Explicit"];
+	static ratings: Rule34Rating[] = [
+		"General",
+		"Sensitive",
+		"Questionable",
+		"Explicit",
+	];
 	static buildTagRequest = ({
 		query,
 	}: {
