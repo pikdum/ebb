@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.4.1](https://github.com/pikdum/ebb/compare/v2.4.0...v2.4.1) (2024-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-updater to v6.3.4 ([#106](https://github.com/pikdum/ebb/issues/106)) ([b74da99](https://github.com/pikdum/ebb/commit/b74da998fdf95094a7e9855b61087a003a116e57))
+* keep rating options even if no images ([110c1f8](https://github.com/pikdum/ebb/commit/110c1f86a546362f1e120e6f267711342f61c55b))
+
 ## [2.4.0](https://github.com/pikdum/ebb/compare/v2.3.7...v2.4.0) (2024-09-03)
 
 
