@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.3](https://github.com/pikdum/ebb/compare/v2.4.2...v2.4.3) (2024-10-19)
+
+
+### Bug Fixes
+
+* **deps:** npm run update ([5750e5a](https://github.com/pikdum/ebb/commit/5750e5aa80e4942d9e181a6fa5e9be50ee1c2cf5))
+
 ## [2.4.2](https://github.com/pikdum/ebb/compare/v2.4.1...v2.4.2) (2024-10-03)
 
 
