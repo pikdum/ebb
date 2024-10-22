@@ -44,7 +44,7 @@
 		"@vitejs/plugin-react": "4.3.3",
 		"autoprefixer": "10.4.20",
 		"babel-plugin-react-compiler": "latest",
-		"electron": "33.0.1",
+		"electron": "33.0.2",
 		"electron-builder": "25.1.8",
 		"lefthook": "1.7.22",
 		"postcss": "8.4.47",
