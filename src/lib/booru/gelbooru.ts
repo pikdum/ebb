@@ -1,3 +1,5 @@
+import { decode } from "html-entities";
+
 import type { BooruPost, BooruTag } from "./index";
 
 type GelbooruPost = {
@@ -69,6 +71,22 @@ export class Gelbooru {
 		"@attributes": { limit: number; offset: number; count: number };
 	}): { posts: BooruPost[]; hasNextPage: boolean } => {
 		const a = data["@attributes"];
+		const getTagGroup = (type: number): string => {
+			switch (type) {
+				case 0:
+					return "Tag";
+				case 1:
+					return "Artist";
+				case 3:
+					return "Copyright";
+				case 4:
+					return "Character";
+				case 5:
+					return "Metadata";
+				default:
+					return "Unknown";
+			}
+		};
 		return {
 			posts:
 				data?.post?.map((p: GelbooruPost) => ({
@@ -80,6 +98,36 @@ export class Gelbooru {
 					height: p.height,
 					width: p.width,
 					rating: p.rating,
+					getTagGroups: async () => {
+						// TODO: does any single item have more than 100 tags?
+						const url = new URL(
+							"https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&orderby=name&order=asc",
+						);
+						url.searchParams.append("names", p.tags);
+						const response = await fetch(url);
+						const tagData = (await response.json()) as {
+							"@attributes": any;
+							tag: {
+								id: number;
+								name: string;
+								count: number;
+								type: number;
+								ambiguous: number;
+							}[];
+						};
+						const tagGroups = tagData?.tag?.reduce<{
+							[key: string]: string[];
+						}>((acc, tag) => {
+							const group = getTagGroup(tag.type);
+							acc[group] = acc[group] || [];
+							// these are double encoded for some reason
+							// so decode it here once, to be consistent
+							// TODO: should all providers decode entirely upfront?
+							acc[group].push(decode(tag.name));
+							return acc;
+						}, {});
+						return tagGroups;
+					},
 				})) || [],
 			hasNextPage: a.count > a.limit + a.offset,
 		};
