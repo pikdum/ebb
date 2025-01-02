@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/pikdum/ebb/compare/v2.4.3...v2.5.0) (2025-01-02)
+
+
+### Features
+
+* **gelbooru:** group tags by type ([ad2d125](https://github.com/pikdum/ebb/commit/ad2d125eca5166a5028d3490d693661a7509f637))
+
 ## [2.4.3](https://github.com/pikdum/ebb/compare/v2.4.2...v2.4.3) (2024-10-19)
 
 
