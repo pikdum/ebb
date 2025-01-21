@@ -46,7 +46,7 @@
 		"babel-plugin-react-compiler": "latest",
 		"electron": "33.3.1",
 		"electron-builder": "25.1.8",
-		"lefthook": "1.10.3",
+		"lefthook": "1.10.10",
 		"postcss": "8.4.49",
 		"tailwindcss": "3.4.17",
 		"ts-node": "10.9.2",
