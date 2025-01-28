@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/pikdum/ebb/compare/v2.5.1...v2.6.0) (2025-01-28)
+
+
+### Features
+
+* change icon ([0dca4f2](https://github.com/pikdum/ebb/commit/0dca4f2069b2da7859165ec5bff0a7c5866c95b7))
+
 ## [2.5.1](https://github.com/pikdum/ebb/compare/v2.5.0...v2.5.1) (2025-01-28)
 
 
