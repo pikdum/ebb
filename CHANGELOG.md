@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/pikdum/ebb/compare/v2.5.0...v2.5.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* keep npm at v10 ([a2c27aa](https://github.com/pikdum/ebb/commit/a2c27aaadfcf50333c2e6969e285f9907afd8f28))
+
 ## [2.5.0](https://github.com/pikdum/ebb/compare/v2.4.3...v2.5.0) (2025-01-02)
 
 
