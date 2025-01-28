@@ -16,6 +16,6 @@ RUN dpkg --add-architecture i386 \
         npm \
         wine \
         wine32:i386 \
-    && npm install -g npm@latest \
+    && npm install -g npm@10 \
     && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
