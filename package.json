@@ -39,11 +39,11 @@
 		"@electron-forge/plugin-fuses": "7.6.1",
 		"@electron-forge/plugin-vite": "7.6.1",
 		"@electron/fuses": "1.8.0",
-		"@types/react": "npm:types-react@rc",
-		"@types/react-dom": "npm:types-react-dom@rc",
+		"@types/react": "19.0.8",
+		"@types/react-dom": "19.0.3",
 		"@vitejs/plugin-react": "4.3.4",
 		"autoprefixer": "10.4.20",
-		"babel-plugin-react-compiler": "latest",
+		"babel-plugin-react-compiler": "beta",
 		"electron": "34.0.1",
 		"electron-builder": "25.1.8",
 		"lefthook": "1.10.10",
@@ -66,14 +66,8 @@
 		"electron-updater": "6.3.9",
 		"html-entities": "2.5.2",
 		"numbro": "2.5.0",
-		"react": "rc",
-		"react-dom": "rc",
+		"react": "19.0.0",
+		"react-dom": "19.0.0",
 		"react-feather": "2.0.10"
-	},
-	"overrides": {
-		"react": "rc",
-		"react-dom": "rc",
-		"@types/react": "npm:types-react@rc",
-		"@types/react-dom": "npm:types-react-dom@rc"
 	}
 }
