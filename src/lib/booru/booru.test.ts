@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPosts, getSites } from "./index";
+import { getPosts, getSites, getTags } from "./index";
 
 const sites = getSites()
 	.map((site) => site.value)
@@ -15,6 +15,14 @@ describe("Booru Providers", () => {
 				page: 1,
 			});
 			expect(result.posts.length).toBeGreaterThan(0);
+		});
+
+		it(`should return tags from ${site}`, async () => {
+			const tags = await getTags({
+				site,
+				query: "land",
+			});
+			expect(tags.length).toBeGreaterThan(0);
 		});
 	});
 });
