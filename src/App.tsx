@@ -1,4 +1,7 @@
+import classNames from "classnames";
 import { useEffect, useState } from "react";
+import { Plus, X } from "react-feather";
+
 import { Main, MainContextProvider, useMainContext } from "./MainApp";
 
 // Single Tab component to represent individual tab
@@ -9,25 +12,30 @@ const Tab = ({
 	closeTab,
 	title,
 	disableClose,
-}) => (
-	<div
-		className={`flex items-center p-2 m-1 ${activeTab === index ? "bg-indigo-500 text-white" : "bg-gray-300 text-black"} rounded-md`}
-	>
-		<button
-			className="flex-1 focus:outline-none"
-			onClick={() => setActiveTab(index)}
+}) => {
+	const showClose = activeTab === index && !disableClose;
+	return (
+		<div
+			className={classNames(
+				"p-2 text-sm gap-2 flex items-center bg-gray-300 text-black rounded-md h-8",
+				{
+					"bg-indigo-500 text-white": activeTab === index,
+				},
+			)}
 		>
-			{title || `Tab ${index + 1}`}
-		</button>
-		<button
-			className="ml-2 text-red-500 hover:text-red-700 focus:outline-none"
-			onClick={() => closeTab(index)}
-			disabled={disableClose}
-		>
-			×
-		</button>
-	</div>
-);
+			<button onClick={() => setActiveTab(index)}>{title}</button>
+			<button
+				className={classNames("text-white hover:bg-gray-100 hover:opacity-50", {
+					hidden: !showClose,
+				})}
+				onClick={() => closeTab(index)}
+				disabled={disableClose}
+			>
+				<X size={16} />
+			</button>
+		</div>
+	);
+};
 
 export const App = () => {
 	const [tabs, setTabs] = useState([{ title: "" }]); // State to manage tabs
@@ -35,7 +43,7 @@ export const App = () => {
 
 	const addTab = () => setTabs([...tabs, { title: "" }]);
 
-	const closeTab = (index) => {
+	const closeTab = (index: number) => {
 		if (tabs.length > 1) {
 			// Prevent closing the last tab
 			const newTabs = tabs.filter((_, i) => i !== index);
@@ -46,7 +54,7 @@ export const App = () => {
 		}
 	};
 
-	const updateTabTitle = (index, newTitle) => {
+	const updateTabTitle = (index: number, newTitle: string) => {
 		setTabs((prevTabs) => {
 			const updatedTabs = [...prevTabs];
 			updatedTabs[index].title = newTitle || "New Tab";
@@ -56,7 +64,7 @@ export const App = () => {
 
 	return (
 		<div>
-			<div className="flex flex-wrap p-2 bg-gray-100">
+			<div className="flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
 				{tabs.map((tab, index) => (
 					<Tab
 						key={index}
@@ -70,9 +78,9 @@ export const App = () => {
 				))}
 				<button
 					onClick={addTab}
-					className="ml-2 p-2 bg-green-500 text-white rounded-md hover:bg-green-700 focus:outline-none"
+					className="p-2 rounded-full hover:bg-gray-300 focus:outline-none h-full"
 				>
-					Add Tab
+					<Plus size={16} />
 				</button>
 			</div>
 			<div className="p-4">
