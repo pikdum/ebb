@@ -24,5 +24,27 @@ describe("Booru Providers", () => {
 			});
 			expect(tags.length).toBeGreaterThan(0);
 		});
+
+		it(`should get tags from a post from ${site}`, async () => {
+			const result = await getPosts({
+				site,
+				tags: "",
+				limit: 1,
+				page: 1,
+			});
+			const post = result.posts[0];
+			if (typeof post.getTagGroups === "function") {
+				const tagGroups = await post.getTagGroups();
+				expect(tagGroups).toBeDefined();
+				expect(tagGroups).toBeInstanceOf(Object);
+				expect(Object.keys(tagGroups).length).toBeGreaterThan(0);
+				for (const [_group, tags] of Object.entries(tagGroups)) {
+					expect(Array.isArray(tags)).toBe(true);
+				}
+			} else {
+				expect(Array.isArray(post.tags)).toBe(true);
+				expect(post.tags.length).toBeGreaterThan(0);
+			}
+		});
 	});
 });
