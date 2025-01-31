@@ -16,8 +16,8 @@ const Tab = ({
 }: {
 	id: string;
 	activeTab: number;
-	setActiveTab: Function;
-	closeTab: Function;
+	setActiveTab: (index: number) => void;
+	closeTab: (id: string) => void;
 	title: string;
 	index: number;
 	disableClose: boolean;
@@ -32,8 +32,11 @@ const Tab = ({
 				},
 			)}
 		>
-			<button onClick={() => setActiveTab(index)}>{title}</button>
+			<button type="button" onClick={() => setActiveTab(index)}>
+				{title}
+			</button>
 			<button
+				type="button"
 				className={classNames(
 					"text-white rounded-full hover:bg-indigo-600 p-1",
 					{
@@ -95,6 +98,7 @@ export const App = () => {
 					/>
 				))}
 				<button
+					type="button"
 					onClick={addTab}
 					className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
 				>
@@ -120,7 +124,7 @@ const MainUpdater = ({
 	updateTabTitle,
 }: {
 	index: number;
-	updateTabTitle: Function;
+	updateTabTitle: (index: number, newTitle: string) => void;
 }) => {
 	const { query } = useMainContext();
 
