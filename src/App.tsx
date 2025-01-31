@@ -13,12 +13,20 @@ const Tab = ({
 	title,
 	index,
 	disableClose,
+}: {
+	id: string;
+	activeTab: number;
+	setActiveTab: Function;
+	closeTab: Function;
+	title: string;
+	index: number;
+	disableClose: boolean;
 }) => {
 	const showClose = activeTab === index && !disableClose;
 	return (
 		<div
 			className={classNames(
-				"p-2 text-sm gap-2 flex items-center bg-gray-300 text-black rounded-md h-8",
+				"p-2 text-sm gap-1 flex items-center bg-gray-300 text-black rounded-md h-8",
 				{
 					"bg-indigo-500 text-white": activeTab === index,
 				},
@@ -26,9 +34,12 @@ const Tab = ({
 		>
 			<button onClick={() => setActiveTab(index)}>{title}</button>
 			<button
-				className={classNames("text-white hover:bg-gray-100 hover:opacity-50", {
-					hidden: !showClose,
-				})}
+				className={classNames(
+					"text-white rounded-full hover:bg-indigo-600 p-1",
+					{
+						hidden: !showClose,
+					},
+				)}
 				onClick={() => closeTab(id)}
 				disabled={disableClose}
 			>
@@ -48,7 +59,7 @@ export const App = () => {
 		setActiveTab(newTabs.length - 1);
 	};
 
-	const closeTab = (id) => {
+	const closeTab = (id: string) => {
 		if (tabs.length > 1) {
 			// Prevent closing the last tab
 			const indexToRemove = tabs.findIndex((tab) => tab.id === id);
@@ -60,7 +71,7 @@ export const App = () => {
 		}
 	};
 
-	const updateTabTitle = (index, newTitle) => {
+	const updateTabTitle = (index: number, newTitle: string) => {
 		setTabs((prevTabs) => {
 			const updatedTabs = [...prevTabs];
 			updatedTabs[index].title = newTitle || "New Tab";
@@ -85,7 +96,7 @@ export const App = () => {
 				))}
 				<button
 					onClick={addTab}
-					className="p-2 rounded-full hover:bg-gray-300 focus:outline-none h-full"
+					className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
 				>
 					<Plus size={16} />
 				</button>
@@ -104,7 +115,13 @@ export const App = () => {
 };
 
 // Component to update the tab title based on Main's query state
-const MainUpdater = ({ index, updateTabTitle }) => {
+const MainUpdater = ({
+	index,
+	updateTabTitle,
+}: {
+	index: number;
+	updateTabTitle: Function;
+}) => {
 	const { query } = useMainContext();
 
 	useEffect(() => {
