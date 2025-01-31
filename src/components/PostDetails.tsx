@@ -27,6 +27,10 @@ const TagButton = ({ tag }: { tag: string }) => {
 		);
 	};
 
+	const openInNewTab = (tag: string) => {
+		addTab({ title: tag, initialQuery: tag, setActive: false });
+	};
+
 	return (
 		<div className="relative inline-block group">
 			<button
@@ -49,10 +53,8 @@ const TagButton = ({ tag }: { tag: string }) => {
 			</button>
 			<button
 				type="button"
-				onClick={() =>
-					addTab({ title: tag, initialQuery: tag, setActive: false })
-				}
-				className="absolute -right-2 -top-1.5 z-10 invisible group-hover:visible rounded-full bg-indigo-400 hover:bg-indigo-500 text-white shadow-2xl overflow-hidden"
+				onClick={() => openInNewTab(tag)}
+				className="absolute -right-2 -top-1.5 z-10 invisible group-hover:visible rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"
 			>
 				<Plus size={20} />
 			</button>
