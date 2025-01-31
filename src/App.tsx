@@ -42,8 +42,11 @@ export const App = () => {
 	const [tabs, setTabs] = useState([{ id: crypto.randomUUID(), title: "" }]); // State to manage tabs
 	const [activeTab, setActiveTab] = useState(0); // Which tab is active
 
-	const addTab = () =>
-		setTabs([...tabs, { id: crypto.randomUUID(), title: "" }]);
+	const addTab = () => {
+		const newTabs = [...tabs, { id: crypto.randomUUID(), title: "" }];
+		setTabs(newTabs);
+		setActiveTab(newTabs.length - 1);
+	};
 
 	const closeTab = (id) => {
 		if (tabs.length > 1) {
