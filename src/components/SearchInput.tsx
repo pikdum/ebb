@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Downshift from "downshift";
 import numbro from "numbro";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useAppContext } from "../App";
 import { useMainContext } from "../MainApp";
@@ -50,6 +50,11 @@ export const SearchInput = ({ ...rest }) => {
 		setPage(0);
 		setAutocompleteResults([]);
 	};
+
+	// keep search input focused
+	useEffect(() => {
+		searchRef.current?.focus();
+	});
 
 	return (
 		<Downshift
