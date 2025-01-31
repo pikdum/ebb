@@ -1,13 +1,16 @@
 import classNames from "classnames";
 import { decode } from "html-entities";
 import { useEffect, useState } from "react";
+import { Plus } from "react-feather";
 
+import { useAppContext } from "../App";
 import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
 
 const TagButton = ({ tag }: { tag: string }) => {
 	tag = decode(tag);
 	const { query, tempQuery, setTempQuery } = useMainContext();
+	const { addTab } = useAppContext();
 
 	const handleTagClick = (tag: string) => {
 		if (!tempQuery.split(" ").includes(tag)) {
@@ -25,24 +28,34 @@ const TagButton = ({ tag }: { tag: string }) => {
 	};
 
 	return (
-		<button
-			type="button"
-			onClick={() => handleTagClick(tag)}
-			className={classNames(
-				"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 rounded-full",
-				{
-					"bg-blue-700": query.split(" ").includes(tag),
-					"bg-purple-500":
-						tempQuery.split(" ").includes(tag) &&
-						!query.split(" ").includes(tag),
-					"bg-red-500":
-						!tempQuery.split(" ").includes(tag) &&
-						query.split(" ").includes(tag),
-				},
-			)}
-		>
-			{tag}
-		</button>
+		<div className="relative inline-block group">
+			<button
+				type="button"
+				onClick={() => handleTagClick(tag)}
+				className={classNames(
+					"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 rounded-full",
+					{
+						"bg-blue-700": query.split(" ").includes(tag),
+						"bg-purple-500":
+							tempQuery.split(" ").includes(tag) &&
+							!query.split(" ").includes(tag),
+						"bg-red-500":
+							!tempQuery.split(" ").includes(tag) &&
+							query.split(" ").includes(tag),
+					},
+				)}
+			>
+				{tag}
+			</button>
+			<button
+				type="button"
+				onClick={() => addTab({ title: tag, setActive: false })}
+				className="absolute -right-3 -top-2 mt-1 mr-1 z-10 invisible group-hover:visible rounded-full bg-teal-500 hover:bg-teal-700 text-white p-0.5"
+				title="Open tag in new tab"
+			>
+				<Plus size={16} />
+			</button>
+		</div>
 	);
 };
 

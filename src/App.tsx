@@ -21,7 +21,7 @@ type AppContextType = {
 	activeTabId: string | null;
 	setTabs: Dispatch<SetStateAction<Tab[]>>;
 	setActiveTabId: Dispatch<SetStateAction<string | null>>;
-	addTab: () => void;
+	addTab: (options?: { title?: string; setActive?: boolean }) => void;
 	closeCurrentTab: () => void;
 	closeTab: (id: string) => void;
 	switchTabLeft: () => void;
@@ -76,10 +76,12 @@ export const App = () => {
 	const tabCount = tabs.length;
 	const [activeTabId, setActiveTabId] = useState(tabs[0].id);
 
-	const addTab = () => {
-		const newTabs = [...tabs, { id: crypto.randomUUID(), title: "New Tab" }];
+	const addTab = ({ title = "New Tab", setActive = true } = {}) => {
+		const newTabs = [...tabs, { id: crypto.randomUUID(), title }];
 		setTabs(newTabs);
-		setActiveTabId(newTabs[newTabs.length - 1].id);
+		if (setActive) {
+			setActiveTabId(newTabs[newTabs.length - 1].id);
+		}
 	};
 
 	const closeCurrentTab = () => {
@@ -184,7 +186,7 @@ export const App = () => {
 				))}
 				<button
 					type="button"
-					onClick={addTab}
+					onClick={() => addTab()}
 					className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
 				>
 					<Plus size={16} />
