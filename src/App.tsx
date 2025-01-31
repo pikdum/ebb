@@ -49,7 +49,7 @@ const Tab = ({ id, title }: { id: string; title: string }) => {
 	return (
 		<div
 			className={classNames(
-				"p-2 text-sm gap-1 flex items-center bg-gray-300 text-black rounded-md h-8",
+				"p-2 text-sm gap-1 flex items-center bg-gray-300 text-black rounded-md h-8 whitespace-nowrap",
 				{
 					"bg-indigo-500 text-white": isActive,
 				},
@@ -196,7 +196,7 @@ export const App = () => {
 				tabCount,
 			}}
 		>
-			<div className="sticky top-0 z-10 flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
+			<div className="sticky top-0 z-10 flex p-2 bg-gray-100 gap-2 items-center overflow-x-auto">
 				{tabs.map((tab) => (
 					<Tab key={tab.id} id={tab.id} title={tab.title} />
 				))}
