@@ -14,6 +14,7 @@ import { Main, MainContextProvider } from "./MainApp";
 type Tab = {
 	id: string;
 	title: string;
+	initialQuery?: string;
 };
 
 type AppContextType = {
@@ -21,7 +22,11 @@ type AppContextType = {
 	activeTabId: string | null;
 	setTabs: Dispatch<SetStateAction<Tab[]>>;
 	setActiveTabId: Dispatch<SetStateAction<string | null>>;
-	addTab: (options?: { title?: string; setActive?: boolean }) => void;
+	addTab: (options?: {
+		title?: string;
+		setActive?: boolean;
+		initialQuery?: string;
+	}) => void;
 	closeCurrentTab: () => void;
 	closeTab: (id: string) => void;
 	switchTabLeft: () => void;
@@ -71,13 +76,17 @@ const Tab = ({ id, title }: { id: string; title: string }) => {
 
 export const App = () => {
 	const [tabs, setTabs] = useState([
-		{ id: crypto.randomUUID(), title: "New Tab" },
+		{ id: crypto.randomUUID(), title: "New Tab", initialQuery: undefined },
 	]);
 	const tabCount = tabs.length;
 	const [activeTabId, setActiveTabId] = useState(tabs[0].id);
 
-	const addTab = ({ title = "New Tab", setActive = true } = {}) => {
-		const newTabs = [...tabs, { id: crypto.randomUUID(), title }];
+	const addTab = ({
+		title = "New Tab",
+		setActive = true,
+		initialQuery = undefined,
+	} = {}) => {
+		const newTabs = [...tabs, { id: crypto.randomUUID(), title, initialQuery }];
 		setTabs(newTabs);
 		if (setActive) {
 			setActiveTabId(newTabs[newTabs.length - 1].id);
@@ -163,6 +172,13 @@ export const App = () => {
 		};
 	}, [activeTabId, tabs]);
 
+	// TODO: keep track of scroll position per tab?
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+		});
+	}, [activeTabId]);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -195,7 +211,7 @@ export const App = () => {
 			<div>
 				{tabs.map((tab) => (
 					<div key={tab.id} className={activeTabId === tab.id ? "" : "hidden"}>
-						<MainContextProvider>
+						<MainContextProvider initialQuery={tab.initialQuery}>
 							<Main />
 						</MainContextProvider>
 					</div>

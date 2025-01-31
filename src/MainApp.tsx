@@ -59,14 +59,20 @@ const MainContext = createContext(
 );
 export const useMainContext = () => useContext(MainContext);
 
-export const MainContextProvider = ({ children }: { children: ReactNode }) => {
+export const MainContextProvider = ({
+	initialQuery = undefined,
+	children,
+}: {
+	initialQuery?: string;
+	children: ReactNode;
+}) => {
 	const defaultSite: BooruSite = "gelbooru";
 	const defaultRatings = getRatings(defaultSite);
 	const [posts, setPosts] = useState<BooruPost[]>([]);
 	const [page, setPage] = useState(0);
 	const [hasNextPage, setHasNextPage] = useState(false);
-	const [tempQuery, setTempQuery] = useState("");
-	const [query, setQuery] = useState<string | undefined>();
+	const [tempQuery, setTempQuery] = useState(initialQuery ?? "");
+	const [query, setQuery] = useState<string | undefined>(initialQuery);
 	const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
 	const [selectedPost, setSelectedPost] = useState<string | undefined>();
 	const [loading, setLoading] = useState(false);

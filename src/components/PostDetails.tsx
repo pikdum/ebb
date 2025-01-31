@@ -49,7 +49,9 @@ const TagButton = ({ tag }: { tag: string }) => {
 			</button>
 			<button
 				type="button"
-				onClick={() => addTab({ title: tag, setActive: false })}
+				onClick={() =>
+					addTab({ title: tag, initialQuery: tag, setActive: false })
+				}
 				className="absolute -right-3 -top-2 mt-1 mr-1 z-10 invisible group-hover:visible rounded-full bg-teal-500 hover:bg-teal-700 text-white p-0.5"
 				title="Open tag in new tab"
 			>
