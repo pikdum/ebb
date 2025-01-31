@@ -1,7 +1,7 @@
 {
 	"name": "ebb",
 	"productName": "ebb",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
 	"main": ".vite/build/main.js",
@@ -45,7 +45,7 @@
 		"@vitejs/plugin-react": "4.3.4",
 		"autoprefixer": "10.4.20",
 		"babel-plugin-react-compiler": "beta",
-		"electron": "34.0.2",
+		"electron": "34.0.1",
 		"electron-builder": "25.1.8",
 		"lefthook": "1.10.10",
 		"postcss": "8.5.1",
