@@ -4,7 +4,6 @@ import { Plus, X } from "react-feather";
 
 import { Main, MainContextProvider, useMainContext } from "./MainApp";
 
-// Single Tab component to represent individual tab
 const Tab = ({
 	id,
 	activeTab,
@@ -64,7 +63,7 @@ export const App = () => {
 
 	const closeTab = (id: string) => {
 		if (tabs.length > 1) {
-			// Prevent closing the last tab
+			// prevent closing the last tab
 			const indexToRemove = tabs.findIndex((tab) => tab.id === id);
 			const newTabs = tabs.filter((tab) => tab.id !== id);
 			setTabs(newTabs);
@@ -118,7 +117,7 @@ export const App = () => {
 	);
 };
 
-// Component to update the tab title based on Main's query state
+// update the tab title based on query state
 const MainUpdater = ({
 	index,
 	updateTabTitle,
