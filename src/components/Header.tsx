@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Search } from "react-feather";
 
+import { useAppContext } from "../App";
 import { useMainContext } from "../MainApp";
 import { Pagination } from "./Pagination";
 import { RatingSelect } from "./RatingSelect";
@@ -17,9 +18,12 @@ export const Header = () => {
 		setAutocompleteResults,
 	} = useMainContext();
 
+	const { updateCurrentTabTitle } = useAppContext();
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setQuery(tempQuery);
+		updateCurrentTabTitle(tempQuery);
 		setPage(0);
 		setAutocompleteResults([]);
 	};

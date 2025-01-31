@@ -1,8 +1,38 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import {
+	type Dispatch,
+	type SetStateAction,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import { Plus, X } from "react-feather";
 
-import { Main, MainContextProvider, useMainContext } from "./MainApp";
+import { Main, MainContextProvider } from "./MainApp";
+
+type Tab = {
+	id: string;
+	title: string;
+};
+
+type AppContextType = {
+	tabs: Tab[];
+	activeTab: number;
+	setTabs: Dispatch<SetStateAction<Tab[]>>;
+	setActiveTab: Dispatch<SetStateAction<number>>;
+	addTab: () => void;
+	closeCurrentTab: () => void;
+	closeTab: (id: string) => void;
+	switchTabLeft: () => void;
+	switchTabRight: () => void;
+	updateTabTitle: (index: number, newTitle: string) => void;
+	updateCurrentTabTitle: (newTitle: string) => void;
+};
+
+const AppContext = createContext({} as AppContextType);
+
+export const useAppContext = () => useContext(AppContext);
 
 const Tab = ({
 	id,
@@ -52,11 +82,13 @@ const Tab = ({
 };
 
 export const App = () => {
-	const [tabs, setTabs] = useState([{ id: crypto.randomUUID(), title: "" }]); // State to manage tabs
-	const [activeTab, setActiveTab] = useState(0); // Which tab is active
+	const [tabs, setTabs] = useState([
+		{ id: crypto.randomUUID(), title: "New Tab" },
+	]);
+	const [activeTab, setActiveTab] = useState(0);
 
 	const addTab = () => {
-		const newTabs = [...tabs, { id: crypto.randomUUID(), title: "" }];
+		const newTabs = [...tabs, { id: crypto.randomUUID(), title: "New Tab" }];
 		setTabs(newTabs);
 		setActiveTab(newTabs.length - 1);
 	};
@@ -86,6 +118,10 @@ export const App = () => {
 			updatedTabs[index].title = newTitle || "New Tab";
 			return updatedTabs;
 		});
+	};
+
+	const updateCurrentTabTitle = (newTitle: string) => {
+		updateTabTitle(activeTab, newTitle);
 	};
 
 	const switchTabLeft = () => {
@@ -131,7 +167,21 @@ export const App = () => {
 	}, [activeTab, tabs]);
 
 	return (
-		<div>
+		<AppContext.Provider
+			value={{
+				tabs,
+				activeTab,
+				setTabs,
+				setActiveTab,
+				addTab,
+				closeCurrentTab,
+				closeTab,
+				switchTabLeft,
+				switchTabRight,
+				updateTabTitle,
+				updateCurrentTabTitle,
+			}}
+		>
 			<div className="sticky top-0 z-10 flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
 				{tabs.map((tab, index) => (
 					<Tab
@@ -157,28 +207,11 @@ export const App = () => {
 				{tabs.map((tab, index) => (
 					<div key={tab.id} className={activeTab === index ? "" : "hidden"}>
 						<MainContextProvider>
-							<MainUpdater index={index} updateTabTitle={updateTabTitle} />
+							<Main />
 						</MainContextProvider>
 					</div>
 				))}
 			</div>
-		</div>
+		</AppContext.Provider>
 	);
-};
-
-// update the tab title based on query state
-const MainUpdater = ({
-	index,
-	updateTabTitle,
-}: {
-	index: number;
-	updateTabTitle: (index: number, newTitle: string) => void;
-}) => {
-	const { query } = useMainContext();
-
-	useEffect(() => {
-		updateTabTitle(index, query);
-	}, [query, index, updateTabTitle]);
-
-	return <Main />;
 };
