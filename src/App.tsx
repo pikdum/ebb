@@ -61,6 +61,13 @@ export const App = () => {
 		setActiveTab(newTabs.length - 1);
 	};
 
+	const closeCurrentTab = () => {
+		if (tabs.length > 1) {
+			const idToRemove = tabs[activeTab].id;
+			closeTab(idToRemove);
+		}
+	};
+
 	const closeTab = (id: string) => {
 		if (tabs.length > 1) {
 			// prevent closing the last tab
@@ -80,6 +87,24 @@ export const App = () => {
 			return updatedTabs;
 		});
 	};
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.ctrlKey && event.key === "t") {
+				event.preventDefault();
+				addTab();
+			} else if (event.ctrlKey && event.key === "w") {
+				event.preventDefault();
+				closeCurrentTab();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [activeTab, tabs]);
 
 	return (
 		<div>
