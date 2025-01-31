@@ -196,26 +196,31 @@ export const App = () => {
 				tabCount,
 			}}
 		>
-			<div className="sticky top-0 z-10 flex p-2 bg-gray-100 gap-2 items-center overflow-x-auto">
-				{tabs.map((tab) => (
-					<Tab key={tab.id} id={tab.id} title={tab.title} />
-				))}
-				<button
-					type="button"
-					onClick={() => addTab()}
-					className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
-				>
-					<Plus size={16} />
-				</button>
-			</div>
-			<div>
-				{tabs.map((tab) => (
-					<div key={tab.id} className={activeTabId === tab.id ? "" : "hidden"}>
-						<MainContextProvider initialQuery={tab.initialQuery}>
-							<Main />
-						</MainContextProvider>
-					</div>
-				))}
+			<div className="select-none">
+				<div className="sticky top-0 z-10 flex p-2 bg-gray-100 gap-2 items-center overflow-x-auto">
+					{tabs.map((tab) => (
+						<Tab key={tab.id} id={tab.id} title={tab.title} />
+					))}
+					<button
+						type="button"
+						onClick={() => addTab()}
+						className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
+					>
+						<Plus size={16} />
+					</button>
+				</div>
+				<div>
+					{tabs.map((tab) => (
+						<div
+							key={tab.id}
+							className={activeTabId === tab.id ? "" : "hidden"}
+						>
+							<MainContextProvider initialQuery={tab.initialQuery}>
+								<Main />
+							</MainContextProvider>
+						</div>
+					))}
+				</div>
 			</div>
 		</AppContext.Provider>
 	);

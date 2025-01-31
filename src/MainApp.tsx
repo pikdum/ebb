@@ -230,7 +230,7 @@ export const Main = () => {
 	}, [page, query, currentSite, currentRating]);
 
 	return (
-		<div className="select-none">
+		<div>
 			<Header />
 			{loading && (
 				<LoadingIndicator className="text-center m-6 text-blue-500" />
