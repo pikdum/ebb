@@ -1,13 +1,16 @@
 import classNames from "classnames";
 import { decode } from "html-entities";
 import { useEffect, useState } from "react";
+import { Plus } from "react-feather";
 
+import { useAppContext } from "../App";
 import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
 
 const TagButton = ({ tag }: { tag: string }) => {
 	tag = decode(tag);
 	const { query, tempQuery, setTempQuery } = useMainContext();
+	const { addTab } = useAppContext();
 
 	const handleTagClick = (tag: string) => {
 		if (!tempQuery.split(" ").includes(tag)) {
@@ -24,25 +27,38 @@ const TagButton = ({ tag }: { tag: string }) => {
 		);
 	};
 
+	const openInNewTab = (tag: string) => {
+		addTab({ title: tag, initialQuery: tag, setActive: false });
+	};
+
 	return (
-		<button
-			type="button"
-			onClick={() => handleTagClick(tag)}
-			className={classNames(
-				"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 rounded-full",
-				{
-					"bg-blue-700": query.split(" ").includes(tag),
-					"bg-purple-500":
-						tempQuery.split(" ").includes(tag) &&
-						!query.split(" ").includes(tag),
-					"bg-red-500":
-						!tempQuery.split(" ").includes(tag) &&
-						query.split(" ").includes(tag),
-				},
-			)}
-		>
-			{tag}
-		</button>
+		<div className="relative inline-block group">
+			<button
+				type="button"
+				onClick={() => handleTagClick(tag)}
+				className={classNames(
+					"bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 rounded-full",
+					{
+						"bg-blue-700": query.split(" ").includes(tag),
+						"bg-purple-500":
+							tempQuery.split(" ").includes(tag) &&
+							!query.split(" ").includes(tag),
+						"bg-red-500":
+							!tempQuery.split(" ").includes(tag) &&
+							query.split(" ").includes(tag),
+					},
+				)}
+			>
+				{tag}
+			</button>
+			<button
+				type="button"
+				onClick={() => openInNewTab(tag)}
+				className="absolute -right-2 -top-1.5 z-10 invisible group-hover:visible rounded-full bg-indigo-400 hover:bg-indigo-500 text-white"
+			>
+				<Plus size={20} />
+			</button>
+		</div>
 	);
 };
 
