@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/pikdum/ebb/compare/v2.6.0...v2.7.0) (2025-01-31)
+
+
+### Features
+
+* tabs ([#189](https://github.com/pikdum/ebb/issues/189)) ([87d64c6](https://github.com/pikdum/ebb/commit/87d64c6be5fd29ec705c7b6befb06217e83904bb))
+
 ## [2.6.0](https://github.com/pikdum/ebb/compare/v2.5.1...v2.6.0) (2025-01-28)
 
 
