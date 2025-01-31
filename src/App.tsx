@@ -88,6 +88,18 @@ export const App = () => {
 		});
 	};
 
+	const switchTabLeft = () => {
+		setActiveTab((prevActiveTab) =>
+			prevActiveTab === 0 ? tabs.length - 1 : prevActiveTab - 1,
+		);
+	};
+
+	const switchTabRight = () => {
+		setActiveTab((prevActiveTab) =>
+			prevActiveTab === tabs.length - 1 ? 0 : prevActiveTab + 1,
+		);
+	};
+
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.ctrlKey && event.key === "t") {
@@ -96,6 +108,18 @@ export const App = () => {
 			} else if (event.ctrlKey && event.key === "w") {
 				event.preventDefault();
 				closeCurrentTab();
+			} else if (
+				(event.ctrlKey && event.key === "h") ||
+				(event.ctrlKey && event.key === "ArrowLeft")
+			) {
+				event.preventDefault();
+				switchTabLeft();
+			} else if (
+				(event.ctrlKey && event.key === "l") ||
+				(event.ctrlKey && event.key === "ArrowRight")
+			) {
+				event.preventDefault();
+				switchTabRight();
 			}
 		};
 
