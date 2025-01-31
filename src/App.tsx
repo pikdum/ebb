@@ -18,50 +18,39 @@ type Tab = {
 
 type AppContextType = {
 	tabs: Tab[];
-	activeTab: number;
+	activeTabId: string | null;
 	setTabs: Dispatch<SetStateAction<Tab[]>>;
-	setActiveTab: Dispatch<SetStateAction<number>>;
+	setActiveTabId: Dispatch<SetStateAction<string | null>>;
 	addTab: () => void;
 	closeCurrentTab: () => void;
 	closeTab: (id: string) => void;
 	switchTabLeft: () => void;
 	switchTabRight: () => void;
-	updateTabTitle: (index: number, newTitle: string) => void;
+	updateTabTitle: (id: string, newTitle: string) => void;
 	updateCurrentTabTitle: (newTitle: string) => void;
+	tabCount: number;
 };
 
 const AppContext = createContext({} as AppContextType);
 
 export const useAppContext = () => useContext(AppContext);
 
-const Tab = ({
-	id,
-	activeTab,
-	setActiveTab,
-	closeTab,
-	title,
-	index,
-	disableClose,
-}: {
-	id: string;
-	activeTab: number;
-	setActiveTab: (index: number) => void;
-	closeTab: (id: string) => void;
-	title: string;
-	index: number;
-	disableClose: boolean;
-}) => {
-	const showClose = activeTab === index && !disableClose;
+const Tab = ({ id, title }: { id: string; title: string }) => {
+	const { activeTabId, setActiveTabId, closeTab, tabCount } = useAppContext();
+
+	const isActive = activeTabId === id;
+	const showClose = isActive && tabCount > 1;
+
 	return (
 		<div
 			className={classNames(
 				"p-2 text-sm gap-1 flex items-center bg-gray-300 text-black rounded-md h-8",
 				{
-					"bg-indigo-500 text-white": activeTab === index,
+					"bg-indigo-500 text-white": isActive,
 				},
 			)}
 		>
-			<button type="button" onClick={() => setActiveTab(index)}>
+			<button type="button" onClick={() => setActiveTabId(id)}>
 				{title}
 			</button>
 			<button
@@ -73,7 +62,6 @@ const Tab = ({
 					},
 				)}
 				onClick={() => closeTab(id)}
-				disabled={disableClose}
 			>
 				<X size={16} />
 			</button>
@@ -85,55 +73,62 @@ export const App = () => {
 	const [tabs, setTabs] = useState([
 		{ id: crypto.randomUUID(), title: "New Tab" },
 	]);
-	const [activeTab, setActiveTab] = useState(0);
+	const tabCount = tabs.length;
+	const [activeTabId, setActiveTabId] = useState(tabs[0].id);
 
 	const addTab = () => {
 		const newTabs = [...tabs, { id: crypto.randomUUID(), title: "New Tab" }];
 		setTabs(newTabs);
-		setActiveTab(newTabs.length - 1);
+		setActiveTabId(newTabs[newTabs.length - 1].id);
 	};
 
 	const closeCurrentTab = () => {
-		if (tabs.length > 1) {
-			const idToRemove = tabs[activeTab].id;
-			closeTab(idToRemove);
+		if (tabs.length > 1 && activeTabId) {
+			closeTab(activeTabId);
 		}
 	};
 
 	const closeTab = (id: string) => {
 		if (tabs.length > 1) {
-			// prevent closing the last tab
 			const indexToRemove = tabs.findIndex((tab) => tab.id === id);
 			const newTabs = tabs.filter((tab) => tab.id !== id);
 			setTabs(newTabs);
-			if (activeTab >= indexToRemove) {
-				setActiveTab((prev) => (prev === 0 ? 0 : prev - 1));
+			if (activeTabId === id) {
+				const newIndex = indexToRemove === 0 ? 0 : indexToRemove - 1;
+				setActiveTabId(newTabs[newIndex]?.id || newTabs[0].id);
 			}
 		}
 	};
 
-	const updateTabTitle = (index: number, newTitle: string) => {
+	const updateTabTitle = (id: string, newTitle: string) => {
 		setTabs((prevTabs) => {
-			const updatedTabs = [...prevTabs];
-			updatedTabs[index].title = newTitle || "New Tab";
+			const updatedTabs = prevTabs.map((tab) =>
+				tab.id === id ? { ...tab, title: newTitle || "New Tab" } : tab,
+			);
 			return updatedTabs;
 		});
 	};
 
 	const updateCurrentTabTitle = (newTitle: string) => {
-		updateTabTitle(activeTab, newTitle);
+		if (activeTabId) {
+			updateTabTitle(activeTabId, newTitle);
+		}
 	};
 
 	const switchTabLeft = () => {
-		setActiveTab((prevActiveTab) =>
-			prevActiveTab === 0 ? tabs.length - 1 : prevActiveTab - 1,
-		);
+		if (tabs.length > 1) {
+			const currentIndex = tabs.findIndex((tab) => tab.id === activeTabId);
+			const newIndex = currentIndex === 0 ? tabs.length - 1 : currentIndex - 1;
+			setActiveTabId(tabs[newIndex].id);
+		}
 	};
 
 	const switchTabRight = () => {
-		setActiveTab((prevActiveTab) =>
-			prevActiveTab === tabs.length - 1 ? 0 : prevActiveTab + 1,
-		);
+		if (tabs.length > 1) {
+			const currentIndex = tabs.findIndex((tab) => tab.id === activeTabId);
+			const newIndex = currentIndex === tabs.length - 1 ? 0 : currentIndex + 1;
+			setActiveTabId(tabs[newIndex].id);
+		}
 	};
 
 	useEffect(() => {
@@ -164,15 +159,15 @@ export const App = () => {
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown);
 		};
-	}, [activeTab, tabs]);
+	}, [activeTabId, tabs]);
 
 	return (
 		<AppContext.Provider
 			value={{
 				tabs,
-				activeTab,
+				activeTabId,
 				setTabs,
-				setActiveTab,
+				setActiveTabId,
 				addTab,
 				closeCurrentTab,
 				closeTab,
@@ -180,20 +175,12 @@ export const App = () => {
 				switchTabRight,
 				updateTabTitle,
 				updateCurrentTabTitle,
+				tabCount,
 			}}
 		>
 			<div className="sticky top-0 z-10 flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
-				{tabs.map((tab, index) => (
-					<Tab
-						key={tab.id}
-						id={tab.id}
-						index={index}
-						activeTab={activeTab}
-						setActiveTab={setActiveTab}
-						closeTab={closeTab}
-						title={tab.title}
-						disableClose={tabs.length === 1}
-					/>
+				{tabs.map((tab) => (
+					<Tab key={tab.id} id={tab.id} title={tab.title} />
 				))}
 				<button
 					type="button"
@@ -204,8 +191,8 @@ export const App = () => {
 				</button>
 			</div>
 			<div>
-				{tabs.map((tab, index) => (
-					<div key={tab.id} className={activeTab === index ? "" : "hidden"}>
+				{tabs.map((tab) => (
+					<div key={tab.id} className={activeTabId === tab.id ? "" : "hidden"}>
 						<MainContextProvider>
 							<Main />
 						</MainContextProvider>
