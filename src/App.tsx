@@ -84,7 +84,7 @@ export const App = () => {
 
 	return (
 		<div>
-			<div className="flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
+			<div className="sticky top-0 z-10 flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
 				{tabs.map((tab, index) => (
 					<Tab
 						key={tab.id}
@@ -105,7 +105,7 @@ export const App = () => {
 					<Plus size={16} />
 				</button>
 			</div>
-			<div className="p-4">
+			<div>
 				{tabs.map((tab, index) => (
 					<div key={tab.id} className={activeTab === index ? "" : "hidden"}>
 						<MainContextProvider>

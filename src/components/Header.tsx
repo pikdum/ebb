@@ -43,7 +43,7 @@ export const Header = () => {
 	return (
 		<header
 			ref={headerRef}
-			className="bg-white border-b border-gray-200 p-2 w-full sticky top-0 z-10"
+			className="bg-white border-b border-gray-200 p-2 w-full sticky top-12 z-20"
 		>
 			<form
 				onSubmit={handleSubmit}
