@@ -3,6 +3,7 @@ import Downshift from "downshift";
 import numbro from "numbro";
 import { useRef } from "react";
 
+import { useAppContext } from "../App";
 import { useMainContext } from "../MainApp";
 import { getTags } from "../lib/booru";
 
@@ -20,6 +21,8 @@ export const SearchInput = ({ ...rest }) => {
 		autocompleteResults,
 		setAutocompleteResults,
 	} = useMainContext();
+
+	const { updateCurrentTabTitle } = useAppContext();
 
 	const searchRef = useRef<HTMLInputElement>(null);
 
@@ -43,6 +46,7 @@ export const SearchInput = ({ ...rest }) => {
 		const combined = tempQuery.slice(0, -currentWord.length) + selection.value;
 		setTempQuery(combined);
 		setQuery(combined);
+		updateCurrentTabTitle(combined);
 		setPage(0);
 		setAutocompleteResults([]);
 	};
