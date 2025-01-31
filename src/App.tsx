@@ -6,11 +6,12 @@ import { Main, MainContextProvider, useMainContext } from "./MainApp";
 
 // Single Tab component to represent individual tab
 const Tab = ({
-	index,
+	id,
 	activeTab,
 	setActiveTab,
 	closeTab,
 	title,
+	index,
 	disableClose,
 }) => {
 	const showClose = activeTab === index && !disableClose;
@@ -28,7 +29,7 @@ const Tab = ({
 				className={classNames("text-white hover:bg-gray-100 hover:opacity-50", {
 					hidden: !showClose,
 				})}
-				onClick={() => closeTab(index)}
+				onClick={() => closeTab(id)}
 				disabled={disableClose}
 			>
 				<X size={16} />
@@ -38,23 +39,25 @@ const Tab = ({
 };
 
 export const App = () => {
-	const [tabs, setTabs] = useState([{ title: "" }]); // State to manage tabs
+	const [tabs, setTabs] = useState([{ id: crypto.randomUUID(), title: "" }]); // State to manage tabs
 	const [activeTab, setActiveTab] = useState(0); // Which tab is active
 
-	const addTab = () => setTabs([...tabs, { title: "" }]);
+	const addTab = () =>
+		setTabs([...tabs, { id: crypto.randomUUID(), title: "" }]);
 
-	const closeTab = (index: number) => {
+	const closeTab = (id) => {
 		if (tabs.length > 1) {
 			// Prevent closing the last tab
-			const newTabs = tabs.filter((_, i) => i !== index);
+			const indexToRemove = tabs.findIndex((tab) => tab.id === id);
+			const newTabs = tabs.filter((tab) => tab.id !== id);
 			setTabs(newTabs);
-			if (activeTab >= index) {
+			if (activeTab >= indexToRemove) {
 				setActiveTab((prev) => (prev === 0 ? 0 : prev - 1));
 			}
 		}
 	};
 
-	const updateTabTitle = (index: number, newTitle: string) => {
+	const updateTabTitle = (index, newTitle) => {
 		setTabs((prevTabs) => {
 			const updatedTabs = [...prevTabs];
 			updatedTabs[index].title = newTitle || "New Tab";
@@ -67,7 +70,8 @@ export const App = () => {
 			<div className="flex flex-wrap p-2 bg-gray-100 gap-2 items-center">
 				{tabs.map((tab, index) => (
 					<Tab
-						key={index}
+						key={tab.id}
+						id={tab.id}
 						index={index}
 						activeTab={activeTab}
 						setActiveTab={setActiveTab}
@@ -84,9 +88,9 @@ export const App = () => {
 				</button>
 			</div>
 			<div className="p-4">
-				{tabs.map((_, index) => (
-					<div key={index} className={activeTab === index ? "" : "hidden"}>
-						<MainContextProvider key={index}>
+				{tabs.map((tab, index) => (
+					<div key={tab.id} className={activeTab === index ? "" : "hidden"}>
+						<MainContextProvider>
 							<MainUpdater index={index} updateTabTitle={updateTabTitle} />
 						</MainContextProvider>
 					</div>
