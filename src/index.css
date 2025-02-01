@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @layer base {
-  button,
-  [role="button"] {
-    cursor: pointer;
-  }
-  button:disabled,
-  [role="button"]:disabled {
-    cursor: default;
-  }
+	button,
+	[role="button"] {
+		cursor: pointer;
+	}
+	button:disabled,
+	[role="button"]:disabled {
+		cursor: default;
+	}
 }
