@@ -81,7 +81,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 		<div className="break-words col-span-full text-center flex flex-wrap justify-center gap-4 p-2">
 			{sortedTags.map(([group, tags]) => (
 				<div key={group} className="flex flex-wrap justify-center gap-2">
-					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded bg-gray-200">
+					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
 						{group}
 					</div>
 					{tags.map((tag: string) => (
@@ -90,7 +90,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 				</div>
 			))}
 			<div className="flex flex-wrap justify-center gap-2">
-				<div className="inline text-black text-xs font-semibold p-1 px-3 rounded bg-gray-200">
+				<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
 					Rating
 				</div>
 				<button

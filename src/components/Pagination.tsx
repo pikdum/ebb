@@ -9,7 +9,7 @@ export const Pagination = () => {
 		<div className="flex gap-2 items-center">
 			<button
 				type="button"
-				className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
+				className="hover:bg-gray-200 font-bold py-2 rounded-sm disabled:opacity-20 disabled:cursor-not-allowed"
 				onClick={decrementPage}
 				disabled={page === 0}
 			>
@@ -20,7 +20,7 @@ export const Pagination = () => {
 			</span>
 			<button
 				type="button"
-				className="hover:bg-gray-200 font-bold py-2 rounded disabled:opacity-20 disabled:cursor-not-allowed"
+				className="hover:bg-gray-200 font-bold py-2 rounded-sm disabled:opacity-20 disabled:cursor-not-allowed"
 				onClick={incrementPage}
 				disabled={!hasNextPage}
 			>

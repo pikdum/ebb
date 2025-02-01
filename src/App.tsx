@@ -204,7 +204,7 @@ export const App = () => {
 					<button
 						type="button"
 						onClick={() => addTab()}
-						className="p-2 rounded-full hover:bg-indigo-300 focus:outline-none h-full"
+						className="p-2 rounded-full hover:bg-indigo-300 focus:outline-hidden h-full"
 					>
 						<Plus size={16} />
 					</button>

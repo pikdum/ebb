@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import type { ConfigEnv, UserConfig } from "vite";
 import { defineConfig } from "vite";
@@ -19,6 +20,7 @@ export default defineConfig((env) => {
 			outDir: `.vite/renderer/${name}`,
 		},
 		plugins: [
+			tailwindcss(),
 			pluginExposeRenderer(name),
 			react({
 				babel: {
