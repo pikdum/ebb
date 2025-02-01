@@ -26,7 +26,7 @@ export const PostSWF = ({ post }: { post: BooruPost }) => {
 			</div>
 			<button
 				type="button"
-				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded"
+				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded-sm"
 				onClick={() => handleSelectPost(post.id)}
 			>
 				Close {post.id}

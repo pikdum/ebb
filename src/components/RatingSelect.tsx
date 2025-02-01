@@ -45,7 +45,7 @@ export const RatingSelect = () => {
 						{...getInputProps()}
 						{...getToggleButtonProps()}
 						className={classNames(
-							"border border-gray-300 text-white text-2xl font-semibold rounded h-10 w-10 focus:outline-none whitespace-nowrap",
+							"border border-gray-300 text-white text-2xl font-semibold rounded-sm h-10 w-10 focus:outline-hidden whitespace-nowrap",
 							ratingClassMap,
 						)}
 					>
@@ -54,7 +54,7 @@ export const RatingSelect = () => {
 					<ul
 						{...getMenuProps()}
 						className={classNames(
-							"absolute right-0 mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
+							"absolute right-0 mt-4 p-1 rounded-sm bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
 							{
 								hidden: !isOpen,
 							},
@@ -67,7 +67,7 @@ export const RatingSelect = () => {
 									{...getItemProps({
 										index,
 										item,
-										className: classNames("p-1 rounded cursor-pointer", {
+										className: classNames("p-1 rounded-sm cursor-pointer", {
 											"bg-blue-200": highlightedIndex === index,
 											"font-semibold": item.value === currentRating,
 										}),

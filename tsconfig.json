@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"target": "ESNext",
-		"module": "commonjs",
+		"module": "esnext",
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
@@ -10,7 +10,7 @@
 		"sourceMap": true,
 		"baseUrl": ".",
 		"outDir": "dist",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true
 	},
 	"include": ["src"]

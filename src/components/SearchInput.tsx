@@ -68,7 +68,7 @@ export const SearchInput = ({ ...rest }) => {
 						onChange={handleSearchChange}
 						value={tempQuery}
 						className={classNames(
-							"border border-gray-300 rounded p-2 w-full focus:outline-none",
+							"border border-gray-300 rounded-sm p-2 w-full focus:outline-hidden",
 							{
 								"border-purple-500": query && query !== tempQuery,
 							},
@@ -81,7 +81,7 @@ export const SearchInput = ({ ...rest }) => {
 					<ul
 						{...getMenuProps()}
 						className={classNames(
-							"absolute mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
+							"absolute mt-4 p-1 rounded-sm bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
 							{
 								hidden:
 									autocompleteResults.length === 0 ||
@@ -98,7 +98,7 @@ export const SearchInput = ({ ...rest }) => {
 									index,
 									item,
 									className: classNames(
-										"p-1 rounded flex justify-between gap-8 cursor-pointer",
+										"p-1 rounded-sm flex justify-between gap-8 cursor-pointer",
 										{
 											"bg-gray-100": highlightedIndex === index,
 										},

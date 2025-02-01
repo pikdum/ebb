@@ -48,7 +48,7 @@ export const SiteSelect = () => {
 						type="button"
 						{...getInputProps()}
 						{...getToggleButtonProps()}
-						className="border border-gray-300 p-1.5 rounded h-10 w-10 focus:outline-none bg-blue-500 hover:bg-blue-600 grid place-items-center"
+						className="border border-gray-300 p-1.5 rounded-sm h-10 w-10 focus:outline-hidden bg-blue-500 hover:bg-blue-600 grid place-items-center"
 					>
 						<img
 							src={currentSiteData?.icon}
@@ -59,7 +59,7 @@ export const SiteSelect = () => {
 					<ul
 						{...getMenuProps()}
 						className={classNames(
-							"absolute right-0 mt-4 p-1 rounded bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
+							"absolute right-0 mt-4 p-1 rounded-sm bg-white shadow-xl overflow-y-auto z-20 border border-gray-200",
 							{
 								hidden: !isOpen,
 							},
@@ -72,7 +72,7 @@ export const SiteSelect = () => {
 									{...getItemProps({
 										index,
 										item,
-										className: classNames("p-1 rounded cursor-pointer", {
+										className: classNames("p-1 rounded-sm cursor-pointer", {
 											"bg-blue-200": highlightedIndex === index,
 											"font-semibold": item.value === currentSite,
 										}),
