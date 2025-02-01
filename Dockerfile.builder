@@ -16,7 +16,7 @@ RUN dpkg --add-architecture i386 \
         wine \
         wine32:i386
 
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_23.x | bash - \
     && apt-get -qq install -y --no-install-recommends nodejs \
     && npm install -g npm@11
 
