@@ -107,6 +107,27 @@ export class e621 {
 				height: post.file.height,
 				width: post.file.width,
 				rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
+				getTagGroups: async () => {
+					const tagGroups: { [key: string]: string[] } = {};
+					const tagMap: Record<string, string[]> = {
+						Tag: post.tags.general,
+						Artist: post.tags.artist,
+						Copyright: post.tags.copyright,
+						Character: post.tags.character,
+						Species: post.tags.species,
+						Invalid: post.tags.invalid,
+						Metadata: post.tags.meta,
+						Lore: post.tags.lore,
+					};
+
+					for (const key in tagMap) {
+						if (tagMap[key]?.length) {
+							tagGroups[key] = tagMap[key];
+						}
+					}
+
+					return tagGroups;
+				},
 			})),
 			hasNextPage: posts.length > 0,
 		};
