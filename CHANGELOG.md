@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.0](https://github.com/pikdum/ebb/compare/v2.8.0...v2.9.0) (2025-02-09)
+
+
+### Features
+
+* improve initial screen ([a25204b](https://github.com/pikdum/ebb/commit/a25204bf4d4ad6ebaff07d7322b3b26ed0c03a1e))
+
 ## [2.8.0](https://github.com/pikdum/ebb/compare/v2.7.0...v2.8.0) (2025-02-09)
 
 
