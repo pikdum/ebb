@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.8.0](https://github.com/pikdum/ebb/compare/v2.7.0...v2.8.0) (2025-02-09)
+
+
+### Features
+
+* **danbooru:** add tag groups ([7b10a30](https://github.com/pikdum/ebb/commit/7b10a30a8f7c36cd0583e4e45e7e4e83398b5398))
+* **e621:** add tag groups ([9114d85](https://github.com/pikdum/ebb/commit/9114d85a2fa564e726cd3595059722783a2c2122))
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-context-menu to v4 ([#193](https://github.com/pikdum/ebb/issues/193)) ([8adc8c0](https://github.com/pikdum/ebb/commit/8adc8c0f618c60cbd880dcdecad7a9e244b5d2ca))
+* **deps:** update dependency electron-context-menu to v4.0.5 ([#200](https://github.com/pikdum/ebb/issues/200)) ([b083a55](https://github.com/pikdum/ebb/commit/b083a55fff7384d1012e6bd71732c7daae9b9c86))
+* npm start errors ([ff04bd8](https://github.com/pikdum/ebb/commit/ff04bd876e8c32132c3c9d0f33a9ed4f09943220))
+
 ## [2.7.0](https://github.com/pikdum/ebb/compare/v2.6.0...v2.7.0) (2025-01-31)
 
 
