@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { BrowserWindow, app, session } from "electron";
+import { BrowserWindow, app, session, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import pkg from "electron-updater";
 
@@ -33,6 +33,11 @@ const createWindow = () => {
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
+	});
+
+	mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+		shell.openExternal(url);
+		return { action: "deny" };
 	});
 
 	mainWindow.setMenuBarVisibility(false);

@@ -1,32 +1,27 @@
-import { useMainContext } from "../MainApp";
+import Markdown from "react-markdown";
+
+// @ts-ignore
+import changelogText from "../../CHANGELOG.md?raw";
+// @ts-ignore
+import iconUrl from "../../build/icon.png";
 
 export const EmptyState = () => {
-	const { setTempQuery } = useMainContext();
 	return (
-		<div className="flex items-center justify-center m-6 select-text">
-			<div className="text-left">
-				<h1 className="text-4xl font-semibold mb-2">Quick Start</h1>
-				<ul className="list-disc">
-					<li>
-						Type a tag into the search bar at the top, such as{" "}
-						<button
-							type="button"
-							className="text-blue-500"
-							onClick={() => setTempQuery("landscape")}
-						>
-							landscape
-						</button>
-						.
-					</li>
-					<li>Press the blue search button.</li>
-					<li>Click on an image to make it full-sized.</li>
-					<li>Click on it again to make it small.</li>
-					<li>
-						The booru can be changed by selecting a different one. It will be
-						automatically switched.
-					</li>
-				</ul>
-			</div>
+		<div className="flex flex-col items-center justify-center p-6 gap-4 h-full select-text">
+			<base target="_blank" />
+			<h1 className="text-4xl font-semibold text-center">ebb</h1>
+			<a className="text-blue-500" href="https://github.com/pikdum/ebb">
+				https://github.com/pikdum/ebb
+			</a>
+			<img
+				className="rounded-lg w-80 h-80 object-cover shadow-lg"
+				src={iconUrl}
+				alt="icon"
+			/>
+			<hr className="border-gray-300 w-2/3 mt-4" />
+			<Markdown className="prose flex flex-col items-center">
+				{changelogText}
+			</Markdown>
 		</div>
 	);
 };

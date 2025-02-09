@@ -19,6 +19,7 @@ export default defineConfig((env) => {
 		build: {
 			outDir: `.vite/renderer/${name}`,
 		},
+		assetsInclude: ["build/", "CHANGELOG.md"],
 		plugins: [
 			tailwindcss(),
 			pluginExposeRenderer(name),
