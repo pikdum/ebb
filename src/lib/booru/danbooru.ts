@@ -9,6 +9,11 @@ type DanbooruPost = {
 	large_file_url: string;
 	preview_file_url: string;
 	rating: string;
+	tag_string_general: string;
+	tag_string_character: string;
+	tag_string_copyright: string;
+	tag_string_artist: string;
+	tag_string_meta: string;
 };
 
 type DanbooruTag = {
@@ -85,6 +90,15 @@ export class Danbooru {
 				width: post.image_width,
 				rating:
 					danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
+				getTagGroups: async () => {
+					const tagGroups: { [key: string]: string[] } = {};
+					tagGroups.Tag = post.tag_string_general.split(" ");
+					tagGroups.Character = post.tag_string_character.split(" ");
+					tagGroups.Copyright = post.tag_string_copyright.split(" ");
+					tagGroups.Artist = post.tag_string_artist.split(" ");
+					tagGroups.Metadata = post.tag_string_meta.split(" ");
+					return tagGroups;
+				},
 			})),
 			hasNextPage: posts.length > 0,
 		};
