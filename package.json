@@ -18,7 +18,8 @@
 		}
 	},
 	"scripts": {
-		"test": "vitest",
+		"test": "vitest run",
+		"test:watch": "vitest watch",
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make",
