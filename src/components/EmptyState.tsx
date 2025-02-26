@@ -19,9 +19,9 @@ export const EmptyState = () => {
 				alt="icon"
 			/>
 			<hr className="border-gray-300 w-2/3 mt-4" />
-			<Markdown className="prose flex flex-col items-center">
-				{changelogText}
-			</Markdown>
+			<div className="prose flex flex-col items-center">
+				<Markdown>{changelogText}</Markdown>
+			</div>
 		</div>
 	);
 };
