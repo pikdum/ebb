@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.3](https://github.com/pikdum/ebb/compare/v2.9.2...v2.9.3) (2025-03-07)
+
+
+### Bug Fixes
+
+* revert electron v35 upgrade ([494df3b](https://github.com/pikdum/ebb/commit/494df3b172ce859745c8198d9981ba6b0805797e))
+
 ## [2.9.2](https://github.com/pikdum/ebb/compare/v2.9.1...v2.9.2) (2025-03-07)
 
 
