@@ -9,6 +9,7 @@ trap 'rm -rf "$WINEPREFIX"' EXIT
 npm install
 export NODE_ENV=production
 npm run build
+npm run package
 rm -rf dist/win-unpacked
 rm -rf dist/linux-unpacked
 # fix filenames so windows auto-updater doesn't 404

@@ -5,12 +5,13 @@
 	"version": "2.9.3",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
-	"main": ".vite/build/main.js",
+	"main": "out/main/main.js",
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
 			"publish": ["github"]
 		},
+		"files": ["out/**/*", "!node_modules/"],
 		"linux": {
 			"category": "Graphics",
 			"target": "AppImage",
@@ -18,30 +19,19 @@
 		}
 	},
 	"scripts": {
-		"test": "vitest run",
-		"test:watch": "vitest watch",
-		"start": "electron-forge start",
-		"package": "electron-forge package",
-		"make": "electron-forge make",
-		"publish": "electron-forge publish",
-		"lint": "biome lint .",
+		"build": "vite build -c vite.renderer.ts && vite build -c vite.main.ts",
 		"check": "biome check .",
-		"build": "rm -rf dist/ out/ && npm run package -- -p linux,win32 && electron-builder -wl -p never",
-		"build:linux": "rm -rf dist/ out/ && npm run package -- -p linux && electron-builder -l -p never",
-		"build:windows": "rm -rf dist/ out/ && npm run package -- -p win32 && electron-builder -w -p never",
-		"check-types": "tsc --noEmit"
+		"check-types": "tsc --noEmit",
+		"lint": "biome lint .",
+		"package": "electron-builder -wl -p never",
+		"package:linux": "electron-builder -l -p never",
+		"package:windows": "electron-builder -w -p never",
+		"start": "node scripts/dev.js",
+		"test": "vitest run",
+		"test:watch": "vitest watch"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@electron-forge/cli": "7.7.0",
-		"@electron-forge/maker-deb": "7.7.0",
-		"@electron-forge/maker-rpm": "7.7.0",
-		"@electron-forge/maker-squirrel": "7.7.0",
-		"@electron-forge/maker-zip": "7.7.0",
-		"@electron-forge/plugin-auto-unpack-natives": "7.7.0",
-		"@electron-forge/plugin-fuses": "7.7.0",
-		"@electron-forge/plugin-vite": "7.7.0",
-		"@electron/fuses": "1.8.0",
 		"@tailwindcss/typography": "0.5.16",
 		"@tailwindcss/vite": "4.0.11",
 		"@types/react": "19.0.10",

@@ -22,7 +22,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
       - run: git config --global safe.directory '*'
         if: ${{ steps.release.outputs.release_created }}
-      - run: ./publish.sh
+      - run: ./scripts/publish.sh
         if: ${{ steps.release.outputs.release_created }}
         env:
           GH_TOKEN: ${{ github.token }}
