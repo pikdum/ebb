@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { build, createServer } from "vite";
 
 let electronProcess = null;
+let rendererPort = null;
 
 const logPrefixerPlugin = (prefix) => {
 	const cleanMsg = (msg) => msg.replace(/\n/g, "").trim();
@@ -39,7 +40,7 @@ const startElectron = () => {
 		shell: process.platform === "win32",
 		env: {
 			...process.env,
-			DEV_SERVER_URL: "http://localhost:3000",
+			DEV_SERVER_URL: `http://localhost:${rendererPort}`,
 		},
 	});
 };
@@ -70,7 +71,9 @@ const startMain = async () => {
 };
 
 const start = async () => {
-	await startRenderer();
+	const { _currentServerPort } = await startRenderer();
+	rendererPort = _currentServerPort;
+	console.info(`[Renderer] Running at http://localhost:${rendererPort}`);
 	await startMain();
 };
 
