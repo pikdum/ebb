@@ -63,6 +63,6 @@
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"react-feather": "2.0.10",
-		"react-markdown": "10.0.1"
+		"react-markdown": "10.1.0"
 	}
 }
