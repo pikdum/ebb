@@ -1,9 +1,11 @@
-import { existsSync } from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { BrowserWindow, app, session, shell } from "electron";
 import contextMenu from "electron-context-menu";
+import {
+	REACT_DEVELOPER_TOOLS,
+	installExtension,
+} from "electron-devtools-installer";
 import pkg from "electron-updater";
 
 const { autoUpdater } = pkg;
@@ -24,6 +26,8 @@ contextMenu({
 		return true;
 	},
 });
+
+const isDev = !!process.env.DEV_SERVER_URL;
 
 const createWindow = () => {
 	// Create the browser window.
@@ -65,25 +69,20 @@ const createWindow = () => {
 		});
 	});
 
-	const reactDevTools = path.join(
-		os.homedir(),
-		".config",
-		"chromium",
-		"Default",
-		"Extensions",
-		"fmkadmapgofadopljbjfkapdkoienihi",
-		"5.2.0_0",
-	);
-
-	if (existsSync(reactDevTools)) {
-		session.defaultSession.loadExtension(reactDevTools, {
-			allowFileAccess: true,
-		});
-	}
-
 	// and load the index.html of the app.
-	if (process.env.DEV_SERVER_URL) {
+	if (isDev) {
 		mainWindow.loadURL(process.env.DEV_SERVER_URL);
+		// set up react devtools
+		installExtension(REACT_DEVELOPER_TOOLS)
+			.then((ext) => {
+				console.log(`Added Extension: ${ext.name}`);
+				// workaround to actually load it, otherwise need to refresh
+				const session = mainWindow.webContents.session;
+				session.getAllExtensions().map((e) => {
+					session.loadExtension(e.path);
+				});
+			})
+			.catch((err) => console.log("An error occurred: ", err));
 	} else {
 		mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
 	}
