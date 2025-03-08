@@ -2,7 +2,7 @@
 	"name": "ebb",
 	"type": "module",
 	"productName": "ebb",
-	"version": "2.9.3",
+	"version": "2.10.0",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
 	"main": "out/main/main.js",
@@ -63,6 +63,6 @@
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"react-feather": "2.0.10",
-		"react-markdown": "10.1.0"
+		"react-markdown": "10.0.1"
 	}
 }
