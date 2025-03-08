@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.1](https://github.com/pikdum/ebb/compare/v2.10.0...v2.10.1) (2025-03-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-markdown to v10.1.0 ([#238](https://github.com/pikdum/ebb/issues/238)) ([7e029cd](https://github.com/pikdum/ebb/commit/7e029cdbcf7919dc503ad2d5b33614555140138e))
+
 ## [2.10.0](https://github.com/pikdum/ebb/compare/v2.9.3...v2.10.0) (2025-03-08)
 
 
