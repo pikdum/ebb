@@ -6,7 +6,7 @@ set -eux
 export WINEPREFIX="$(mktemp -d)"
 trap 'rm -rf "$WINEPREFIX"' EXIT
 
-npm install
+npm ci
 export NODE_ENV=production
 npm run build
 npm run package
