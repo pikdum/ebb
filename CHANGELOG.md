@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.2](https://github.com/pikdum/ebb/compare/v2.10.1...v2.10.2) (2025-03-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency downshift to v9.0.9 ([#245](https://github.com/pikdum/ebb/issues/245)) ([9781308](https://github.com/pikdum/ebb/commit/9781308b3008c22d0a305c369bce88647c60094f))
+
 ## [2.10.1](https://github.com/pikdum/ebb/compare/v2.10.0...v2.10.1) (2025-03-08)
 
 
