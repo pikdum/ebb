@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.10.3](https://github.com/pikdum/ebb/compare/v2.10.2...v2.10.3) (2025-03-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-updater to v6.6.2 ([#256](https://github.com/pikdum/ebb/issues/256)) ([2a2a55f](https://github.com/pikdum/ebb/commit/2a2a55f42e6ecc7ee94ea22985a5f16a16129aed))
+* **deps:** update dependency html-entities to v2.5.5 ([#253](https://github.com/pikdum/ebb/issues/253)) ([e70c998](https://github.com/pikdum/ebb/commit/e70c998820307dc1b4e7ff369d90d42f270feb6f))
+* **deps:** update react monorepo ([#250](https://github.com/pikdum/ebb/issues/250)) ([2b17ac8](https://github.com/pikdum/ebb/commit/2b17ac8e17d1e5edba8cb5cf2ff20bfcec1b4d39))
+
 ## [2.10.2](https://github.com/pikdum/ebb/compare/v2.10.1...v2.10.2) (2025-03-17)
 
 
