@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@tailwindcss/typography": "0.5.16",
-		"@tailwindcss/vite": "4.0.14",
+		"@tailwindcss/vite": "4.0.17",
 		"@types/react": "19.0.12",
 		"@types/react-dom": "19.0.4",
 		"@vitejs/plugin-react": "4.3.4",
@@ -42,7 +42,7 @@
 		"electron-builder": "25.1.8",
 		"electron-devtools-installer": "4.0.0",
 		"lefthook": "1.11.3",
-		"tailwindcss": "4.0.14",
+		"tailwindcss": "4.0.17",
 		"typescript": "5.8.2",
 		"vite": "6.2.2",
 		"vitest": "3.0.9"
