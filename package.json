@@ -58,7 +58,7 @@
 		"downshift": "9.0.9",
 		"electron-context-menu": "4.0.5",
 		"electron-updater": "6.6.2",
-		"html-entities": "2.5.5",
+		"html-entities": "2.6.0",
 		"numbro": "2.5.0",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
