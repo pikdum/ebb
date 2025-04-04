@@ -9,20 +9,13 @@
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
-			"publish": [
-				"github"
-			]
+			"publish": ["github"]
 		},
-		"files": [
-			"out/**/*",
-			"!node_modules/"
-		],
+		"files": ["out/**/*", "!node_modules/"],
 		"linux": {
 			"category": "Graphics",
 			"target": "AppImage",
-			"publish": [
-				"github"
-			]
+			"publish": ["github"]
 		}
 	},
 	"scripts": {
