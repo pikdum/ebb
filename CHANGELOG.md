@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.4](https://github.com/pikdum/ebb/compare/v2.10.3...v2.10.4) (2025-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency html-entities to v2.6.0 ([#260](https://github.com/pikdum/ebb/issues/260)) ([efee43c](https://github.com/pikdum/ebb/commit/efee43c470205b131bb5468a86714ca14913b37e))
+
 ## [2.10.3](https://github.com/pikdum/ebb/compare/v2.10.2...v2.10.3) (2025-03-29)
 
 
