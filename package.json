@@ -35,7 +35,7 @@
 		"@tailwindcss/typography": "0.5.16",
 		"@tailwindcss/vite": "4.1.6",
 		"@types/react": "19.1.4",
-		"@types/react-dom": "19.1.4",
+		"@types/react-dom": "19.1.5",
 		"@vitejs/plugin-react": "4.4.1",
 		"babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
 		"electron": "36.2.0",
