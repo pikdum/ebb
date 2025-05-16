@@ -41,7 +41,7 @@
 		"electron": "36.2.1",
 		"electron-builder": "26.0.12",
 		"electron-devtools-installer": "4.0.0",
-		"lefthook": "1.11.12",
+		"lefthook": "1.11.13",
 		"tailwindcss": "4.1.7",
 		"typescript": "5.8.3",
 		"vite": "6.3.5",
