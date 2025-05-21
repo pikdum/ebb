@@ -1,5 +1,11 @@
 import type { BooruPost, BooruTag } from "./index";
 
+const isBrowser = typeof window !== "undefined";
+
+const headers = {
+	"User-Agent": isBrowser ? undefined : "ebb",
+};
+
 type e621Post = {
 	id: number;
 	file: {
@@ -32,6 +38,7 @@ type e621Post = {
 		lore: string[];
 	};
 	rating: string;
+	created_at: string;
 };
 
 type e621Tag = {
@@ -60,7 +67,9 @@ export class e621 {
 		const url = new URL("https://e621.net/tags/autocomplete.json");
 		url.searchParams.append("search[name_matches]", query);
 		url.searchParams.append("expiry", "7");
-		return fetch(url);
+		return fetch(url, {
+			headers,
+		});
 	};
 	static buildPostRequest = ({
 		tags,
@@ -80,7 +89,9 @@ export class e621 {
 		url.searchParams.append("tags", tags);
 		url.searchParams.append("limit", limit.toString());
 		url.searchParams.append("page", (page + 1).toString());
-		return fetch(url);
+		return fetch(url, {
+			headers,
+		});
 	};
 
 	static transformPostData = (data: {
@@ -107,6 +118,7 @@ export class e621 {
 				height: post.file.height,
 				width: post.file.width,
 				rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
+				createdAt: new Date(post.created_at).toISOString(),
 				getTagGroups: async () => {
 					const tagGroups: { [key: string]: string[] } = {};
 					const tagMap: Record<string, string[]> = {

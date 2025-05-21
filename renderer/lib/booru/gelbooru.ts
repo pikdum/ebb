@@ -11,6 +11,7 @@ type GelbooruPost = {
 	preview_url: string;
 	sample_url: string;
 	rating: string;
+	created_at: string;
 };
 
 type GelbooruTag = {
@@ -98,6 +99,7 @@ export class Gelbooru {
 					height: p.height,
 					width: p.width,
 					rating: p.rating,
+					createdAt: new Date(p.created_at).toISOString(),
 					getTagGroups: async () => {
 						// TODO: does any single item have more than 100 tags?
 						const url = new URL(
