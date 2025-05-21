@@ -91,9 +91,7 @@ export class Danbooru {
 				width: post.image_width,
 				rating:
 					danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
-				createdAt: post.created_at
-					? new Date(post.created_at).toISOString()
-					: undefined,
+				createdAt: new Date(post.created_at).toISOString(),
 				getTagGroups: async () => {
 					const tagGroups: { [key: string]: string[] } = {};
 					tagGroups.Tag = post.tag_string_general.split(" ");

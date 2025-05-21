@@ -79,7 +79,7 @@ export class Rule34 {
 					height: p.height,
 					width: p.width,
 					rating: p.rating,
-					createdAt: p.change ? new Date(p.change * 1000).toISOString() : undefined,
+					createdAt: new Date(p.change * 1000).toISOString(),
 				})) || [],
 			hasNextPage: data.length > 0,
 		};

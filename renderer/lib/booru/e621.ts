@@ -1,5 +1,11 @@
 import type { BooruPost, BooruTag } from "./index";
 
+const isBrowser = typeof window !== "undefined";
+
+const headers = {
+	"User-Agent": isBrowser ? undefined : "ebb",
+};
+
 type e621Post = {
 	id: number;
 	file: {
@@ -32,7 +38,7 @@ type e621Post = {
 		lore: string[];
 	};
 	rating: string;
-	created_at?: string | { s: number; n: number };
+	created_at: string;
 };
 
 type e621Tag = {
@@ -61,7 +67,9 @@ export class e621 {
 		const url = new URL("https://e621.net/tags/autocomplete.json");
 		url.searchParams.append("search[name_matches]", query);
 		url.searchParams.append("expiry", "7");
-		return fetch(url);
+		return fetch(url, {
+			headers,
+		});
 	};
 	static buildPostRequest = ({
 		tags,
@@ -81,7 +89,9 @@ export class e621 {
 		url.searchParams.append("tags", tags);
 		url.searchParams.append("limit", limit.toString());
 		url.searchParams.append("page", (page + 1).toString());
-		return fetch(url);
+		return fetch(url, {
+			headers,
+		});
 	};
 
 	static transformPostData = (data: {
@@ -98,30 +108,20 @@ export class e621 {
 		};
 		const posts = data?.posts?.filter((post) => post?.file?.url) ?? [];
 		return {
-			posts: posts.map((post) => {
-				let createdAtIso: string | undefined;
-				if (post.created_at) {
-					if (typeof post.created_at === 'string') {
-						createdAtIso = new Date(post.created_at).toISOString();
-					} else if (typeof post.created_at === 'object' && post.created_at.s !== undefined) {
-						createdAtIso = new Date(post.created_at.s * 1000).toISOString();
-					}
-				}
-
-				return {
-					id: post.id.toString(),
-					// combine all tags from all categories into a single array
-					tags: Object.values(post.tags).flat() ?? [],
-					fileUrl: post.file.url,
-					previewUrl: post.preview.url,
-					sampleUrl: post.sample.has ? post.sample.url : null,
-					height: post.file.height,
-					width: post.file.width,
-					rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
-					createdAt: createdAtIso,
-					getTagGroups: async () => {
-						const tagGroups: { [key: string]: string[] } = {};
-						const tagMap: Record<string, string[]> = {
+			posts: posts.map((post) => ({
+				id: post.id.toString(),
+				// combine all tags from all categories into a single array
+				tags: Object.values(post.tags).flat() ?? [],
+				fileUrl: post.file.url,
+				previewUrl: post.preview.url,
+				sampleUrl: post.sample.has ? post.sample.url : null,
+				height: post.file.height,
+				width: post.file.width,
+				rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
+				createdAt: new Date(post.created_at).toISOString(),
+				getTagGroups: async () => {
+					const tagGroups: { [key: string]: string[] } = {};
+					const tagMap: Record<string, string[]> = {
 						Tag: post.tags.general,
 						Artist: post.tags.artist,
 						Copyright: post.tags.copyright,

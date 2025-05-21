@@ -1,9 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getPosts, getSites, getTags } from "./index";
 
-const sites = getSites()
-	.map((site) => site.value)
-	.filter((site) => site !== "e621");
+const sites = getSites().map((site) => site.value);
 
 describe("Booru Providers", () => {
 	sites.forEach((site) => {
@@ -16,21 +14,13 @@ describe("Booru Providers", () => {
 			});
 			expect(result.posts.length).toBeGreaterThan(0);
 
-			const post = result.posts[0]; // Assuming limit is 1 for this test.
+			const post = result.posts[0];
 
-			// Consolidated createdAt checks
-			if (site === "gelbooru" || site === "rule34") {
-				expect(post.createdAt).toBeDefined();
-				expect(typeof post.createdAt).toBe("string");
-				expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/);
-			} else if (site === "danbooru") {
-				if (post.createdAt !== undefined) { // Check specifically for not undefined
-					expect(typeof post.createdAt).toBe("string");
-					expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/);
-				}
-				// If post.createdAt is undefined for Danbooru, no assertion is made, test passes.
-			}
-			// No specific createdAt checks for other sites in this loop (e.g., e621 is filtered out of `sites`)
+			expect(post.createdAt).toBeDefined();
+			expect(typeof post.createdAt).toBe("string");
+			expect(post.createdAt).toMatch(
+				/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/,
+			);
 		});
 
 		it(`should return tags from ${site}`, async () => {

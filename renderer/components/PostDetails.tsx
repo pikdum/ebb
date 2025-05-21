@@ -103,9 +103,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 					</div>
 				))}
 			</div>
-			{/* Combined Rating and Date section */}
 			<div className="flex flex-wrap justify-center gap-4 p-2">
-				{/* Rating Pill */}
 				<div className="flex flex-wrap justify-center gap-2 items-center">
 					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
 						Rating
@@ -126,17 +124,14 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 					</button>
 				</div>
 
-				{/* Date Pill (conditional) */}
-				{post.createdAt && (
-					<div className="flex flex-wrap justify-center gap-2 items-center">
-						<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
-							Posted
-						</div>
-						<div className="bg-gray-400 text-white text-xs font-semibold p-1 px-3 rounded-full">
-							{formatDate(post.createdAt)}
-						</div>
+				<div className="flex flex-wrap justify-center gap-2 items-center">
+					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
+						Posted
 					</div>
-				)}
+					<div className="bg-gray-700 text-white text-xs font-semibold p-1 px-3 rounded-full">
+						{formatDate(post.createdAt)}
+					</div>
+				</div>
 			</div>
 		</div>
 	);
