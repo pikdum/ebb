@@ -56,7 +56,7 @@
 	"dependencies": {
 		"classnames": "2.5.1",
 		"downshift": "9.0.9",
-		"electron-context-menu": "4.0.5",
+		"electron-context-menu": "4.1.0",
 		"electron-updater": "6.6.2",
 		"html-entities": "2.6.0",
 		"numbro": "2.5.0",
