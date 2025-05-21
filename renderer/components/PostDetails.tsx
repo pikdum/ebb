@@ -103,34 +103,40 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 					</div>
 				))}
 			</div>
-			{post.createdAt && ( // Conditionally render the date
+			{/* Combined Rating and Date section */}
+			<div className="flex flex-wrap justify-center gap-4 p-2">
+				{/* Rating Pill */}
 				<div className="flex flex-wrap justify-center gap-2 items-center">
 					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
-						Posted
+						Rating
 					</div>
-					<div className="text-xs font-semibold p-1">
-						{formatDate(post.createdAt)}
+					<button
+						type="button"
+						className={classNames(
+							"text-white text-xs font-semibold p-1 px-3 rounded-full cursor-default",
+							{
+								"bg-green-500": post.rating === "general",
+								"bg-yellow-500": post.rating === "sensitive",
+								"bg-orange-500": post.rating === "questionable",
+								"bg-red-500": post.rating === "explicit",
+							},
+						)}
+					>
+						{post.rating}
+					</button>
+				</div>
+
+				{/* Date Pill (conditional) */}
+				{post.createdAt && (
+					<div className="flex flex-wrap justify-center gap-2 items-center">
+						<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
+							Posted
+						</div>
+						<div className="bg-gray-400 text-white text-xs font-semibold p-1 px-3 rounded-full">
+							{formatDate(post.createdAt)}
+						</div>
 					</div>
-				</div>
-			)}
-			<div className="flex flex-wrap justify-center gap-2">
-				<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
-					Rating
-				</div>
-				<button
-					type="button"
-					className={classNames(
-						"text-white text-xs font-semibold p-1 px-3 rounded-full cursor-default",
-						{
-							"bg-green-500": post.rating === "general",
-							"bg-yellow-500": post.rating === "sensitive",
-							"bg-orange-500": post.rating === "questionable",
-							"bg-red-500": post.rating === "explicit",
-						},
-					)}
-				>
-					{post.rating}
-				</button>
+				)}
 			</div>
 		</div>
 	);
