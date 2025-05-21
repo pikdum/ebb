@@ -14,7 +14,7 @@ export type BooruPost = {
 	height: number;
 	width: number;
 	rating: string;
-	createdAt?: string;
+	createdAt: string;
 	getTagGroups?: () => Promise<{ [key: string]: string[] }>;
 };
 

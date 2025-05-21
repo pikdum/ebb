@@ -69,7 +69,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 		if (post.getTagGroups) {
 			post.getTagGroups().then(setTagGroups);
 		}
-	}, [post]); // Ensure post is in the dependency array
+	}, []);
 
 	const tagsToUse = post.getTagGroups ? tagGroups : { Tag: post?.tags };
 
