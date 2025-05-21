@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.11.0](https://github.com/pikdum/ebb/compare/v2.10.4...v2.11.0) (2025-05-21)
+
+
+### Features
+
+* add post dates ([#311](https://github.com/pikdum/ebb/issues/311)) ([b32e584](https://github.com/pikdum/ebb/commit/b32e5846f45e628cb861f3e957d8d1ff5f00e21f))
+
 ## [2.10.4](https://github.com/pikdum/ebb/compare/v2.10.3...v2.10.4) (2025-05-11)
 
 
