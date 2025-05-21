@@ -14,6 +14,7 @@ type DanbooruPost = {
 	tag_string_copyright: string;
 	tag_string_artist: string;
 	tag_string_meta: string;
+	created_at: string;
 };
 
 type DanbooruTag = {
@@ -90,6 +91,9 @@ export class Danbooru {
 				width: post.image_width,
 				rating:
 					danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
+				createdAt: post.created_at
+					? new Date(post.created_at).toISOString()
+					: undefined,
 				getTagGroups: async () => {
 					const tagGroups: { [key: string]: string[] } = {};
 					tagGroups.Tag = post.tag_string_general.split(" ");

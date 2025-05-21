@@ -11,6 +11,7 @@ type Rule34Post = {
 	preview_url: string;
 	sample_url: string;
 	rating: string;
+	change: number;
 };
 
 type Rule34Tag = {
@@ -78,6 +79,7 @@ export class Rule34 {
 					height: p.height,
 					width: p.width,
 					rating: p.rating,
+					createdAt: p.change ? new Date(p.change * 1000).toISOString() : undefined,
 				})) || [],
 			hasNextPage: data.length > 0,
 		};

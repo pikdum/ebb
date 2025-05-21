@@ -62,4 +62,32 @@ describe("Booru Providers", () => {
 		// Optionally, add a regex check for ISO date format
 		expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
 	});
+
+	it(`should return posts with created_at from danbooru`, async () => {
+		const result = await getPosts({
+			site: "danbooru",
+			tags: "1girl", // Using a common tag
+			limit: 1,
+			page: 0, // page is 0-indexed for getPosts
+		});
+		expect(result.posts.length).toBeGreaterThan(0);
+		const post = result.posts[0];
+		expect(post.createdAt).toBeDefined();
+		expect(typeof post.createdAt).toBe("string");
+		expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/); // Adjusted regex for optional milliseconds
+	});
+
+	it(`should return posts with created_at from rule34`, async () => {
+		const result = await getPosts({
+			site: "rule34",
+			tags: "1girl", // Using a common tag
+			limit: 1,
+			page: 0, // page is 0-indexed for getPosts (pid for rule34)
+		});
+		expect(result.posts.length).toBeGreaterThan(0);
+		const post = result.posts[0];
+		expect(post.createdAt).toBeDefined();
+		expect(typeof post.createdAt).toBe("string");
+		expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+	});
 });
