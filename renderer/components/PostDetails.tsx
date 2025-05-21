@@ -126,7 +126,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 
 				<div className="flex flex-wrap justify-center gap-2 items-center">
 					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
-						Posted
+						Post Date
 					</div>
 					<div className="bg-gray-700 text-white text-xs font-semibold p-1 px-3 rounded-full">
 						{formatDate(post.createdAt)}
