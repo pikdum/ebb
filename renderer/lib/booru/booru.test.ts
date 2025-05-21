@@ -47,4 +47,19 @@ describe("Booru Providers", () => {
 			}
 		});
 	});
+
+	it(`should return posts with created_at from gelbooru`, async () => {
+		const result = await getPosts({
+			site: "gelbooru",
+			tags: "",
+			limit: 1,
+			page: 1,
+		});
+		expect(result.posts.length).toBeGreaterThan(0);
+		const post = result.posts[0];
+		expect(post.createdAt).toBeDefined();
+		expect(typeof post.createdAt).toBe("string");
+		// Optionally, add a regex check for ISO date format
+		expect(post.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+	});
 });

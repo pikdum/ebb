@@ -69,7 +69,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 		if (post.getTagGroups) {
 			post.getTagGroups().then(setTagGroups);
 		}
-	}, []);
+	}, [post]); // Ensure post is in the dependency array
 
 	const tagsToUse = post.getTagGroups ? tagGroups : { Tag: post?.tags };
 
@@ -77,18 +77,42 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 		groupA.localeCompare(groupB),
 	);
 
+	const formatDate = (dateString?: string) => {
+		if (!dateString) {
+			return null;
+		}
+		const date = new Date(dateString);
+		return date.toLocaleDateString("en-US", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		});
+	};
+
 	return (
-		<div className="break-words col-span-full text-center flex flex-wrap justify-center gap-4 p-2">
-			{sortedTags.map(([group, tags]) => (
-				<div key={group} className="flex flex-wrap justify-center gap-2">
-					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
-						{group}
+		<div className="break-words col-span-full text-center flex flex-col items-center gap-4 p-2">
+			<div className="flex flex-wrap justify-center gap-4">
+				{sortedTags.map(([group, tags]) => (
+					<div key={group} className="flex flex-wrap justify-center gap-2">
+						<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
+							{group}
+						</div>
+						{tags.map((tag: string) => (
+							<TagButton key={tag} tag={tag} />
+						))}
 					</div>
-					{tags.map((tag: string) => (
-						<TagButton key={tag} tag={tag} />
-					))}
+				))}
+			</div>
+			{post.createdAt && ( // Conditionally render the date
+				<div className="flex flex-wrap justify-center gap-2 items-center">
+					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
+						Posted
+					</div>
+					<div className="text-xs font-semibold p-1">
+						{formatDate(post.createdAt)}
+					</div>
 				</div>
-			))}
+			)}
 			<div className="flex flex-wrap justify-center gap-2">
 				<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
 					Rating
