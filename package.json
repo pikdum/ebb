@@ -36,7 +36,7 @@
 		"@tailwindcss/vite": "4.1.7",
 		"@types/react": "19.1.5",
 		"@types/react-dom": "19.1.5",
-		"@vitejs/plugin-react": "4.4.1",
+		"@vitejs/plugin-react": "4.5.0",
 		"babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
 		"electron": "36.2.1",
 		"electron-builder": "26.0.12",
