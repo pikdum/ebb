@@ -132,6 +132,19 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 						{formatDate(post.createdAt)}
 					</div>
 				</div>
+				<div className="flex flex-wrap justify-center gap-2 items-center">
+					<div className="inline text-black text-xs font-semibold p-1 px-3 rounded-sm bg-gray-200">
+						Post Overview
+					</div>
+					<a
+						href={post.postView}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold p-1 px-3 rounded-full"
+					>
+						Link
+					</a>
+				</div>
 			</div>
 		</div>
 	);

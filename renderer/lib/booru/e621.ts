@@ -110,6 +110,7 @@ export class e621 {
 		return {
 			posts: posts.map((post) => ({
 				id: post.id.toString(),
+				postView: `https://e621.net/posts/${post.id}`,
 				// combine all tags from all categories into a single array
 				tags: Object.values(post.tags).flat() ?? [],
 				fileUrl: post.file.url,

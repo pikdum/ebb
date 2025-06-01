@@ -92,6 +92,7 @@ export class Gelbooru {
 			posts:
 				data?.post?.map((p: GelbooruPost) => ({
 					id: p.id.toString(),
+					postView: `https://gelbooru.com/index.php?page=post&s=view&id=${p.id}`,
 					tags: p.tags.split(" ") ?? [],
 					fileUrl: p.file_url,
 					previewUrl: p.preview_url,

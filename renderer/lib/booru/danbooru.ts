@@ -83,6 +83,7 @@ export class Danbooru {
 		return {
 			posts: posts.map((post) => ({
 				id: post.id.toString(),
+				postView: `https://danbooru.donmai.us/posts/${post.id}`,
 				tags: post.tag_string.split(" ") ?? [],
 				fileUrl: post.file_url,
 				previewUrl: post.preview_file_url,
