@@ -62,28 +62,24 @@ export class Rule34 {
 		return fetch(url);
 	};
 
-	static transformPostData = (
-		data: Rule34Post[],
-	): { posts: BooruPost[]; hasNextPage: boolean } => {
-		return {
-			posts:
-				data?.map((p: Rule34Post) => ({
-					id: p.id.toString(),
-					postView: `https://rule34.xxx/index.php?page=post&s=view&id=${p.id}`,
-					tags: p.tags.split(" ") ?? [],
-					fileUrl: p.file_url,
-					previewUrl: p.preview_url,
-					// do not use gif samples
-					sampleUrl: p?.sample_url?.endsWith(".gif")
-						? p.preview_url
-						: p.sample_url,
-					height: p.height,
-					width: p.width,
-					rating: p.rating,
-					createdAt: new Date(p.change * 1000).toISOString(),
-				})) || [],
-			hasNextPage: data?.length > 0,
-		};
+	static transformPostData = (data: Rule34Post[]): BooruPost[] => {
+		return (
+			data?.map((p: Rule34Post) => ({
+				id: p.id.toString(),
+				postView: `https://rule34.xxx/index.php?page=post&s=view&id=${p.id}`,
+				tags: p.tags.split(" ") ?? [],
+				fileUrl: p.file_url,
+				previewUrl: p.preview_url,
+				// do not use gif samples
+				sampleUrl: p?.sample_url?.endsWith(".gif")
+					? p.preview_url
+					: p.sample_url,
+				height: p.height,
+				width: p.width,
+				rating: p.rating,
+				createdAt: new Date(p.change * 1000).toISOString(),
+			})) || []
+		);
 	};
 
 	static transformTagData = (data: Rule34Tag[]): BooruTag[] => {

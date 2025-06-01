@@ -49,8 +49,10 @@ const MainContext = createContext(
 		decrementPage: () => void;
 		autocompleteResults: BooruTag[];
 		setAutocompleteResults: Dispatch<SetStateAction<BooruTag[]>>;
-		hasNextPage: boolean;
-		setHasNextPage: Dispatch<SetStateAction<boolean>>;
+		hasNextPage: boolean | null;
+		setHasNextPage: Dispatch<SetStateAction<boolean | null>>;
+		isCheckingNextPage: boolean;
+		setIsCheckingNextPage: Dispatch<SetStateAction<boolean>>;
 		ratings: string[];
 		setRatings: Dispatch<SetStateAction<string[]>>;
 		currentRating: string;
@@ -70,7 +72,8 @@ export const MainContextProvider = ({
 	const defaultRatings = getRatings(defaultSite);
 	const [posts, setPosts] = useState<BooruPost[]>([]);
 	const [page, setPage] = useState(0);
-	const [hasNextPage, setHasNextPage] = useState(false);
+	const [hasNextPage, setHasNextPage] = useState<boolean | null>(null);
+	const [isCheckingNextPage, setIsCheckingNextPage] = useState(false);
 	const [tempQuery, setTempQuery] = useState(initialQuery ?? "");
 	const [query, setQuery] = useState<string | undefined>(initialQuery);
 	const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
@@ -139,24 +142,43 @@ export const MainContextProvider = ({
 				rating: currentRating,
 			});
 			setPosts(results.posts);
-			setHasNextPage(results.hasNextPage);
 			setSelectedPosts([]);
-			setLoading(false);
+			setLoading(false); // Initial loading done
+
 			if (results.posts.length === 0) {
 				setError("No results found.");
+				setHasNextPage(false);
+				setIsCheckingNextPage(false);
 			} else {
 				setError(undefined);
+				// Now check for next page
+				setHasNextPage(null); // Indicate that we are about to check
+				setIsCheckingNextPage(true);
+				results
+					.hasNextPage()
+					.then((hasNext) => {
+						setHasNextPage(hasNext);
+					})
+					.catch((err) => {
+						console.error("Error checking hasNextPage:", err);
+						setHasNextPage(false); // Assume no next page on error
+					})
+					.finally(() => {
+						setIsCheckingNextPage(false);
+					});
 			}
 		} catch (e) {
 			if (attempts < maxAttempts) {
 				setError(`${e.message}\nRetrying...`);
+				// Do not reset hasNextPage or isCheckingNextPage here, let retry handle it or final catch
 				setTimeout(() => {
-					fetchPosts({ attempts: attempts + 1 });
+					fetchPosts({ attempts: attempts + 1, maxAttempts });
 				}, 1000);
 			} else {
 				setPosts([]);
 				setSelectedPosts([]);
 				setHasNextPage(false);
+				setIsCheckingNextPage(false);
 				setLoading(false);
 				setError(e.message);
 			}
@@ -198,6 +220,8 @@ export const MainContextProvider = ({
 				setAutocompleteResults,
 				hasNextPage,
 				setHasNextPage,
+				isCheckingNextPage,
+				setIsCheckingNextPage,
 				ratings,
 				setRatings,
 				currentRating,
@@ -221,6 +245,7 @@ export const Main = () => {
 		incrementPage,
 		hasNextPage,
 		currentRating,
+		isCheckingNextPage,
 	} = useMainContext();
 
 	useEffect(() => {
@@ -240,11 +265,12 @@ export const Main = () => {
 					{posts.map((post) => (
 						<Post post={post} key={post.id} />
 					))}
-					{hasNextPage && (
+					{hasNextPage === true && (
 						<button
 							type="button"
 							className="text-3xl bg-gray-200 hover:bg-blue-200 w-full aspect-square grid place-items-center"
 							onClick={incrementPage}
+							disabled={isCheckingNextPage}
 						>
 							<ChevronRight size={128} />
 						</button>

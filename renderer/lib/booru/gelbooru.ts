@@ -70,8 +70,7 @@ export class Gelbooru {
 	static transformPostData = (data: {
 		post: GelbooruPost[];
 		"@attributes": { limit: number; offset: number; count: number };
-	}): { posts: BooruPost[]; hasNextPage: boolean } => {
-		const a = data["@attributes"];
+	}): BooruPost[] => {
 		const getTagGroup = (type: number): string => {
 			switch (type) {
 				case 0:
@@ -88,52 +87,50 @@ export class Gelbooru {
 					return "Unknown";
 			}
 		};
-		return {
-			posts:
-				data?.post?.map((p: GelbooruPost) => ({
-					id: p.id.toString(),
-					postView: `https://gelbooru.com/index.php?page=post&s=view&id=${p.id}`,
-					tags: p.tags.split(" ") ?? [],
-					fileUrl: p.file_url,
-					previewUrl: p.preview_url,
-					sampleUrl: p.sample_url || null,
-					height: p.height,
-					width: p.width,
-					rating: p.rating,
-					createdAt: new Date(p.created_at).toISOString(),
-					getTagGroups: async () => {
-						// TODO: does any single item have more than 100 tags?
-						const url = new URL(
-							"https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&orderby=name&order=asc",
-						);
-						url.searchParams.append("names", p.tags);
-						const response = await fetch(url);
-						const tagData = (await response.json()) as {
-							"@attributes": any;
-							tag: {
-								id: number;
-								name: string;
-								count: number;
-								type: number;
-								ambiguous: number;
-							}[];
-						};
-						const tagGroups = tagData?.tag?.reduce<{
-							[key: string]: string[];
-						}>((acc, tag) => {
-							const group = getTagGroup(tag.type);
-							acc[group] = acc[group] || [];
-							// these are double encoded for some reason
-							// so decode it here once, to be consistent
-							// TODO: should all providers decode entirely upfront?
-							acc[group].push(decode(tag.name));
-							return acc;
-						}, {});
-						return tagGroups;
-					},
-				})) || [],
-			hasNextPage: a.count > a.limit + a.offset,
-		};
+		return (
+			data?.post?.map((p: GelbooruPost) => ({
+				id: p.id.toString(),
+				postView: `https://gelbooru.com/index.php?page=post&s=view&id=${p.id}`,
+				tags: p.tags.split(" ") ?? [],
+				fileUrl: p.file_url,
+				previewUrl: p.preview_url,
+				sampleUrl: p.sample_url || null,
+				height: p.height,
+				width: p.width,
+				rating: p.rating,
+				createdAt: new Date(p.created_at).toISOString(),
+				getTagGroups: async () => {
+					// TODO: does any single item have more than 100 tags?
+					const url = new URL(
+						"https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&orderby=name&order=asc",
+					);
+					url.searchParams.append("names", p.tags);
+					const response = await fetch(url);
+					const tagData = (await response.json()) as {
+						"@attributes": any;
+						tag: {
+							id: number;
+							name: string;
+							count: number;
+							type: number;
+							ambiguous: number;
+						}[];
+					};
+					const tagGroups = tagData?.tag?.reduce<{
+						[key: string]: string[];
+					}>((acc, tag) => {
+						const group = getTagGroup(tag.type);
+						acc[group] = acc[group] || [];
+						// these are double encoded for some reason
+						// so decode it here once, to be consistent
+						// TODO: should all providers decode entirely upfront?
+						acc[group].push(decode(tag.name));
+						return acc;
+					}, {});
+					return tagGroups;
+				},
+			})) || []
+		);
 	};
 
 	static transformTagData = (data: GelbooruTag[]): BooruTag[] => {

@@ -96,10 +96,7 @@ export class e621 {
 
 	static transformPostData = (data: {
 		posts: e621Post[];
-	}): {
-		posts: BooruPost[];
-		hasNextPage: boolean;
-	} => {
+	}): BooruPost[] => {
 		const e621RatingMap: Record<e621RatingAlias, e621Rating> = {
 			g: "General",
 			s: "Sensitive",
@@ -107,43 +104,40 @@ export class e621 {
 			e: "Explicit",
 		};
 		const posts = data?.posts?.filter((post) => post?.file?.url) ?? [];
-		return {
-			posts: posts.map((post) => ({
-				id: post.id.toString(),
-				postView: `https://e621.net/posts/${post.id}`,
-				// combine all tags from all categories into a single array
-				tags: Object.values(post.tags).flat() ?? [],
-				fileUrl: post.file.url,
-				previewUrl: post.preview.url,
-				sampleUrl: post.sample.has ? post.sample.url : null,
-				height: post.file.height,
-				width: post.file.width,
-				rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
-				createdAt: new Date(post.created_at).toISOString(),
-				getTagGroups: async () => {
-					const tagGroups: { [key: string]: string[] } = {};
-					const tagMap: Record<string, string[]> = {
-						Tag: post.tags.general,
-						Artist: post.tags.artist,
-						Copyright: post.tags.copyright,
-						Character: post.tags.character,
-						Species: post.tags.species,
-						Invalid: post.tags.invalid,
-						Metadata: post.tags.meta,
-						Lore: post.tags.lore,
-					};
+		return posts.map((post) => ({
+			id: post.id.toString(),
+			postView: `https://e621.net/posts/${post.id}`,
+			// combine all tags from all categories into a single array
+			tags: Object.values(post.tags).flat() ?? [],
+			fileUrl: post.file.url,
+			previewUrl: post.preview.url,
+			sampleUrl: post.sample.has ? post.sample.url : null,
+			height: post.file.height,
+			width: post.file.width,
+			rating: e621RatingMap[post.rating as e621RatingAlias].toLowerCase(),
+			createdAt: new Date(post.created_at).toISOString(),
+			getTagGroups: async () => {
+				const tagGroups: { [key: string]: string[] } = {};
+				const tagMap: Record<string, string[]> = {
+					Tag: post.tags.general,
+					Artist: post.tags.artist,
+					Copyright: post.tags.copyright,
+					Character: post.tags.character,
+					Species: post.tags.species,
+					Invalid: post.tags.invalid,
+					Metadata: post.tags.meta,
+					Lore: post.tags.lore,
+				};
 
-					for (const key in tagMap) {
-						if (tagMap[key]?.length) {
-							tagGroups[key] = tagMap[key];
-						}
+				for (const key in tagMap) {
+					if (tagMap[key]?.length) {
+						tagGroups[key] = tagMap[key];
 					}
+				}
 
-					return tagGroups;
-				},
-			})),
-			hasNextPage: posts.length > 0,
-		};
+				return tagGroups;
+			},
+		}));
 	};
 
 	static transformTagData = (data: e621Tag[]): BooruTag[] => {

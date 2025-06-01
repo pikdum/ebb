@@ -67,12 +67,7 @@ export class Danbooru {
 		return fetch(url);
 	};
 
-	static transformPostData = (
-		data: DanbooruPost[],
-	): {
-		posts: BooruPost[];
-		hasNextPage: boolean;
-	} => {
+	static transformPostData = (data: DanbooruPost[]): BooruPost[] => {
 		const danbooruRatingMap: Record<DanbooruRatingAlias, DanbooruRating> = {
 			g: "General",
 			s: "Sensitive",
@@ -80,31 +75,28 @@ export class Danbooru {
 			e: "Explicit",
 		};
 		const posts = data?.filter((post) => post.file_url) ?? [];
-		return {
-			posts: posts.map((post) => ({
-				id: post.id.toString(),
-				postView: `https://danbooru.donmai.us/posts/${post.id}`,
-				tags: post.tag_string.split(" ") ?? [],
-				fileUrl: post.file_url,
-				previewUrl: post.preview_file_url,
-				sampleUrl: post.large_file_url || null,
-				height: post.image_height,
-				width: post.image_width,
-				rating:
-					danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
-				createdAt: new Date(post.created_at).toISOString(),
-				getTagGroups: async () => {
-					const tagGroups: { [key: string]: string[] } = {};
-					tagGroups.Tag = post.tag_string_general.split(" ");
-					tagGroups.Character = post.tag_string_character.split(" ");
-					tagGroups.Copyright = post.tag_string_copyright.split(" ");
-					tagGroups.Artist = post.tag_string_artist.split(" ");
-					tagGroups.Metadata = post.tag_string_meta.split(" ");
-					return tagGroups;
-				},
-			})),
-			hasNextPage: posts.length > 0,
-		};
+		return posts.map((post) => ({
+			id: post.id.toString(),
+			postView: `https://danbooru.donmai.us/posts/${post.id}`,
+			tags: post.tag_string.split(" ") ?? [],
+			fileUrl: post.file_url,
+			previewUrl: post.preview_file_url,
+			sampleUrl: post.large_file_url || null,
+			height: post.image_height,
+			width: post.image_width,
+			rating:
+				danbooruRatingMap[post.rating as DanbooruRatingAlias].toLowerCase(),
+			createdAt: new Date(post.created_at).toISOString(),
+			getTagGroups: async () => {
+				const tagGroups: { [key: string]: string[] } = {};
+				tagGroups.Tag = post.tag_string_general.split(" ");
+				tagGroups.Character = post.tag_string_character.split(" ");
+				tagGroups.Copyright = post.tag_string_copyright.split(" ");
+				tagGroups.Artist = post.tag_string_artist.split(" ");
+				tagGroups.Metadata = post.tag_string_meta.split(" ");
+				return tagGroups;
+			},
+		}));
 	};
 
 	static transformTagData = (data: DanbooruTag[]): BooruTag[] => {
