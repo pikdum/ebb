@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.12.0](https://github.com/pikdum/ebb/compare/v2.11.0...v2.12.0) (2025-06-01)
+
+
+### Features
+
+* add link to open post overview ([#322](https://github.com/pikdum/ebb/issues/322)) ([caf0bb1](https://github.com/pikdum/ebb/commit/caf0bb1354c1d9196bd1bba1257637790e006f35))
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-context-menu to v4.1.0 ([#314](https://github.com/pikdum/ebb/issues/314)) ([a3a6493](https://github.com/pikdum/ebb/commit/a3a6493429e1fc3e835c4fb24d0e40050f9d5dc7))
+
 ## [2.11.0](https://github.com/pikdum/ebb/compare/v2.10.4...v2.11.0) (2025-05-21)
 
 
