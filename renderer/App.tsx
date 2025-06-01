@@ -79,7 +79,13 @@ export const App = () => {
 		const savedTabs = localStorage.getItem("localStorageTabs");
 		return savedTabs
 			? JSON.parse(savedTabs)
-			: [{ id: crypto.randomUUID(), title: "New Tab", initialQuery: undefined }];
+			: [
+					{
+						id: crypto.randomUUID(),
+						title: "New Tab",
+						initialQuery: undefined,
+					},
+				];
 	});
 	const tabCount = tabs.length;
 	const [activeTabId, setActiveTabId] = useState(() => {
@@ -187,7 +193,10 @@ export const App = () => {
 
 	useEffect(() => {
 		localStorage.setItem("localStorageTabs", JSON.stringify(tabs));
-		localStorage.setItem("localStorageActiveTabId", JSON.stringify(activeTabId));
+		localStorage.setItem(
+			"localStorageActiveTabId",
+			JSON.stringify(activeTabId),
+		);
 	}, [tabs, activeTabId]);
 
 	return (
