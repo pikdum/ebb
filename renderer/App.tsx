@@ -11,10 +11,13 @@ import { Plus, X } from "react-feather";
 
 import { Main, MainContextProvider } from "./MainApp";
 
+const SAVED_TABS_KEY = "booruPlus_tabs";
+const SAVED_ACTIVE_TAB_ID_KEY = "booruPlus_activeTabId";
+
 type Tab = {
 	id: string;
 	title: string;
-	initialQuery?: string;
+	query?: string;
 };
 
 type AppContextType = {
@@ -25,7 +28,7 @@ type AppContextType = {
 	addTab: (options?: {
 		title?: string;
 		setActive?: boolean;
-		initialQuery?: string;
+		query?: string;
 	}) => void;
 	closeCurrentTab: () => void;
 	closeTab: (id: string) => void;
@@ -33,6 +36,7 @@ type AppContextType = {
 	switchTabRight: () => void;
 	updateTabTitle: (id: string, newTitle: string) => void;
 	updateCurrentTabTitle: (newTitle: string) => void;
+	updateCurrentTabQuery: (newQuery: string) => void;
 	tabCount: number;
 };
 
@@ -75,18 +79,76 @@ const Tab = ({ id, title }: { id: string; title: string }) => {
 };
 
 export const App = () => {
-	const [tabs, setTabs] = useState([
-		{ id: crypto.randomUUID(), title: "New Tab", initialQuery: undefined },
-	]);
+	const [tabs, setTabs] = useState<Tab[]>([]);
 	const tabCount = tabs.length;
-	const [activeTabId, setActiveTabId] = useState(tabs[0].id);
+	const [activeTabId, setActiveTabId] = useState<string | null>(null);
+
+	// Load state from localStorage on mount
+	useEffect(() => {
+		try {
+			const savedTabsRaw = localStorage.getItem(SAVED_TABS_KEY);
+			const savedActiveTabId = localStorage.getItem(SAVED_ACTIVE_TAB_ID_KEY);
+
+			let loadedTabs: Tab[] = [];
+			if (savedTabsRaw) {
+				loadedTabs = JSON.parse(savedTabsRaw);
+			}
+
+			if (loadedTabs.length > 0) {
+				setTabs(loadedTabs);
+				if (
+					savedActiveTabId &&
+					loadedTabs.some((tab) => tab.id === savedActiveTabId)
+				) {
+					setActiveTabId(savedActiveTabId);
+				} else {
+					setActiveTabId(loadedTabs[0].id);
+				}
+			} else {
+				// Initialize with a default tab if no saved tabs or parsing failed
+				const defaultTabId = crypto.randomUUID();
+				setTabs([
+					{ id: defaultTabId, title: "New Tab", query: undefined },
+				]);
+				setActiveTabId(defaultTabId);
+			}
+		} catch (error) {
+			console.error("Failed to load tabs from localStorage:", error);
+			// Initialize with a default tab in case of any error
+			const defaultTabId = crypto.randomUUID();
+			setTabs([{ id: defaultTabId, title: "New Tab", query: undefined }]);
+			setActiveTabId(defaultTabId);
+		}
+	}, []);
+
+	// Save tabs to localStorage when they change
+	useEffect(() => {
+		if (tabs.length > 0) { // Only save if there are tabs to prevent saving empty array on initial load before hydration
+			try {
+				localStorage.setItem(SAVED_TABS_KEY, JSON.stringify(tabs));
+			} catch (error) {
+				console.error("Failed to save tabs to localStorage:", error);
+			}
+		}
+	}, [tabs]);
+
+	// Save activeTabId to localStorage when it changes
+	useEffect(() => {
+		if (activeTabId) {
+			try {
+				localStorage.setItem(SAVED_ACTIVE_TAB_ID_KEY, activeTabId);
+			} catch (error) {
+				console.error("Failed to save activeTabId to localStorage:", error);
+			}
+		}
+	}, [activeTabId]);
 
 	const addTab = ({
 		title = "New Tab",
 		setActive = true,
-		initialQuery = undefined,
+		query = undefined,
 	} = {}) => {
-		const newTabs = [...tabs, { id: crypto.randomUUID(), title, initialQuery }];
+		const newTabs = [...tabs, { id: crypto.randomUUID(), title, query }];
 		setTabs(newTabs);
 		if (setActive) {
 			setActiveTabId(newTabs[newTabs.length - 1].id);
@@ -105,9 +167,18 @@ export const App = () => {
 			const newTabs = tabs.filter((tab) => tab.id !== id);
 			setTabs(newTabs);
 			if (activeTabId === id) {
-				const newIndex = indexToRemove === 0 ? 0 : indexToRemove - 1;
-				setActiveTabId(newTabs[newIndex]?.id || newTabs[0].id);
+				// If the closed tab was active, set the previous tab as active, or the first one if it was the first.
+				// If newTabs is empty (should not happen if tabs.length > 1), this will result in null.
+				// However, the condition tabs.length > 1 ensures newTabs is not empty.
+				const newIndex = Math.max(0, indexToRemove - 1);
+				setActiveTabId(newTabs[newIndex]?.id || (newTabs.length > 0 ? newTabs[0].id : null));
 			}
+		} else if (tabs.length === 1 && tabs[0].id === id) {
+			// If the last tab is closed, create a new default tab
+			const newTabId = crypto.randomUUID();
+			const newDefaultTab = { id: newTabId, title: "New Tab", query: undefined };
+			setTabs([newDefaultTab]);
+			setActiveTabId(newTabId);
 		}
 	};
 
@@ -123,6 +194,17 @@ export const App = () => {
 	const updateCurrentTabTitle = (newTitle: string) => {
 		if (activeTabId) {
 			updateTabTitle(activeTabId, newTitle);
+		}
+	};
+
+	const updateCurrentTabQuery = (newQuery: string) => {
+		if (activeTabId) {
+			setTabs((prevTabs) => {
+				const updatedTabs = prevTabs.map((tab) =>
+					tab.id === activeTabId ? { ...tab, query: newQuery } : tab,
+				);
+				return updatedTabs;
+			});
 		}
 	};
 
@@ -144,6 +226,8 @@ export const App = () => {
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
+			if (!activeTabId && tabs.length === 0) return; // Do nothing if no tabs are loaded yet
+
 			if (event.ctrlKey && event.key === "t") {
 				event.preventDefault();
 				addTab();
@@ -179,6 +263,11 @@ export const App = () => {
 		});
 	}, [activeTabId]);
 
+	if (!activeTabId || tabs.length === 0) {
+		// Render nothing or a loading indicator while state is being loaded
+		return null; // Or <LoadingSpinner />;
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -193,6 +282,7 @@ export const App = () => {
 				switchTabRight,
 				updateTabTitle,
 				updateCurrentTabTitle,
+				updateCurrentTabQuery,
 				tabCount,
 			}}
 		>
@@ -215,7 +305,7 @@ export const App = () => {
 							key={tab.id}
 							className={activeTabId === tab.id ? "" : "hidden"}
 						>
-							<MainContextProvider initialQuery={tab.initialQuery}>
+							<MainContextProvider query={tab.query}>
 								<Main />
 							</MainContextProvider>
 						</div>

@@ -21,6 +21,7 @@ import {
 	getPosts,
 	getRatings,
 } from "./lib/booru";
+import { useAppContext } from "../App";
 
 const MainContext = createContext(
 	{} as {
@@ -60,12 +61,13 @@ const MainContext = createContext(
 export const useMainContext = () => useContext(MainContext);
 
 export const MainContextProvider = ({
-	initialQuery = undefined,
+	query: initialQuery = undefined,
 	children,
 }: {
-	initialQuery?: string;
+	query?: string;
 	children: ReactNode;
 }) => {
+	const { updateCurrentTabQuery } = useAppContext();
 	const defaultSite: BooruSite = "gelbooru";
 	const defaultRatings = getRatings(defaultSite);
 	const [posts, setPosts] = useState<BooruPost[]>([]);
@@ -170,6 +172,12 @@ export const MainContextProvider = ({
 	const decrementPage = () => {
 		setPage((page) => page - 1);
 	};
+
+	useEffect(() => {
+		if (query !== undefined) {
+			updateCurrentTabQuery(query);
+		}
+	}, [query, updateCurrentTabQuery]);
 
 	return (
 		<MainContext.Provider
