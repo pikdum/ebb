@@ -1,3 +1,4 @@
+// @vitest-environment happy-dom
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { BooruPost } from "../lib/booru";
@@ -30,18 +31,15 @@ const mockPost: BooruPost = {
 	width: 800,
 	rating: "general",
 	createdAt: new Date().toISOString(),
-	getTagGroups: undefined, // Let's assume no getTagGroups for simplicity in this test
+	getTagGroups: undefined,
 };
 
 describe("PostDetails", () => {
 	it("renders post overview link correctly", () => {
 		render(<PostDetails post={mockPost} />);
 
-		// Check for the "Post Overview" label
-		expect(screen.getByText("Post Overview")).toBeInTheDocument();
-
-		// Find the link by its text "Link"
-		const linkElement = screen.getByRole("link", { name: "Link" });
+		// Find the link by it's aria-label
+		const linkElement = screen.getByRole("link", { name: "Post Overview" });
 		expect(linkElement).toBeInTheDocument();
 
 		// Verify href attribute
