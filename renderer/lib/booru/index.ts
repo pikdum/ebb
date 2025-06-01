@@ -11,6 +11,7 @@ export type BooruPost = {
 	fileUrl: string;
 	previewUrl: string;
 	sampleUrl: string | null;
+	postView: string;
 	height: number;
 	width: number;
 	rating: string;

@@ -69,6 +69,7 @@ export class Rule34 {
 			posts:
 				data?.map((p: Rule34Post) => ({
 					id: p.id.toString(),
+					postView: `https://rule34.xxx/index.php?page=post&s=view&id=${p.id}`,
 					tags: p.tags.split(" ") ?? [],
 					fileUrl: p.file_url,
 					previewUrl: p.preview_url,
@@ -81,7 +82,7 @@ export class Rule34 {
 					rating: p.rating,
 					createdAt: new Date(p.change * 1000).toISOString(),
 				})) || [],
-			hasNextPage: data.length > 0,
+			hasNextPage: data?.length > 0,
 		};
 	};
 

@@ -9,13 +9,20 @@
 	"build": {
 		"appId": "dev.pikdum.ebb",
 		"win": {
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		},
-		"files": ["out/**/*", "!node_modules/"],
+		"files": [
+			"out/**/*",
+			"!node_modules/"
+		],
 		"linux": {
 			"category": "Graphics",
 			"target": "AppImage",
-			"publish": ["github"]
+			"publish": [
+				"github"
+			]
 		}
 	},
 	"scripts": {
@@ -28,12 +35,15 @@
 		"package:windows": "electron-builder -w -p never",
 		"start": "node scripts/dev.js",
 		"test": "vitest run",
-		"test:watch": "vitest watch"
+		"test:watch": "vitest watch",
+		"check-all": "npm run check && npm run check-types && npm run lint && npm run test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@tailwindcss/typography": "0.5.16",
 		"@tailwindcss/vite": "4.1.8",
+		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/react": "^16.3.0",
 		"@types/react": "19.1.6",
 		"@types/react-dom": "19.1.5",
 		"@vitejs/plugin-react": "4.5.0",
@@ -41,6 +51,7 @@
 		"electron": "36.3.2",
 		"electron-builder": "26.0.12",
 		"electron-devtools-installer": "4.0.0",
+		"happy-dom": "17.5.6",
 		"lefthook": "1.11.13",
 		"tailwindcss": "4.1.8",
 		"typescript": "5.8.3",
