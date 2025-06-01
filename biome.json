@@ -40,6 +40,6 @@
 		}
 	},
 	"files": {
-		"ignore": ["package-lock.json"]
+		"ignore": ["package.json", "package-lock.json"]
 	}
 }
