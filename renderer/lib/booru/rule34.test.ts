@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Rule34 } from "./rule34"; // Assuming Rule34 class is exported
-import type { BooruPost } from "./index";
 
 // Mock html-entities, as Rule34's transformTagData uses decode
 vi.mock("html-entities", () => ({
@@ -17,7 +16,8 @@ describe("Rule34 Connector", () => {
 					height: 850,
 					tags: "tag_x tag_y character_z artist_a copyright_b",
 					file_url: "https://api.rule34.xxx/images/1213/sample_abcdef.jpeg",
-					preview_url: "https://api.rule34.xxx/thumbnails/1213/thumbnail_abcdef.jpeg",
+					preview_url:
+						"https://api.rule34.xxx/thumbnails/1213/thumbnail_abcdef.jpeg",
 					sample_url: "https://api.rule34.xxx/samples/1213/sample_abcdef.jpeg",
 					rating: "explicit", // Rule34 seems to store full names or mixed types
 					change: 1678886400, // Unix timestamp (seconds)
@@ -28,7 +28,8 @@ describe("Rule34 Connector", () => {
 					height: 1000,
 					tags: "another_tag solo animated",
 					file_url: "https://api.rule34.xxx/images/1516/sample_ghijkl.gif",
-					preview_url: "https://api.rule34.xxx/thumbnails/1516/thumbnail_ghijkl.jpeg", // Preview might be jpeg
+					preview_url:
+						"https://api.rule34.xxx/thumbnails/1516/thumbnail_ghijkl.jpeg", // Preview might be jpeg
 					sample_url: "https://api.rule34.xxx/samples/1516/sample_ghijkl.gif", // Sample is gif
 					rating: "questionable",
 					change: 1678972800,
@@ -41,20 +42,26 @@ describe("Rule34 Connector", () => {
 
 			const post1 = result.posts[0];
 			expect(post1.id).toBe("121314");
-			expect(post1.postView).toBe("https://rule34.xxx/index.php?page=post&s=view&id=121314");
+			expect(post1.postView).toBe(
+				"https://rule34.xxx/index.php?page=post&s=view&id=121314",
+			);
 			expect(post1.fileUrl).toBe(mockRawPosts[0].file_url);
 			expect(post1.previewUrl).toBe(mockRawPosts[0].preview_url);
 			expect(post1.sampleUrl).toBe(mockRawPosts[0].sample_url); // Not a gif
 			expect(post1.tags).toEqual(mockRawPosts[0].tags.split(" "));
 			expect(post1.rating).toBe("explicit");
 			// Multiply by 1000 for JS timestamp (milliseconds)
-			expect(post1.createdAt).toBe(new Date(mockRawPosts[0].change * 1000).toISOString());
+			expect(post1.createdAt).toBe(
+				new Date(mockRawPosts[0].change * 1000).toISOString(),
+			);
 			expect(post1.height).toBe(mockRawPosts[0].height);
 			expect(post1.width).toBe(mockRawPosts[0].width);
 
 			const post2 = result.posts[1];
 			expect(post2.id).toBe("151617");
-			expect(post2.postView).toBe("https://rule34.xxx/index.php?page=post&s=view&id=151617");
+			expect(post2.postView).toBe(
+				"https://rule34.xxx/index.php?page=post&s=view&id=151617",
+			);
 			// Special handling for GIF samples in Rule34 connector
 			expect(post2.sampleUrl).toBe(mockRawPosts[1].preview_url);
 			expect(post2.rating).toBe("questionable");
@@ -97,7 +104,9 @@ describe("Rule34 Connector", () => {
 			];
 			const result = Rule34.transformPostData(mockRawGifPost);
 			expect(result.posts[0].sampleUrl).toBe(mockRawGifPost[0].preview_url);
-			expect(result.posts[0].postView).toBe("https://rule34.xxx/index.php?page=post&s=view&id=777");
+			expect(result.posts[0].postView).toBe(
+				"https://rule34.xxx/index.php?page=post&s=view&id=777",
+			);
 		});
 	});
 });

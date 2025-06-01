@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Danbooru } from "./danbooru"; // Assuming Danbooru class is exported
-import type { BooruPost } from "./index";
 
 describe("Danbooru Connector", () => {
 	describe("transformPostData", () => {
@@ -10,10 +9,13 @@ describe("Danbooru Connector", () => {
 					id: 12345,
 					image_width: 800,
 					image_height: 1200,
-					tag_string: "tag1 tag2 artist:some_artist copyright:some_copyright character:some_character",
+					tag_string:
+						"tag1 tag2 artist:some_artist copyright:some_copyright character:some_character",
 					file_url: "https://danbooru.donmai.us/data/sample/sample-12345.jpg",
-					large_file_url: "https://danbooru.donmai.us/data/sample/sample-12345.jpg",
-					preview_file_url: "https://danbooru.donmai.us/data/preview/preview-12345.jpg",
+					large_file_url:
+						"https://danbooru.donmai.us/data/sample/sample-12345.jpg",
+					preview_file_url:
+						"https://danbooru.donmai.us/data/preview/preview-12345.jpg",
 					rating: "g",
 					tag_string_general: "tag1 tag2",
 					tag_string_character: "some_character",
@@ -28,8 +30,10 @@ describe("Danbooru Connector", () => {
 					image_height: 768,
 					tag_string: "another_tag solo",
 					file_url: "https://danbooru.donmai.us/data/sample/sample-67890.png",
-					large_file_url: "https://danbooru.donmai.us/data/sample/sample-67890.png",
-					preview_file_url: "https://danbooru.donmai.us/data/preview/preview-67890.jpg",
+					large_file_url:
+						"https://danbooru.donmai.us/data/sample/sample-67890.png",
+					preview_file_url:
+						"https://danbooru.donmai.us/data/preview/preview-67890.jpg",
 					rating: "s",
 					tag_string_general: "another_tag solo",
 					tag_string_character: "",
@@ -53,7 +57,9 @@ describe("Danbooru Connector", () => {
 			expect(post1.sampleUrl).toBe(mockRawPosts[0].large_file_url);
 			expect(post1.tags).toEqual(mockRawPosts[0].tag_string.split(" "));
 			expect(post1.rating).toBe("general"); // transformed from 'g'
-			expect(post1.createdAt).toBe(new Date(mockRawPosts[0].created_at).toISOString());
+			expect(post1.createdAt).toBe(
+				new Date(mockRawPosts[0].created_at).toISOString(),
+			);
 			expect(post1.height).toBe(mockRawPosts[0].image_height);
 			expect(post1.width).toBe(mockRawPosts[0].image_width);
 
@@ -100,13 +106,15 @@ describe("Danbooru Connector", () => {
 					tag_string: "test2",
 					created_at: "2023-01-02T00:00:00.000Z",
 					rating: "q",
-				}
+				},
 			];
 			// @ts-expect-error testing invalid input
 			const result = Danbooru.transformPostData(mockRawPostsWithMissingFileUrl);
 			expect(result.posts).toHaveLength(1);
 			expect(result.posts[0].id).toBe("222");
-			expect(result.posts[0].postView).toBe("https://danbooru.donmai.us/posts/222");
+			expect(result.posts[0].postView).toBe(
+				"https://danbooru.donmai.us/posts/222",
+			);
 		});
 	});
 });

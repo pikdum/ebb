@@ -1,6 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { e621 } from "./e621"; // Assuming e621 class is exported
-import type { BooruPost } from "./index";
 
 describe("e621 Connector", () => {
 	describe("transformPostData", () => {
@@ -91,7 +90,9 @@ describe("e621 Connector", () => {
 			const expectedTags1 = Object.values(mockRawData.posts[0].tags).flat();
 			expect(post1.tags.sort()).toEqual(expectedTags1.sort());
 			expect(post1.rating).toBe("explicit"); // transformed from 'e'
-			expect(post1.createdAt).toBe(new Date(mockRawData.posts[0].created_at).toISOString());
+			expect(post1.createdAt).toBe(
+				new Date(mockRawData.posts[0].created_at).toISOString(),
+			);
 			expect(post1.height).toBe(mockRawData.posts[0].file.height);
 			expect(post1.width).toBe(mockRawData.posts[0].file.width);
 
@@ -106,8 +107,12 @@ describe("e621 Connector", () => {
 				const tagGroups = await post1.getTagGroups();
 				expect(tagGroups.Tag).toEqual(mockRawData.posts[0].tags.general);
 				expect(tagGroups.Artist).toEqual(mockRawData.posts[0].tags.artist);
-				expect(tagGroups.Copyright).toEqual(mockRawData.posts[0].tags.copyright);
-				expect(tagGroups.Character).toEqual(mockRawData.posts[0].tags.character);
+				expect(tagGroups.Copyright).toEqual(
+					mockRawData.posts[0].tags.copyright,
+				);
+				expect(tagGroups.Character).toEqual(
+					mockRawData.posts[0].tags.character,
+				);
 				expect(tagGroups.Species).toEqual(mockRawData.posts[0].tags.species);
 				expect(tagGroups.Metadata).toEqual(mockRawData.posts[0].tags.meta);
 				expect(tagGroups.Lore).toEqual(mockRawData.posts[0].tags.lore);
@@ -141,25 +146,48 @@ describe("e621 Connector", () => {
 					// Post that should be filtered out
 					{
 						id: 333,
-						file: { url: undefined, width: 100, height: 100, ext: "jpg", size: 123, md5: "abc" },
+						file: {
+							url: undefined,
+							width: 100,
+							height: 100,
+							ext: "jpg",
+							size: 123,
+							md5: "abc",
+						},
 						// Provide other fields like preview, sample, tags, rating, created_at
 						// to ensure the test is robust and doesn't fail due to these missing
 						// if the filtering logic changes or has issues.
-						preview: { url: "preview_url_333", width:10, height:10 },
-						sample: { has: false, url: null, width:0, height:0 },
+						preview: { url: "preview_url_333", width: 10, height: 10 },
+						sample: { has: false, url: null, width: 0, height: 0 },
 						tags: { general: ["test_filter_out"] },
 						rating: "s",
-						created_at: "2023-01-01T00:00:00.000Z"
+						created_at: "2023-01-01T00:00:00.000Z",
 					},
 					// Post that should NOT be filtered out
 					{
 						id: 444,
-						file: { url: "https://static1.e621.net/data/sample/ef/gh/efghef12345.jpg", width: 200, height: 200, ext: "jpg", size: 456, md5: "def" },
-						preview: { url: "https://static1.e621.net/data/preview/ef/gh/efghef12345.jpg", width:20, height:20 },
-						sample: { has: true, url: "https://static1.e621.net/data/sample/ef/gh/efghef12345.jpg", width:100, height:100 },
+						file: {
+							url: "https://static1.e621.net/data/sample/ef/gh/efghef12345.jpg",
+							width: 200,
+							height: 200,
+							ext: "jpg",
+							size: 456,
+							md5: "def",
+						},
+						preview: {
+							url: "https://static1.e621.net/data/preview/ef/gh/efghef12345.jpg",
+							width: 20,
+							height: 20,
+						},
+						sample: {
+							has: true,
+							url: "https://static1.e621.net/data/sample/ef/gh/efghef12345.jpg",
+							width: 100,
+							height: 100,
+						},
 						tags: { general: ["test_keep"] },
 						rating: "g",
-						created_at: "2023-01-02T00:00:00.000Z"
+						created_at: "2023-01-02T00:00:00.000Z",
 					},
 				],
 			};

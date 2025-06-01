@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import { PostDetails } from "./PostDetails";
+import { describe, expect, it, vi } from "vitest";
 import type { BooruPost } from "../lib/booru";
+import { PostDetails } from "./PostDetails";
 
 // Mock useAppContext
 vi.mock("../App", () => ({
@@ -71,7 +71,6 @@ describe("PostDetails", () => {
 		});
 		expect(screen.getByText(formattedDate)).toBeInTheDocument();
 	});
-
 
 	// Test case for when getTagGroups is defined
 	const mockPostWithTagGroups: BooruPost = {
