@@ -11,11 +11,34 @@ import { Plus, X } from "react-feather";
 
 import { Main, MainContextProvider } from "./MainApp";
 
+// --- Enhanced Tab Type and Validation ---
 type Tab = {
 	id: string;
 	title: string;
-	initialQuery?: string;
+	initialQuery?: string; // Optional, as before
 };
+
+function isValidTab(tab: any): tab is Tab {
+	return (
+		tab &&
+		typeof tab.id === "string" &&
+		tab.id.length > 0 &&
+		typeof tab.title === "string" &&
+		tab.title.length > 0 &&
+		(typeof tab.initialQuery === "string" ||
+			typeof tab.initialQuery === "undefined")
+	);
+}
+
+function isValidTabsArray(tabs: any): tabs is Tab[] {
+	return Array.isArray(tabs) && tabs.every(isValidTab) && tabs.length > 0;
+}
+
+// Function to get the default initial tab state
+function getDefaultTab(): Tab {
+	return { id: crypto.randomUUID(), title: "New Tab", initialQuery: undefined };
+}
+// --- End of Validation ---
 
 type AppContextType = {
 	tabs: Tab[];
@@ -75,23 +98,51 @@ const Tab = ({ id, title }: { id: string; title: string }) => {
 };
 
 export const App = () => {
-	const [tabs, setTabs] = useState(() => {
-		const savedTabs = localStorage.getItem("localStorageTabs");
-		return savedTabs
-			? JSON.parse(savedTabs)
-			: [
-					{
-						id: crypto.randomUUID(),
-						title: "New Tab",
-						initialQuery: undefined,
-					},
-				];
+	const [tabs, setTabs] = useState<Tab[]>(() => {
+		const savedTabsRaw = localStorage.getItem("localStorageTabs");
+		if (savedTabsRaw) {
+			try {
+				const parsedTabs = JSON.parse(savedTabsRaw);
+				if (isValidTabsArray(parsedTabs)) {
+					return parsedTabs;
+				}
+			} catch (error) {
+				console.error("Failed to parse or validate tabs from localStorage:", error);
+				// Fall through to default if parsing or validation fails
+			}
+		}
+		return [getDefaultTab()]; // Default state if nothing valid in localStorage
 	});
+
+	const [activeTabId, setActiveTabId] = useState<string | null>(() => {
+		// Initialize activeTabId based on the potentially validated/defaulted tabs
+		// This ensures activeTabId always corresponds to a tab in the 'tabs' state
+		const savedActiveTabIdRaw = localStorage.getItem("localStorageActiveTabId");
+		if (savedActiveTabIdRaw) {
+			try {
+				const parsedActiveTabId = JSON.parse(savedActiveTabIdRaw);
+				// Validate against the current 'tabs' state, which has already been determined
+				if (
+					typeof parsedActiveTabId === "string" &&
+					tabs.find((tab) => tab.id === parsedActiveTabId)
+				) {
+					return parsedActiveTabId;
+				}
+			} catch (error) {
+				console.error(
+					"Failed to parse activeTabId from localStorage:",
+					error,
+				);
+				// Fall through
+			}
+		}
+		// If no valid activeTabId from localStorage, or if tabs were defaulted,
+		// set to the first tab's ID from the current tabs state.
+		// The 'tabs' state is guaranteed to have at least one tab here.
+		return tabs[0].id;
+	});
+
 	const tabCount = tabs.length;
-	const [activeTabId, setActiveTabId] = useState(() => {
-		const savedActiveTabId = localStorage.getItem("localStorageActiveTabId");
-		return savedActiveTabId ? JSON.parse(savedActiveTabId) : tabs[0].id;
-	});
 
 	const addTab = ({
 		title = "New Tab",
@@ -191,12 +242,16 @@ export const App = () => {
 		});
 	}, [activeTabId]);
 
+	// Persist to localStorage whenever tabs or activeTabId changes
 	useEffect(() => {
 		localStorage.setItem("localStorageTabs", JSON.stringify(tabs));
-		localStorage.setItem(
-			"localStorageActiveTabId",
-			JSON.stringify(activeTabId),
-		);
+		if (activeTabId) { // Only save if activeTabId is not null
+			localStorage.setItem("localStorageActiveTabId", JSON.stringify(activeTabId));
+		} else {
+			// If activeTabId becomes null (e.g. all tabs closed, though current logic prevents this)
+			// We might want to remove it or save null. Current logic defaults to first tab.
+			localStorage.removeItem("localStorageActiveTabId");
+		}
 	}, [tabs, activeTabId]);
 
 	return (
@@ -223,6 +278,7 @@ export const App = () => {
 					))}
 					<button
 						type="button"
+						aria-label="add tab"
 						onClick={() => addTab()}
 						className="p-2 rounded-full hover:bg-indigo-300 focus:outline-hidden h-full"
 					>
