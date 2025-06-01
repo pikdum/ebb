@@ -107,7 +107,10 @@ export const App = () => {
 					return parsedTabs;
 				}
 			} catch (error) {
-				console.error("Failed to parse or validate tabs from localStorage:", error);
+				console.error(
+					"Failed to parse or validate tabs from localStorage:",
+					error,
+				);
 				// Fall through to default if parsing or validation fails
 			}
 		}
@@ -129,10 +132,7 @@ export const App = () => {
 					return parsedActiveTabId;
 				}
 			} catch (error) {
-				console.error(
-					"Failed to parse activeTabId from localStorage:",
-					error,
-				);
+				console.error("Failed to parse activeTabId from localStorage:", error);
 				// Fall through
 			}
 		}
@@ -245,8 +245,12 @@ export const App = () => {
 	// Persist to localStorage whenever tabs or activeTabId changes
 	useEffect(() => {
 		localStorage.setItem("localStorageTabs", JSON.stringify(tabs));
-		if (activeTabId) { // Only save if activeTabId is not null
-			localStorage.setItem("localStorageActiveTabId", JSON.stringify(activeTabId));
+		if (activeTabId) {
+			// Only save if activeTabId is not null
+			localStorage.setItem(
+				"localStorageActiveTabId",
+				JSON.stringify(activeTabId),
+			);
 		} else {
 			// If activeTabId becomes null (e.g. all tabs closed, though current logic prevents this)
 			// We might want to remove it or save null. Current logic defaults to first tab.
