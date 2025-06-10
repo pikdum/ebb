@@ -46,7 +46,7 @@
 		"@testing-library/react": "^16.3.0",
 		"@types/react": "19.1.6",
 		"@types/react-dom": "19.1.6",
-		"@vitejs/plugin-react": "4.5.1",
+		"@vitejs/plugin-react": "4.5.2",
 		"babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
 		"electron": "36.4.0",
 		"electron-builder": "26.0.12",
