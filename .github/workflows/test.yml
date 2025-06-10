@@ -24,7 +24,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - uses: biomejs/setup-biome@v2
       - run: biome check . --write
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "chore: biome check . --write"
   tsc:
