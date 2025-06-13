@@ -6,9 +6,8 @@ import {
 	REACT_DEVELOPER_TOOLS,
 	installExtension,
 } from "electron-devtools-installer";
-import pkg from "electron-updater";
+import { autoUpdater } from "electron-updater";
 
-const { autoUpdater } = pkg;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 contextMenu({
@@ -94,8 +93,8 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", () => {
-	autoUpdater.checkForUpdatesAndNotify();
+app.on("ready", async () => {
+	await autoUpdater.checkForUpdatesAndNotify();
 	createWindow();
 });
 
