@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.0](https://github.com/pikdum/ebb/compare/v2.12.0...v2.13.0) (2025-06-13)
+
+
+### Features
+
+* make post overview link squareish ([852eeda](https://github.com/pikdum/ebb/commit/852eeda5312a352a57b34cd994103bcbc6df2ac5))
+
 ## [2.12.0](https://github.com/pikdum/ebb/compare/v2.11.0...v2.12.0) (2025-06-01)
 
 
