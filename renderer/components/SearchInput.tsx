@@ -3,9 +3,9 @@ import Downshift from "downshift";
 import numbro from "numbro";
 import { useEffect, useRef } from "react";
 
-import { useAppContext } from "../App";
-import { useMainContext } from "../MainApp";
 import { getTags } from "../lib/booru";
+import { useAppContext } from "../lib/hooks/useAppContext";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 type Selection = { label: string; value: string } | null;
 

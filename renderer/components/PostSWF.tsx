@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 export const PostSWF = ({ post }: { post: BooruPost }) => {
 	const { handleSelectPost, headerHeight, selectedPost, scrollToId } =

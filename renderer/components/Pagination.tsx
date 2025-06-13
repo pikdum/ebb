@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "react-feather";
 
-import { useMainContext } from "../MainApp";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 export const Pagination = () => {
 	const { page, incrementPage, decrementPage, hasNextPage } = useMainContext();

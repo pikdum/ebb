@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { Search } from "react-feather";
 
-import { useAppContext } from "../App";
-import { useMainContext } from "../MainApp";
+import { useAppContext } from "../lib/hooks/useAppContext";
+import { useMainContext } from "../lib/hooks/useMainContext";
 import { Pagination } from "./Pagination";
 import { RatingSelect } from "./RatingSelect";
 import { SearchInput } from "./SearchInput";

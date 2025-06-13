@@ -13,6 +13,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"nursery": {
+				"useComponentExportOnlyModules": "error"
+			},
 			"a11y": {
 				"useKeyWithClickEvents": "off",
 				"useMediaCaption": "off",

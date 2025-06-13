@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import Downshift from "downshift";
 
-import { useMainContext } from "../MainApp";
 import { type BooruSite, getRatings, getSites } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 type Selection = { label: string; value: string } | null;
 

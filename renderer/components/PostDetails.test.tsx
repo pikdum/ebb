@@ -5,14 +5,14 @@ import type { BooruPost } from "../lib/booru";
 import { PostDetails } from "./PostDetails";
 
 // Mock useAppContext
-vi.mock("../App", () => ({
+vi.mock("../lib/hooks/useAppContext", () => ({
 	useAppContext: () => ({
 		addTab: vi.fn(),
 	}),
 }));
 
 // Mock useMainContext
-vi.mock("../MainApp", () => ({
+vi.mock("../lib/hooks/useMainContext", () => ({
 	useMainContext: () => ({
 		query: "",
 		tempQuery: "",

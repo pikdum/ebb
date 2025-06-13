@@ -1,7 +1,7 @@
 import { decode } from "html-entities";
 
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 export const PostUnknown = ({ post }: { post: BooruPost }) => {
 	const { handleSelectPost } = useMainContext();

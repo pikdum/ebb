@@ -1,16 +1,12 @@
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
+import { isImage } from "../lib/utils";
 import { PostDetails } from "./PostDetails";
 import { PostPicture } from "./PostPicture";
 import { PostPreview } from "./PostPreview";
 import { PostSWF } from "./PostSWF";
 import { PostUnknown } from "./PostUnknown";
 import { PostVideo } from "./PostVideo";
-
-export const isImage = (fileUrl: string) => {
-	const ext = fileUrl.split(".").pop();
-	return ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
-};
 
 const isVideo = (fileUrl: string) => {
 	const ext = fileUrl.split(".").pop();

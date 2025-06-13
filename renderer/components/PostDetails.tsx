@@ -3,9 +3,9 @@ import { decode } from "html-entities";
 import { useEffect, useState } from "react";
 import { ExternalLink, Plus } from "react-feather";
 
-import { useAppContext } from "../App";
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useAppContext } from "../lib/hooks/useAppContext";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 const TagButton = ({ tag }: { tag: string }) => {
 	tag = decode(tag);

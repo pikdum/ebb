@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Downshift from "downshift";
 
-import { useMainContext } from "../MainApp";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 export const RatingSelect = () => {
 	const { ratings, currentRating, setCurrentRating } = useMainContext();

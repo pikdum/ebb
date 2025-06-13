@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
 
 const calculateRenderSize = (
 	headerHeight: number,

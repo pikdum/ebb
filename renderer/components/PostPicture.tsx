@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { useMainContext } from "../MainApp";
 import type { BooruPost } from "../lib/booru";
+import { useMainContext } from "../lib/hooks/useMainContext";
 import { PostSkeleton } from "./PostSkeleton";
 
 export const PostPicture = ({ post }: { post: BooruPost }) => {
