@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.3](https://github.com/pikdum/ebb/compare/v2.13.2...v2.13.3) (2025-06-13)
+
+
+### Bug Fixes
+
+* catch errors from auto-update ([fe2cad6](https://github.com/pikdum/ebb/commit/fe2cad63d4bc5d1701598131abd2c18f20bc197e))
+
 ## [2.13.2](https://github.com/pikdum/ebb/compare/v2.13.1...v2.13.2) (2025-06-13)
 
 
