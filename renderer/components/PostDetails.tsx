@@ -135,7 +135,7 @@ export const PostDetails = ({ post }: { post: BooruPost }) => {
 						href={post.postView}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="rounded-full p-1 bg-blue-500 hover:bg-blue-700 text-white h-6 w-6 flex items-center justify-center"
+						className="rounded-sm p-1 bg-blue-500 hover:bg-blue-700 text-white h-6 w-6 flex items-center justify-center"
 						aria-label="Post Overview"
 					>
 						<ExternalLink size={16} />
