@@ -2,7 +2,7 @@
 	"name": "ebb",
 	"type": "module",
 	"productName": "ebb",
-	"version": "2.13.0",
+	"version": "2.13.1",
 	"description": "electron booru browser",
 	"homepage": "https://github.com/pikdum/ebb",
 	"main": "out/main/main.js",
