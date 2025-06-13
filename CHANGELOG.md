@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.2](https://github.com/pikdum/ebb/compare/v2.13.1...v2.13.2) (2025-06-13)
+
+
+### Bug Fixes
+
+* working react-refresh for development ([c39eb3b](https://github.com/pikdum/ebb/commit/c39eb3b33399b172b2d68bf6a69caac7f9658daa))
+
 ## [2.13.1](https://github.com/pikdum/ebb/compare/v2.13.0...v2.13.1) (2025-06-13)
 
 
