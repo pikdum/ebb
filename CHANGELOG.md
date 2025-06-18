@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.14.0](https://github.com/pikdum/ebb/compare/v2.13.2...v2.14.0) (2025-06-18)
+
+
+### Features
+
+* settings for gelbooru api credentials ([#346](https://github.com/pikdum/ebb/issues/346)) ([ed71ddd](https://github.com/pikdum/ebb/commit/ed71ddd8833458b83029749967959aa724453d92))
+
+
+### Bug Fixes
+
+* catch errors from auto-update ([fe2cad6](https://github.com/pikdum/ebb/commit/fe2cad63d4bc5d1701598131abd2c18f20bc197e))
+* gelbooru tags ([3d82fbb](https://github.com/pikdum/ebb/commit/3d82fbbf619d23d9560ba8c04ff278d6f36ab4f3))
+
 ## [2.13.2](https://github.com/pikdum/ebb/compare/v2.13.1...v2.13.2) (2025-06-13)
 
 
