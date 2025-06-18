@@ -47,7 +47,7 @@
 		"@types/react": "19.1.8",
 		"@types/react-dom": "19.1.6",
 		"@vitejs/plugin-react": "4.5.2",
-		"babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
+		"babel-plugin-react-compiler": "19.1.0-rc.2",
 		"electron": "36.4.0",
 		"electron-builder": "26.0.12",
 		"electron-devtools-installer": "4.0.0",
