@@ -77,8 +77,8 @@ const createWindow = () => {
 				console.log(`Added Extension: ${ext.name}`);
 				// workaround to actually load it, otherwise need to refresh
 				const session = mainWindow.webContents.session;
-				session.getAllExtensions().map((e) => {
-					session.loadExtension(e.path);
+				session.extensions.getAllExtensions().map((e) => {
+					session.extensions.loadExtension(e.path);
 				});
 			})
 			.catch((err) => console.log("An error occurred: ", err));
