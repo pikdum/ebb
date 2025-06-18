@@ -21,7 +21,7 @@ export const MainContextProvider = ({
 	initialQuery?: string;
 	children: ReactNode;
 }) => {
-	const defaultSite: BooruSite = "gelbooru";
+	const defaultSite: BooruSite = "danbooru";
 	const defaultRatings = getRatings(defaultSite);
 	const [posts, setPosts] = useState<BooruPost[]>([]);
 	const [page, setPage] = useState(0);
