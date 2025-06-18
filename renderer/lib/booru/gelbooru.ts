@@ -1,5 +1,6 @@
 import { decode } from "html-entities";
 
+import { getSetting } from "../settings";
 import type { BooruPost, BooruTag } from "./index";
 
 type GelbooruPost = {
@@ -55,8 +56,9 @@ export class Gelbooru {
 		page: number;
 		rating?: GelbooruRating;
 	}): Promise<Response> => {
+		const apiCredentials = getSetting("gelbooruApiCredentials");
 		const url = new URL(
-			"https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1",
+			`https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1${apiCredentials}`,
 		);
 		if (rating) {
 			tags += ` rating:${rating}`;

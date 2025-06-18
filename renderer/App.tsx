@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { Plus, X } from "react-feather";
+import { Plus, Settings, X } from "react-feather";
 
 import { Main, MainContextProvider } from "./MainApp";
+import { SettingsModal } from "./components/SettingsModal";
 import { AppContext, useAppContext } from "./lib/hooks/useAppContext";
 
 const Tab = ({ id, title }: { id: string; title: string }) => {
@@ -45,6 +46,7 @@ export const App = () => {
 	]);
 	const tabCount = tabs.length;
 	const [activeTabId, setActiveTabId] = useState(tabs[0].id);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
 	const addTab = ({
 		title = "New Tab",
@@ -173,6 +175,13 @@ export const App = () => {
 					>
 						<Plus size={16} />
 					</button>
+					<button
+						type="button"
+						onClick={() => setIsSettingsOpen(true)}
+						className="p-2 rounded-full hover:bg-indigo-300 focus:outline-hidden h-full ml-auto"
+					>
+						<Settings size={16} />
+					</button>
 				</div>
 				<div>
 					{tabs.map((tab) => (
@@ -187,6 +196,10 @@ export const App = () => {
 					))}
 				</div>
 			</div>
+			<SettingsModal
+				isOpen={isSettingsOpen}
+				onClose={() => setIsSettingsOpen(false)}
+			/>
 		</AppContext.Provider>
 	);
 };
