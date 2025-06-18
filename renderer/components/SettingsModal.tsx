@@ -1,35 +1,24 @@
 import { useEffect, useState } from "react";
 import { X } from "react-feather";
 
-interface Settings {
-	gelbooruApiCredentials: string;
-}
+import { type Settings, getAllSettings, saveSettings } from "../lib/settings";
 
 interface SettingsModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 }
 
-const defaultSettings: Settings = {
-	gelbooruApiCredentials: "",
-};
-
 export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
-	const [settings, setSettings] = useState<Settings>(defaultSettings);
+	const [settings, setSettings] = useState<Settings>(() => getAllSettings());
 
 	useEffect(() => {
-		const savedSettings = localStorage.getItem("ebb-settings");
-		if (savedSettings) {
-			try {
-				setSettings({ ...defaultSettings, ...JSON.parse(savedSettings) });
-			} catch (error) {
-				console.error("Failed to parse saved settings:", error);
-			}
+		if (isOpen) {
+			setSettings(getAllSettings());
 		}
-	}, []);
+	}, [isOpen]);
 
 	const handleSave = () => {
-		localStorage.setItem("ebb-settings", JSON.stringify(settings));
+		saveSettings(settings);
 		onClose();
 	};
 
