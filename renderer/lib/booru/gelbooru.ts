@@ -2,6 +2,8 @@ import { decode } from "html-entities";
 
 import type { BooruPost, BooruTag } from "./index";
 
+const GELBOORU_API_CREDENTIALS_KEY = 'gelbooruApiCredentials';
+
 type GelbooruPost = {
 	id: number;
 	width: number;
@@ -36,12 +38,15 @@ export class Gelbooru {
 	}: {
 		query: string;
 	}): Promise<Response> => {
-		const url = new URL("https://gelbooru.com/index.php");
-		url.searchParams.append("page", "autocomplete2");
-		url.searchParams.append("term", query);
-		url.searchParams.append("type", "tag_query");
-		url.searchParams.append("limit", "10");
-		return fetch(url);
+		let urlString = "https://gelbooru.com/index.php?page=autocomplete2&type=tag_query&limit=10";
+		urlString += `&term=${encodeURIComponent(query)}`;
+
+		const credentials = localStorage.getItem(GELBOORU_API_CREDENTIALS_KEY);
+		if (credentials) {
+			urlString += credentials;
+		}
+
+		return fetch(new URL(urlString));
 	};
 
 	static buildPostRequest = ({
@@ -55,16 +60,21 @@ export class Gelbooru {
 		page: number;
 		rating?: GelbooruRating;
 	}): Promise<Response> => {
-		const url = new URL(
-			"https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1",
-		);
+		let urlString = "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1";
+
 		if (rating) {
-			tags += ` rating:${rating}`;
+			tags += ` rating:${rating.toLowerCase()}`; // Gelbooru expects lowercase ratings in query
 		}
-		url.searchParams.append("tags", tags);
-		url.searchParams.append("pid", page.toString());
-		url.searchParams.append("limit", limit.toString());
-		return fetch(url);
+		urlString += `&tags=${encodeURIComponent(tags)}`;
+		urlString += `&pid=${page.toString()}`;
+		urlString += `&limit=${limit.toString()}`;
+
+		const credentials = localStorage.getItem(GELBOORU_API_CREDENTIALS_KEY);
+		if (credentials) {
+			urlString += credentials;
+		}
+
+		return fetch(new URL(urlString));
 	};
 
 	static transformPostData = (data: {
