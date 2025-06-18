@@ -73,6 +73,12 @@ export const getPosts = async ({
 	if (data?.error && data?.message) {
 		throw new Error(`${data.error}\n${data.message}`);
 	}
+	// for gelbooru
+	if (response.status === 401 && site === "gelbooru") {
+		throw new Error(
+			"Acces denied. Please configure your API credentials in settings.",
+		);
+	}
 	throw new Error(`Error: ${response.status} ${response.statusText}`);
 };
 

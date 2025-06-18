@@ -105,8 +105,9 @@ export class Gelbooru {
 					createdAt: new Date(p.created_at).toISOString(),
 					getTagGroups: async () => {
 						// TODO: does any single item have more than 100 tags?
+						const apiCredentials = getSetting("gelbooruApiCredentials");
 						const url = new URL(
-							"https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&orderby=name&order=asc",
+							`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&orderby=name&order=asc${apiCredentials}`,
 						);
 						url.searchParams.append("names", p.tags);
 						const response = await fetch(url);

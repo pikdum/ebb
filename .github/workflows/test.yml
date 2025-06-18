@@ -12,6 +12,8 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run test
+        env:
+          SETTING_GELBOORU_API_CREDENTIALS: ${{ secrets.SETTING_GELBOORU_API_CREDENTIALS }}
       - run: npm run build
       - run: npm run package:linux
   check:

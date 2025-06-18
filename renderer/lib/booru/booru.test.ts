@@ -14,8 +14,6 @@ describe("Booru Providers", () => {
 		});
 
 		it(`should return posts from ${site}`, async () => {
-			if (site === "gelbooru") return; // skip, since they're blocking
-
 			const result = await getPosts({
 				site,
 				tags: "",
