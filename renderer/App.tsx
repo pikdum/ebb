@@ -1,10 +1,9 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Plus, Settings, X } from "react-feather";
-
-import { Main, MainContextProvider } from "./MainApp";
 import { SettingsModal } from "./components/SettingsModal";
 import { AppContext, useAppContext } from "./lib/hooks/useAppContext";
+import { Main, MainContextProvider } from "./MainApp";
 
 const Tab = ({ id, title }: { id: string; title: string }) => {
 	const { activeTabId, setActiveTabId, closeTab, tabCount } = useAppContext();

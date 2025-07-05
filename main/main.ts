@@ -1,10 +1,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { BrowserWindow, app, session, shell } from "electron";
+import { app, BrowserWindow, session, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import {
-	REACT_DEVELOPER_TOOLS,
 	installExtension,
+	REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 
