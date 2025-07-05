@@ -1,9 +1,8 @@
 import Markdown from "react-markdown";
-
-// @ts-ignore
-import changelogText from "../../CHANGELOG.md?raw";
 // @ts-ignore
 import iconUrl from "../../build/icon.png";
+// @ts-ignore
+import changelogText from "../../CHANGELOG.md?raw";
 
 export const EmptyState = () => {
 	return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "react-feather";
 
-import { type Settings, getAllSettings, saveSettings } from "../lib/settings";
+import { getAllSettings, type Settings, saveSettings } from "../lib/settings";
 
 interface SettingsModalProps {
 	isOpen: boolean;
