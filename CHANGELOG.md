@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.14.1](https://github.com/pikdum/ebb/compare/v2.14.0...v2.14.1) (2025-08-15)
+
+
+### Bug Fixes
+
+* **danbooru:** empty tag groups ([4b6b973](https://github.com/pikdum/ebb/commit/4b6b973e10fc5ab634d9bc95f6f3ae562123caba))
+* **deps:** update dependency downshift to v9.0.10 ([#367](https://github.com/pikdum/ebb/issues/367)) ([9cb43f6](https://github.com/pikdum/ebb/commit/9cb43f60b03b3807629d164f0822fc2b75ebf2ff))
+* **deps:** update react monorepo to v19.1.1 ([#372](https://github.com/pikdum/ebb/issues/372)) ([c735be6](https://github.com/pikdum/ebb/commit/c735be6048609d7da50739cf3fc6e5a7e3945f2c))
+
 ## [2.14.0](https://github.com/pikdum/ebb/compare/v2.13.2...v2.14.0) (2025-06-18)
 
 
