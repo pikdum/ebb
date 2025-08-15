@@ -1,7 +1,7 @@
 import Markdown from "react-markdown";
-// @ts-ignore
+// @ts-expect-error
 import iconUrl from "../../build/icon.png";
-// @ts-ignore
+// @ts-expect-error
 import changelogText from "../../CHANGELOG.md?raw";
 
 export const EmptyState = () => {

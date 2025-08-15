@@ -160,7 +160,7 @@ export class Gelbooru {
 		return data.map((t) => ({
 			label: t.label,
 			value: t.value,
-			postCount: Number.parseInt(t.post_count),
+			postCount: Number.parseInt(t.post_count, 10),
 			color: getCategoryColor(t.category),
 		}));
 	};

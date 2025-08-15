@@ -109,7 +109,7 @@ export class Rule34 {
 		return data.map((t) => ({
 			label: decode(t.value),
 			value: decode(t.value),
-			postCount: Number.parseInt(t.label.match(tagRegex)[2]),
+			postCount: Number.parseInt(t.label.match(tagRegex)[2], 10),
 			color: getCategoryColor(t.type),
 		}));
 	};
