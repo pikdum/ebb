@@ -28,6 +28,8 @@ type DanbooruTag = {
 type DanbooruRating = "General" | "Sensitive" | "Questionable" | "Explicit";
 type DanbooruRatingAlias = "g" | "s" | "q" | "e";
 
+const splitTags = (str: string) => (str.trim() ? str.trim().split(/\s+/) : []);
+
 export class Danbooru {
 	static ratings: DanbooruRating[] = [
 		"General",
@@ -95,11 +97,11 @@ export class Danbooru {
 				createdAt: new Date(post.created_at).toISOString(),
 				getTagGroups: async () => {
 					const tagGroups: { [key: string]: string[] } = {};
-					tagGroups.Tag = post.tag_string_general.split(" ");
-					tagGroups.Character = post.tag_string_character.split(" ");
-					tagGroups.Copyright = post.tag_string_copyright.split(" ");
-					tagGroups.Artist = post.tag_string_artist.split(" ");
-					tagGroups.Metadata = post.tag_string_meta.split(" ");
+					tagGroups.Tag = splitTags(post.tag_string_general);
+					tagGroups.Character = splitTags(post.tag_string_character);
+					tagGroups.Copyright = splitTags(post.tag_string_copyright);
+					tagGroups.Artist = splitTags(post.tag_string_artist);
+					tagGroups.Metadata = splitTags(post.tag_string_meta);
 					return tagGroups;
 				},
 			})),
