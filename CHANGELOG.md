@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.14.2](https://github.com/pikdum/ebb/compare/v2.14.1...v2.14.2) (2025-10-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-context-menu to v4.1.1 ([#392](https://github.com/pikdum/ebb/issues/392)) ([1c7b088](https://github.com/pikdum/ebb/commit/1c7b088b8983ad51f319330a0936a2449b624486))
+
 ## [2.14.1](https://github.com/pikdum/ebb/compare/v2.14.0...v2.14.1) (2025-08-15)
 
 
