@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.14.2](https://github.com/pikdum/ebb/compare/v2.14.1...v2.14.2) (2025-12-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency downshift to v9.0.13 ([#415](https://github.com/pikdum/ebb/issues/415)) ([2694cab](https://github.com/pikdum/ebb/commit/2694cab7704ca0ff2d3bccf7ded723fe97df9fee))
+* **deps:** update dependency electron-context-menu to v4.1.1 ([#392](https://github.com/pikdum/ebb/issues/392)) ([1c7b088](https://github.com/pikdum/ebb/commit/1c7b088b8983ad51f319330a0936a2449b624486))
+* **deps:** update react monorepo ([#394](https://github.com/pikdum/ebb/issues/394)) ([492c525](https://github.com/pikdum/ebb/commit/492c525591f00b133ec6a51135f0a54f4bb8786b))
+
 ## [2.14.1](https://github.com/pikdum/ebb/compare/v2.14.0...v2.14.1) (2025-08-15)
 
 
