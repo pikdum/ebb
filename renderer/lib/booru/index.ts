@@ -121,11 +121,11 @@ export const getSites = (): {
 			value: "gelbooru",
 			icon: "https://gelbooru.com/layout/gelbooru-logo.svg",
 		},
-		{
-			label: "Rule 34",
-			value: "rule34",
-			icon: "https://rule34.xxx/apple-touch-icon-precomposed.png",
-		},
+		// {
+		// 	label: "Rule 34",
+		// 	value: "rule34",
+		// 	icon: "https://rule34.xxx/apple-touch-icon-precomposed.png",
+		// },
 		{
 			label: "e621",
 			value: "e621",
