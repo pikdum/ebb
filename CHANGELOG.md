@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.14.3](https://github.com/pikdum/ebb/compare/v2.14.2...v2.14.3) (2026-01-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency electron-updater to v6.7.3 ([#427](https://github.com/pikdum/ebb/issues/427)) ([b7d565e](https://github.com/pikdum/ebb/commit/b7d565e77ac3b384dddfa23ada99d26eb453a803))
+
 ## [2.14.2](https://github.com/pikdum/ebb/compare/v2.14.1...v2.14.2) (2025-12-15)
 
 
