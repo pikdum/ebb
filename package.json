@@ -51,7 +51,7 @@
 		"electron": "39.2.7",
 		"electron-builder": "26.4.0",
 		"electron-devtools-installer": "4.0.0",
-		"happy-dom": "20.1.0",
+		"happy-dom": "20.3.0",
 		"lefthook": "2.0.15",
 		"tailwindcss": "4.1.18",
 		"typescript": "5.9.3",
