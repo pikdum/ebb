@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import fs from "node:fs";
+import path from "node:path";
 
 import { build, createServer } from "vite";
 
@@ -20,6 +21,35 @@ const logPrefixerPlugin = (prefix) => {
 	};
 };
 
+const resolveElectronBinary = () => {
+	const override = process.env.ELECTRON_BINARY ?? process.env.ELECTRON_BIN;
+	if (override) {
+		return override;
+	}
+
+	const pathEntries = (process.env.PATH ?? "").split(path.delimiter);
+	const extensions = process.platform === "win32" ? [".cmd", ".exe", ".bat", ""] : [""];
+	let nodeModulesFallback = null;
+
+	for (const entry of pathEntries) {
+		if (!entry) {
+			continue;
+		}
+		for (const ext of extensions) {
+			const candidate = path.join(entry, `electron${ext}`);
+			if (!fs.existsSync(candidate)) {
+				continue;
+			}
+			if (!/node_modules[\\/]\.bin[\\/]/.test(candidate)) {
+				return candidate;
+			}
+			nodeModulesFallback ??= candidate;
+		}
+	}
+
+	return nodeModulesFallback ?? "./node_modules/.bin/electron";
+};
+
 const startElectron = () => {
 	if (electronProcess) {
 		console.log("[Main] Restarting Electron...");
@@ -35,7 +65,9 @@ const startElectron = () => {
 		return;
 	}
 
-	electronProcess = spawn("./node_modules/.bin/electron", [mainPath], {
+	const electronBinary = resolveElectronBinary();
+
+	electronProcess = spawn(electronBinary, [mainPath], {
 		stdio: "inherit",
 		shell: process.platform === "win32",
 		env: {
