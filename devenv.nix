@@ -13,14 +13,8 @@
     };
   };
 
-  # https://devenv.sh/pre-commit-hooks/
-  git-hooks.hooks = {
-    prettier.enable = true;
-  };
-
   # https://devenv.sh/packages/
   packages = with pkgs; [
-    nodePackages.prettier
     electron
   ];
 
