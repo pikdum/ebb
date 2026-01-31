@@ -28,7 +28,8 @@ const resolveElectronBinary = () => {
 	}
 
 	const pathEntries = (process.env.PATH ?? "").split(path.delimiter);
-	const extensions = process.platform === "win32" ? [".cmd", ".exe", ".bat", ""] : [""];
+	const extensions =
+		process.platform === "win32" ? [".cmd", ".exe", ".bat", ""] : [""];
 	let nodeModulesFallback = null;
 
 	for (const entry of pathEntries) {
