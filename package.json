@@ -52,7 +52,7 @@
 		"electron-builder": "26.7.0",
 		"electron-devtools-installer": "4.0.0",
 		"happy-dom": "20.4.0",
-		"lefthook": "2.0.16",
+		"lefthook": "2.1.0",
 		"tailwindcss": "4.1.18",
 		"typescript": "5.9.3",
 		"vite": "7.3.1",
