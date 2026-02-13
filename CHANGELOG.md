@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.14.3](https://github.com/pikdum/ebb/compare/v2.14.2...v2.14.3) (2026-02-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency downshift to v9.2.0 ([#450](https://github.com/pikdum/ebb/issues/450)) ([b736eea](https://github.com/pikdum/ebb/commit/b736eea95ecdc7e0ff6353d672500413f38a1cb5))
+* **deps:** update dependency downshift to v9.3.0 ([#459](https://github.com/pikdum/ebb/issues/459)) ([60695da](https://github.com/pikdum/ebb/commit/60695dad710df29aed39dfa656ea35243f00abcf))
+* **deps:** update dependency downshift to v9.3.1 ([#467](https://github.com/pikdum/ebb/issues/467)) ([7d28590](https://github.com/pikdum/ebb/commit/7d285900f4b7bcfc1cb131116bbf1ddefcec3e28))
+* **deps:** update dependency electron-updater to v6.7.3 ([#427](https://github.com/pikdum/ebb/issues/427)) ([b7d565e](https://github.com/pikdum/ebb/commit/b7d565e77ac3b384dddfa23ada99d26eb453a803))
+* **deps:** update react monorepo to v19.2.4 ([#445](https://github.com/pikdum/ebb/issues/445)) ([ae3f991](https://github.com/pikdum/ebb/commit/ae3f9914fa9d3583d432be3baab63b6d0f153c43))
+
 ## [2.14.2](https://github.com/pikdum/ebb/compare/v2.14.1...v2.14.2) (2025-12-15)
 
 
