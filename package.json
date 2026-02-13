@@ -48,7 +48,7 @@
 		"@types/react-dom": "19.2.3",
 		"@vitejs/plugin-react": "5.1.4",
 		"babel-plugin-react-compiler": "19.1.0-rc.3",
-		"electron": "39.6.0",
+		"electron": "40.4.1",
 		"electron-builder": "26.7.0",
 		"electron-devtools-installer": "4.0.0",
 		"happy-dom": "20.6.1",
