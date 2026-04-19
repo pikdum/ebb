@@ -21,7 +21,7 @@ jobs:
           file: Dockerfile.builder
           push: true
           tags: ghcr.io/pikdum/ebb/builder:latest
-      - uses: snok/container-retention-policy@v2
+      - uses: snok/container-retention-policy@v3
         with:
           image-names: ebb/builder
           cut-off: 1 day ago utc
