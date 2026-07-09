@@ -56,7 +56,7 @@
 		"tailwindcss": "4.2.4",
 		"typescript": "5.9.3",
 		"vite": "7.3.6",
-		"vitest": "4.1.5"
+		"vitest": "4.1.10"
 	},
 	"keywords": [],
 	"author": {
